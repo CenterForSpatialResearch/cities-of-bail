@@ -1,7 +1,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaG9uZ3FpYW5saSIsImEiOiJjbGticW84cjIwaGRjM2xvNjNrMjh4cmRyIn0.o65hBMiuqrCXY-3-bxGsUg';
 const map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/hongqianli/clo4nrj0n00gg01ozcart4qaf',
+    style: 'mapbox://styles/hongqianli/clkz0gnx000lw01p7375xf0qf',
     zoom: 10.5,
     center: [-106.6442, 35.0933],
     pitch: 0, 
@@ -22,14 +22,76 @@ map.on('load', function () {
                 ['==', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: Hispanic or Latino'], null], 'transparent',
                 ['step', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: Hispanic or Latino'],
                     '#ffffff',
-                    0, '#b7bfc2',
-                    20, '#b293ca',
-                    40, '#ad67d1',
-                    60, '#a83bd9',
-                    80, '#a30fe0'
+                    0, '#2d653b',
+                    20, '#55895d',
+                    40, '#7dad7e',
+                    60, '#a5d1a0',
+                    80, '#cdf5c1'
                 ]
             ],
             'fill-opacity': 1
+        }
+    });
+
+    map.addLayer({
+        'id': 'poverty_2020',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/poverty/poverty_2020.geojson'
+        },
+        'paint': {
+            'fill-color': [
+                'case',
+                ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'], null], 'transparent',
+                ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'],
+                    '#ffffff',
+                    0, '#653c8a',
+                    12, '#8764a7',
+                    24, '#a98bc4',
+                    36, '#cbb3e2',
+                    48, '#eddaff'
+                ]
+            ],
+            'fill-opacity': 1
+        }
+    });
+
+    map.addLayer({
+        'id': 'housing_2020',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/housing/housing_2020.geojson'
+        },
+        'paint': {
+            'fill-color': [
+                'case',
+                ['==', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'], null], 'transparent',
+                ['step', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'],
+                    '#ffffff',
+                    0, '#22336b',
+                    160000, '#4a5a8a',
+                    320000, '#7282aa',
+                    480000, '#9ba9c9',
+                    640000, '#c3d0e8'
+                ]
+            ],
+            'fill-opacity': 1
+        }
+    });
+
+    map.addLayer({
+        'id': 'race_2020_stroke',
+        'type': 'line',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/race/race_2020.geojson'
+        },
+        'layout': {},
+        'paint': {
+            'line-color': '#676767', 
+            'line-width': 0.2,
         }
     });
     
@@ -43,35 +105,15 @@ map.on('load', function () {
         'paint': {
             'circle-color': ['step', ['get', 'Amount'],
                 '#ffffff',
-                0, '#f0975b',
-                35350, '#d17362',
-                85000, '#b24e6a',
-                164500, '#922a71',
-                305500, '#730578'],
+                0, '#ffa463',
+                35350, '#ff8363',
+                85000, '#ff6263',
+                164500, '#ff4062',
+                305500, '#ff1f62'],
             'circle-radius': 3, 
         }
-    });
-
-    map.addLayer({
-        'id': 'boundary_line',
-        'type': 'line',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/albuquerque_boundary/albuquerque_boundary.geojson'  
-        },
-        'layout': {
-            'line-join': 'round',
-            'line-cap': 'round'
-        },
-        'paint': {
-            'line-color': '#fff',  
-            'line-width': 1,   
-        }
-    });
+    });   
 });
-
-
-
 
 
 Object.keys(layersConfig).forEach(layerName => {
@@ -96,5 +138,44 @@ Object.keys(layersConfig).forEach(layerName => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    var legends = document.querySelectorAll('.legend');
+    legends.forEach(function(legend) {
+        var colors = legend.getAttribute('data-colors').split(',');
+        var gradient = 'linear-gradient(to right, ' + colors.join(', ') + ')';
+        legend.style.backgroundImage = gradient;
+    });
+});
 
+document.getElementById('race2020').addEventListener('change', function(e) {
+    map.setLayoutProperty('race_2020', 'visibility', e.target.checked ? 'visible' : 'none');
+});
 
+document.getElementById('poverty2020').addEventListener('change', function(e) {
+    map.setLayoutProperty('poverty_2020', 'visibility', e.target.checked ? 'visible' : 'none');
+});
+
+document.getElementById('housing2020').addEventListener('change', function(e) {
+    map.setLayoutProperty('housing_2020', 'visibility', e.target.checked ? 'visible' : 'none');
+});
+
+document.querySelectorAll('.year').forEach(function(button) {
+    button.addEventListener('click', function() {
+        document.querySelectorAll('.year').forEach(function(btn) {
+            btn.classList.remove('active'); // 移除所有按钮的激活状态
+        });
+        this.classList.add('active'); // 为当前点击的按钮添加激活状态
+        
+        var selectedYear = this.getAttribute('data-year');
+        // 这里添加代码，用于显示对应年份的数据
+        console.log('Selected Year: ', selectedYear);
+        // 比如更新地图或图表数据
+        updateDataForYear(selectedYear);
+    });
+});
+
+function updateDataForYear(year) {
+    // 在这里添加更新网页上数据显示的函数
+    // 比如根据所选年份更新地图或者图表
+    // 这可能涉及到从服务器获取数据，或者更新页面上的DOM元素
+}

@@ -8,112 +8,194 @@ html, body {
     height: 100%;
 }
 
+h2, h3{
+	padding-bottom: 8px;
+	padding-top: 8px;
+	font-weight: normal;
+	color: #ffffff;
+}
+
+h4 {
+	margin-top: 12px;
+	margin-bottom: 4px;
+	font-weight: normal;
+	color: #ffffff;
+}
+
 #map {
     width: 100%;
     height: 100%;
 }
 
-#menu {
-	background: #fff;
-	position: absolute;
-	z-index: 1;
-	bottom: 30px;
-	right: 3em;
-	border-radius: 3px;
-	width: 120px;
-	border: 1px solid rgba(0, 0, 0, 0.4);
-	font-family: 'Open Sans', sans-serif;
-}
-#menu a {
-	font-size: 13px;
-	color: #404040;
-	display: block;
-	margin: 0;
-	padding: 0;
-	padding: 10px;
-	text-decoration: none;
-	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-	text-align: center;
-}
-#menu a:last-child {
-	border: none;
-}
-#menu a:hover {
-	background-color: #f8f8f8;
-	color: #000000;
-}
-#menu a.active {
-	background-color: #404040;
-	color: #ffffff;
-}
-#menu a.active:hover {
-	background: #000000;
-}
-
-.title {
-	background-color: #fff;
-	opacity: 70%;
-	border-radius: 1em;
-	top: 3vw;
-	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-	font: .8em/.9em 'Open Sans', sans-serif;
-	line-height: 2.5em;
-	padding: 1em 2em 0em;
-	position: absolute;
-	max-width: 30%;
-	margin: 0em 5em;
+#sidebar {
+    position: absolute;
+	font-family: helvetica;
+    left: 10px;
+    top: 10px;
+    width: 320px; 
+    height: 98%; 
+    background-color: rgba(0, 0, 0, 0.9); 
+    padding: 20px; 
+    overflow-y: auto; 
 	z-index: 100;
 }
-.title h1{
-	opacity: 100%;
+
+input[type="checkbox"] {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #ffffff;
+    vertical-align: middle;
+    position: relative;
+    outline: none; 
 }
-.title p {
-	line-height: 1.5em;
-	opacity: 100%;
+
+input[type="checkbox"]:checked {
+    background-color: #ffffff;
+    box-shadow: inset 0 0 0 2px #000000; 
 }
-.title div span {
-	border-radius: 50%;
-	display: inline-block;
-	height: 10px;
-	margin-left: 5px;
-	width: 10px;
+
+.dropdown select, .makeup select {
+	background-color: #000000;
+	color: #ffffff;
+	border: 1px solid #ffffff;
 }
-.title hr {
-	border-top: .2em dashed #404040;
-	border-bottom: 0em;
-	margin-top: .75em;
-	margin-bottom: .75em;
+
+.container-bailinfo {
+	display: flex;
+}
+
+.column-bailinfo {
+	flex: 1; 
+	padding: 4px; 
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.label.column-bailinfo div{
+    margin-bottom: 2px;
+}
+
+.dropdown-bond {
+	width: 270px;
+	font-size: 14px;
+}
+
+.dropdown-race {
+	width: 210px;
+	margin-bottom: 4px;
+	font-size: 14px;
+}
+
+.label-padding {
+	padding-bottom: 10px;
+	color: #ffffff;
 }
 
 .legend {
-    font: 1em/1.5em 'Open Sans', sans-serif;
-    padding: 1em 1em 1em 1em;
     position: relative;
     right: 10px;
-    z-index: 100;
-    opacity: 100%
-}
-
-.legend h4 {
-    margin: 0 0 0px;
-    opacity: 100%
-}
-
-.legend p {
-    padding-top: 0px;
-    margin-top: 0px;
+	font-size: 14px;
+	color: #ffffff;
 }
 
 .legend div span {
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 1px;
     margin: auto;
     display: inline-block;
-    height: 10px;
+    height: 16px;
     margin-top: 0px;
-    margin-right: 10px;
-    margin-left: 10px;
-    width: 10px;
-    opacity: 100%
+    margin-right: 4px;
+    width: 44px;
+}
+
+.legend-container {
+    font-size: 14px; 
+	padding-bottom: 8px;
+	color: #ffffff;
+}
+
+.legend-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px; 
+}
+
+.legend-colors {
+    display: flex;
+    height: 16px; 
+	width: 240px;
+}
+
+.legend-colors div {
+    height: 100%;
+    flex-grow: 1;
+}
+
+.image img{
+	margin-top: 8px;
+	width: 240px;
+	height: 240px;
+}
+
+.makeup label{
+	font-size: 14px;
+}
+
+.timeline {
+	position: fixed;
+    bottom: 16px;
+    left: 360px;
+    padding: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    z-index: 500;    
+}
+
+.timeline-item {
+	display: inline-block; 
+	text-align: center; 
+	margin-right: 16px; 
+}
+
+.year-checkbox {
+	appearance: none;
+
+	width: 20px; 
+	height: 20px; 
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+.year-checkbox:checked {
+	background-color: orange; 
+}
+
+.year-label {
+	font-family: Helvetica, sans-serif;
+	font-size: 14px;
+	display: block; 
+	color: white; 
+	cursor: pointer;
+}
+
+.timeline input[type="checkbox"] {
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none; 
+    margin-bottom: 4px;
+    width: 14px;
+    height: 14px;
+    border: 1px solid #ffffff;
+	border-radius: 16px;
+    vertical-align: middle;
+    position: relative;
+    outline: none; 
+}
+
+.timeline input[type="checkbox"]:checked {
+    background-color: #ffffff;
+    box-shadow: inset 0 0 0 2px #000000; 
 }
