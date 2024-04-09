@@ -22,6 +22,8 @@ h4 {
 	color: #ffffff;
 }
 
+h5 {font-size: 14px;}
+
 #map {
     width: 100%;
     height: 100%;
@@ -199,3 +201,21 @@ input[type="checkbox"]:checked {
     background-color: #ffffff;
     box-shadow: inset 0 0 0 2px #000000; 
 }
+
+
+.mapboxgl-popup {
+    font-size: 14px; /* 设置弹窗内文字的大小 */
+    width: 600px; /* 设置弹窗的宽度 */
+    opacity: 0.8; /* 设置弹窗的透明度 */
+}
+
+.mapboxgl-popup-content {
+    padding: 20px; /* 设置弹窗内容的填充 */
+}
+
+.mapboxgl-popup-close-button {
+    font-size: 24px; /* 设置弹窗关闭按钮的大小 */
+    padding: 4px;
+}
+
+

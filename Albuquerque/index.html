@@ -7,6 +7,7 @@
     <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -16,14 +17,14 @@
         <h3>Albuquerque</h3>
         <h4>Bond information</h4>
         <div class="dropdown">
-            <select id="amount" name="amount" class="dropdown-bond">
+            <select id="bond-select" class="dropdown-bond">
               <option value="option1">Amount</option>
               <option value="option2">Duration</option>
               <option value="option3">Company</option>
             </select>
         </div>
         <div class="container-bailinfo">
-            <div id="income-legend" class="label column-bailinfo">
+            <div id="filter-ledend" class="label column-bailinfo">
             <div style="font-style: italic;">Click to filter map</div>  
             <div><input type="checkbox" id="poverty2021" >
             <label for="poverty2021" class="label-padding">Signed</label></div>
@@ -43,12 +44,12 @@
                 <div><span style="background-color: #C4002F"></span>$350k - 1m</div>
             </div>
         </div>
+        <div class="company-barchart"></div>
         <div class="makeup">
         <h4>Makeup of Community</h4>
             <input type="checkbox" id="race2020" checked>
             <label for="race2020" class="label-padding">Race</label>
-            <label for="amount"></label>
-            <select id="amount" name="amount" class="dropdown-race">
+            <select id="race-select" class="dropdown-race">
               <option value="option1">White</option>
               <option value="option2">Black</option>
               <option value="option3">Native American/Alaska Native</option>
@@ -75,7 +76,7 @@
                 </div>
             </div>
 
-            <input type="checkbox" id="poverty2020">
+            <input type="checkbox" id="poverty2020" checked>
                 <label for="poverty2020" class="label-padding">Poverty</label>
             <!-- Poverty Legend -->
             <div class="legend-container">
@@ -96,7 +97,7 @@
                 </div>
             </div>
 
-            <input type="checkbox" id="housing2020">
+            <input type="checkbox" id="housing2020" checked>
             <label for="housing2020" class="label-padding">Property Value($)</label>
             <!-- Housing Legend -->
             <div class="legend-container">
@@ -118,7 +119,7 @@
             </div>
         </div>
         <div class="image">
-            <img src="data/Group 35.png" alt="img">
+            <!-- <img src="data/Group 35.png" alt="img"> -->
         </div>
     </div>
 
