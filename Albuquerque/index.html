@@ -12,8 +12,16 @@
 </head>
 
 <body>
+    <div class="navbar">
+        <div class="navbar-left"><h2>Cities of Bail</h2></div>
+        <div class="navbar-right">
+            <a href="#stories">Stories</a>
+            <a href="#explore">Explore</a>
+            <a href="#about">About</a>
+        </div>
+    </div>
     <div id="sidebar">
-        <h2>CITIES OF BAIL</h2>
+        <!-- <h2>CITIES OF BAIL</h2> -->
         <h3>Albuquerque</h3>
         <h4>Bond information</h4>
         <div class="dropdown">
@@ -26,14 +34,14 @@
         <div class="container-bailinfo">
             <div id="filter-ledend" class="label column-bailinfo">
             <div style="font-style: italic;">Click to filter map</div>  
-            <div><input type="checkbox" id="poverty2021" >
-            <label for="poverty2021" class="label-padding">Signed</label></div>
-            <div><input type="checkbox" id="poverty2022" >
-            <label for="poverty2022" class="label-padding">Released</label></div>
-            <div><input type="checkbox" id="poverty2022" >
-            <label for="poverty2022" class="label-padding">Foreclosed</label></div>
-            <div><input type="checkbox" id="poverty2022" >
-            <label for="poverty2022" class="label-padding">Pending</label></div>
+            <div><input type="checkbox" id="liensigned" checked>
+                <label for="liensigned" class="label-padding">Signed</label></div>
+            <div><input type="checkbox" id="lienreleased" checked>
+                <label for="lienreleased" class="label-padding">Released</label></div>
+            <div><input type="checkbox" id="lienforeclosed" checked>
+                <label for="lienforeclosed" class="label-padding">Foreclosed</label></div>
+            <div><input type="checkbox" id="lienpending" checked>
+                <label for="lienpending" class="label-padding">Pending</label></div>
             </div>
 
             <div id="income-legend" class="legend column-bailinfo">
@@ -121,11 +129,14 @@
         <div class="image">
             <!-- <img src="data/Group 35.png" alt="img"> -->
         </div>
+        <div id="matrix">
+
+        </div>
     </div>
 
     <div class="timeline">
         <div class="timeline-item">
-            <input type="checkbox" id="year-all" class="year-checkbox" />
+            <input type="checkbox" id="year-all" class="year-checkbox" checked/>
             <label for="year-all" class="year-label">All</label>
         </div>
         <div class="timeline-item"><input type="checkbox" id="year-2000" class="year-checkbox" />
