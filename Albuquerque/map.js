@@ -708,7 +708,6 @@ map.on('load', function () {
 
         const style = map.getStyle();
         console.log(style);
-
     // 根据选项值获取对应的属性名称
 
 
@@ -730,53 +729,64 @@ map.on('load', function () {
                 var popup = new mapboxgl.Popup()
                     .setLngLat(e.lngLat) 
                     .setHTML(
-                             '<p><b>Amount($)</b>: ' + amount + '</p>' +
-                             '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
-                             '<p><b>Sign date</b>: ' + signdate + '</p>' +
-                             '<p><b>Release date</b>: ' + releasedate + '</p>' +
-                             '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
-                             '<p><b>Duration(year)</b>: ' + duration + '</p>') 
+                                '<p><b>Amount($)</b>: ' + amount + '</p>' +
+                                '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
+                                '<p><b>Sign date</b>: ' + signdate + '</p>' +
+                                '<p><b>Release date</b>: ' + releasedate + '</p>' +
+                                '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
+                                '<p><b>Duration(year)</b>: ' + duration + '</p>') 
                     .addTo(map); 
             }
         });
 
-    
-////根据状态选lien
-function filterLayer() {
-    // 获取复选框的状态
-    const signed = document.getElementById('liensigned').checked;
-    const released = document.getElementById('lienreleased').checked;
-    const foreclosed = document.getElementById('lienforeclosed').checked;
-    const pending = document.getElementById('lienpending').checked;
+        function filterLayer() {
+            // 针对 lien_overall 层的过滤条件
+            const overallFilters = ['any'];
+            const signed = document.getElementById('liensigned').checked;
+            const released = document.getElementById('lienreleased').checked;
+            const foreclosed = document.getElementById('lienforeclosed').checked;
+            const pending = document.getElementById('lienpending').checked;
+        
+            if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
+            if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
+            if (foreclosed) {
+                overallFilters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
+                overallFilters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
+            }
+            if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
+        
+            // 应用过滤条件到 lien_overall 图层
+            map.setFilter('lien_overall', overallFilters.length > 1 ? overallFilters : null);
+        
+            // 针对每个年份层的过滤条件
+            const yearsFilters = ['any'];
+            if (signed) yearsFilters.push(['==', ['get', 'Status Per'], 'Signed That Year']);
+            if (released) yearsFilters.push(['==', ['get', 'Status Per'], 'Released That Year']);
+            if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per'], 'Foreclosed That Year']);
+            if (pending) yearsFilters.push(['==', ['get', 'Status Per'], 'Pending']);
+        
+            // 应用过滤条件到每个年份图层
+            const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
+            years.forEach(year => {
+                const layerId = `lien_${year}`;
+                try {
+                    map.setFilter(layerId, yearsFilters.length > 1 ? yearsFilters : null);
+                } catch (error) {
+                    console.error(`Error applying filter to layer ${layerId}:`, error);
+                }
+            });
+        }
+        
+        // 为每个复选框添加事件监听器
+        document.getElementById('liensigned').addEventListener('change', filterLayer);
+        document.getElementById('lienreleased').addEventListener('change', filterLayer);
+        document.getElementById('lienforeclosed').addEventListener('change', filterLayer);
+        document.getElementById('lienpending').addEventListener('change', filterLayer);
+        
+        // 初始时调用filterLayer函数以应用初始过滤条件
+        filterLayer();
+        
 
-    // 构建过滤条件数组
-    let filters = ['any']; // 使用'any'表示任一条件满足即可
-
-    if (signed) filters.push(['==', ['get', 'Status_overall'], 'Signed']);
-    if (released) filters.push(['==', ['get', 'Status_overall'], 'Released']);
-    if (foreclosed) {
-        filters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
-        filters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
-    }
-    if (pending) filters.push(['==', ['get', 'Status_overall'], 'Pending']);
-
-    // 如果没有任何复选框被选中，显示所有数据
-    if (filters.length === 1) {
-        filters = null; // 清除过滤条件
-    }
-
-    // 应用过滤条件到图层
-    map.setFilter('lien_overall', filters);
-}
-
-// 为每个复选框添加事件监听器
-document.getElementById('liensigned').addEventListener('change', filterLayer);
-document.getElementById('lienreleased').addEventListener('change', filterLayer);
-document.getElementById('lienforeclosed').addEventListener('change', filterLayer);
-document.getElementById('lienpending').addEventListener('change', filterLayer);
-
-// 初始时调用filterLayer函数以应用初始过滤条件
-filterLayer();
 ////
 function updateYearCheckboxes(selectedYear) {
     document.querySelectorAll('.year-checkbox').forEach(checkbox => {
