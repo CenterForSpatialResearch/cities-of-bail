@@ -24,11 +24,11 @@ map.on('load', function () {
                 ['==', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'], null], 'transparent',
                 ['step', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'],
                     '#ffffff',
-                    0, '#2d653b',
-                    20, '#55895d',
-                    40, '#7dad7e',
-                    60, '#a5d1a0',
-                    80, '#cdf5c1'
+                    0, '#003A04',
+                    20, '#006B1D',
+                    40, '#009D36',
+                    60, '#00CE4E',
+                    80, '#00FF67'
                 ]
             ],
             'fill-opacity': 1
@@ -48,11 +48,11 @@ map.on('load', function () {
                 ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'], null], 'transparent',
                 ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'],
                     '#ffffff',
-                    0, '#653c8a',
-                    12, '#8764a7',
-                    24, '#a98bc4',
-                    36, '#cbb3e2',
-                    48, '#eddaff'
+                    0, '#2E0047',
+                    12, '#610075',
+                    24, '#9300A3',
+                    36, '#C500D1',
+                    48, '#F800FF'
                 ]
             ],
             'fill-opacity': 1
@@ -73,11 +73,11 @@ map.on('load', function () {
                 ['==', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'], null], 'transparent',
                 ['step', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'],
                     '#ffffff',
-                    0, '#22336b',
-                    160000, '#4a5a8a',
-                    320000, '#7282aa',
-                    480000, '#9ba9c9',
-                    640000, '#c3d0e8'
+                    0, '#011356',
+                    160000, '#01417F',
+                    320000, '#016EA8',
+                    480000, '#009CD0',
+                    640000, '#00CAF9'
                 ]
             ],
             'fill-opacity': 1
@@ -98,11 +98,11 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['get', 'BI_R_H-P'],
-                'E1', '#2A513B','E2', '#42785A','E3', '#5FA66B','E4', '#84C292','E5', '#BBD2C2',
-                'D1', '#244438','D2', '#3C6455','D3', '#548965','D4', '#74A38A','D5', '#A7B3BA',
-                'C1', '#1F3633','C2', '#304F4C','C3', '#456B5A','C4', '#5D807A','C5', '#888DA5',
-                'B1', '#192628','B2', '#26353D','B3', '#354948','B4', '#485460','B5', '#665D84',
-                'A1', '#131920','A2', '#1D222D','A3', '#292A35','A4', '#363446','A5', '#49375D',
+                'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
+                'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
+                'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
+                'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
+                'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
                 '#000000' 
                 ]
             }
@@ -869,11 +869,11 @@ document.getElementById('race-select').addEventListener('change', function(e) {
             ['==', ['get', propertyName], null], 'transparent',
             ['step', ['get', propertyName],
                 '#ffffff',
-                0, '#2d653b',
-                20, '#55895d',
-                40, '#7dad7e',
-                60, '#a5d1a0',
-                80, '#cdf5c1'
+                0, '#003A04',
+                20, '#006B1D',
+                40, '#009D36',
+                60, '#00CE4E',
+                80, '#00FF67'
             ]
         ]);
     }
@@ -1007,12 +1007,12 @@ d3.select('.company-barchart svg').remove();
 
 // 假设的数据和颜色
 const matrixData = [
-    ["#EDDAFF", "#2A513B", "#42785A", "#5FA66B", "#84C292", "#BBD2C2"],
-    ["#DABDF6", "#244438", "#3C6455", "#548965", "#74A38A", "#A7B3BA"],
-    ["#B895E3", "#1F3633", "#304F4C", "#456B5A", "#5D807A", "#888DA5"],
-    ["#8D63BC", "#192628", "#26353D", "#354948", "#485460", "#665D84"],
-    ["#653C8A", "#131920", "#1D222D", "#292A35", "#363446", "#49375D"],
-    ["#000000", "#2D653B", "#49985A", "#6ACA6B", "#93E592", "#CDF5C1"],
+    ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
+    ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
+    ["#9300A3", "#93309B", "#915DA5", "#908AAF", "#8EB7B8", "#8CE4C2"],
+    ["#610075", "#623468", "#616277", "#609186", "#5FBF95", "#5EEDA4"],
+    ["#2E0047", "#313736", "#30664A", "#30975E", "#2FC671", "#2FF685"],
+    ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
 ];
 
 // SVG的尺寸和边距

@@ -63,7 +63,7 @@ h5 {font-size: 14px;}
     left: 8px;
     top: 64px;
     width: 320px; 
-    height: 90%; 
+    height: 88%; 
     background-color: rgba(0, 0, 0, 0.9); 
     padding: 20px; 
     overflow-y: auto; 
@@ -232,17 +232,17 @@ input[type="checkbox"]:checked {
 
 
 .mapboxgl-popup {
-    font-size: 14px; /* 设置弹窗内文字的大小 */
-    width: 600px; /* 设置弹窗的宽度 */
-    opacity: 0.8; /* 设置弹窗的透明度 */
+    font-size: 14px; 
+    width: 600px; 
+    opacity: 0.8; 
 }
 
 .mapboxgl-popup-content {
-    padding: 20px; /* 设置弹窗内容的填充 */
+    padding: 20px; 
 }
 
 .mapboxgl-popup-close-button {
-    font-size: 24px; /* 设置弹窗关闭按钮的大小 */
+    font-size: 24px; 
     padding: 4px;
 }
 
