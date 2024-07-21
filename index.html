@@ -4,21 +4,58 @@
 <head>
     <meta charset="utf-8">
     <title>CITIES OF BAIL</title>
-    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js'></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h2>
-        <a href="Albuquerque/albuquerque.html">Albuquerque, Bernalillo County</a>
-    <br>
-        <a href="Pittsburgh/pittsburgh.html">Pittsburgh, Allegheny County</a>
-    <br>
-        <a href="Tucson/tucson.html">Tucson, Pima County</a>
-   
-    </h2>
+
+    <div class="navbar">
+        <div class="navbar-left"><h2>CITIES OF BAIL</h2></div>
+        <div class="navbar-right">
+            <a href="#stories">Stories</a>
+            <a href="#explore">Explore</a>
+            <a href="about.html">About</a>
+        </div>
+    </div>
+    <div id="container">
+        <div id="map_landing"></div>
+        <div id="sidebar_landing">
+            <h2>Introduction</h2>
+            <div class="intro">
+                <p>
+                    Every year, the commercial bail industry underwrites billions of dollars in bonds promising to return criminal defendants to court, often securing those bonds with liens on real property. Relying on public real estate data, Cities of Bail visualizes the practice of mortgaging property to secure bail in six U.S. counties. Click below or on the map to explore the impact of bail bonding on urban communities and the connections between bail markets and marginalized populations.
+                </p>
+            </div>
+            <div class="location">
+                <a href="#">Albuquerque, New Mexico</a>
+                <span class="read-more"><a href="Albuquerque/albuquerque.html">read more></a></span>
+            </div>
+            <div class="location">
+                <a href="#">Charlotte, North Carolina</a>
+                <span class="read-more"><a href="#">read more></a></span>
+            </div>
+            <div class="location">
+                <a href="#">Jersey City, New Jersey</a>
+                <span class="read-more"><a href="#">read more></a></span>
+            </div>
+            <div class="location">
+                <a href="#">Oakland, California</a>
+                <span class="read-more"><a href="#">read more></a></span>
+            </div>
+            <div class="location">
+                <a href="#">Pittsburgh, Pennsylvania</a>
+                <span class="read-more"><a href="Pittsburgh/pittsburgh.html">read more></a></span>
+            </div>
+            <div class="location">
+                <a href="#">Tucson, Arizona</a>
+                <span class="read-more"><a href="Tucson/tucson.html">read more></a></span>
+            </div>
+        </div>
+    </div>
+    <script src="map2.js"></script>
 </body>
 </html>

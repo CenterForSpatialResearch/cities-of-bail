@@ -4,11 +4,90 @@
     padding: 0;
 }
 
-html, body {
+html{
     height: 100%;
 }
 
-h2, h3{
+body {
+    background-color: black;
+    color: white;
+    font-family: helvetica;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#container {
+    position: absolute; /* 위치를 상대적으로 지정 */
+    width: 100%;
+    max-width: 100%;
+    margin: 0px;
+    margin-top: 0px;
+    height: 100vh; /* 높이를 유동적으로 지정 */
+    text-align: justify;
+}
+
+#map_landing {
+    position: absolute;
+    right: 0%;
+    top: 64px;
+    bottom: 8px;
+    width: calc(100% - 328px); /* 오른쪽 여백과 사이드바 너비를 뺀 너비 */
+    height: calc(100% - 50px); 
+}
+
+
+#sidebar_landing {
+    position: absolute;
+	font-family: helvetica;
+    left: 8px;
+    top: 64px;
+    width: 328px; 
+    height: 88%; 
+    background-color: rgba(0, 0, 0, 0.9); 
+    padding: 20px; 
+    overflow-y: auto; 
+	z-index: 100;
+}
+
+h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.location {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.location a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.read-more a {
+    color: #868686;
+    text-decoration: none;
+}
+
+.location a:hover {
+    text-decoration: underline;
+}
+
+.read-more {
+    margin-left: 10px;
+}
+
+.intro {
+    margin-bottom: 50px;
+    padding-left: 0px;
+    margin-top: 20px;
+}
+
+h3{
 	padding-bottom: 8px;
 	padding-top: 8px;
 	font-weight: normal;
@@ -44,6 +123,8 @@ h5 {font-size: 14px;}
     background-color: rgba(0, 0, 0, 0.9);
     overflow-y: hidden; 
 	z-index: 100;
+    border-bottom: 2px solid #b5b5b5;
+  
 }
 .navbar-left,
 .navbar-right {
@@ -246,4 +327,35 @@ input[type="checkbox"]:checked {
     padding: 4px;
 }
 
+.about_heading {
+    display: flex;
+}
 
+#about {
+    position: relative;
+	font-family: helvetica;
+    left: 8px;
+    top: 94px;
+    width: 65%; 
+    height: 100%; 
+    background-color: rgba(0, 0, 0, 0.9); 
+    padding: 20px; 
+    overflow-y: auto; 
+	z-index: 100;
+    white-space: pre-line;
+    overflow-y: auto;
+    box-sizing: border-box;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+}
+
+.about_main {
+    line-height: 1.3;
+}
+
+.about_subheading {
+    margin-top: 70px ;
+    display: flex;
+    font-size: 20px;
+    color: rgb(195, 248, 255); 
+}
