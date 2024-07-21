@@ -134,7 +134,7 @@ map.on('load', function () {
             'circle-color': [
                 'case',
                 ['==', ['typeof', ['get', 'Amount']], 'number'], // 检查Amount是否为数字类型
-                ['step', ['get', 'Amount'], // 如果是数字，根据Amount的值决定颜色
+                ['step', ['get', 'Amount'], // 如果是数字，根据Amount的值决定颜色 If it is a number, the color is determined based on the value of Amount
                     '#ffffff', 0,
                     '#ffa463', 35350,
                     '#ff8363', 85000,
@@ -722,7 +722,7 @@ map.on('load', function () {
                 var signdate = feature.properties['Signing Date']|| ''; 
                 var releasedate = feature.properties['Date Release Signed']|| ''; 
                 var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
-                var duration = feature.properties['Lien duration by Year']|| ''; 
+                var duration = feature.properties['Lien Duration']|| ''; 
                 var bondcompany = feature.properties['Bonding Company']|| ''; 
                 
                 // 创建Popup实例并设置内容
