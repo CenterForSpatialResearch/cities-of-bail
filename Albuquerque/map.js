@@ -746,6 +746,11 @@ map.on('load', function () {
             const released = document.getElementById('lienreleased').checked;
             const foreclosed = document.getElementById('lienforeclosed').checked;
             const pending = document.getElementById('lienpending').checked;
+
+            console.log(signed);
+            console.log(released);
+            console.log(foreclosed);
+            console.log(pending);
         
             if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
             if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
@@ -755,8 +760,8 @@ map.on('load', function () {
             }
             if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
         
-            // 应用过滤条件到 lien_overall 图层
-            map.setFilter('lien_overall', overallFilters.length > 1 ? overallFilters : null);
+            // 应用过滤条件到 lien_overall 图层; return overallfilters if at least one checkbox is checked
+            map.setFilter('lien_overall', overallFilters.length > 0 ? overallFilters : null);
         
             // 针对每个年份层的过滤条件
             const yearsFilters = ['any'];
@@ -770,7 +775,7 @@ map.on('load', function () {
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {
-                    map.setFilter(layerId, yearsFilters.length > 1 ? yearsFilters : null);
+                    map.setFilter(layerId, yearsFilters.length > 0 ? yearsFilters : null);
                 } catch (error) {
                     console.error(`Error applying filter to layer ${layerId}:`, error);
                 }
