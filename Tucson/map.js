@@ -5,7 +5,7 @@ const map = new mapboxgl.Map({
     zoom: 11,
     minZoom: 10.5, 
     maxZoom: 11.5,
-    center: [-110.9742, 32.2540],
+    center: [-106.6945, 35.0533],
     pitch: 0, 
     bearing: 0 
 });
@@ -45,8 +45,8 @@ map.on('load', function () {
         'paint': {
             'fill-color': [
                 'case',
-                ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'], null], 'transparent',
-                ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'],
+                ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'], null], 'transparent',
+                ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'],
                     '#ffffff',
                     0, '#2E0047',
                     12, '#610075',
@@ -70,8 +70,8 @@ map.on('load', function () {
         'paint': {
             'fill-color': [
                 'case',
-                ['==', ['get', 'ACSDT5Y2020.B25077-Data-Reformatted_Estimate!!Median value (dollars)'], null], 'transparent',
-                ['step', ['get', 'ACSDT5Y2020.B25077-Data-Reformatted_Estimate!!Median value (dollars)'],
+                ['==', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'], null], 'transparent',
+                ['step', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'],
                     '#ffffff',
                     0, '#011356',
                     160000, '#01417F',
@@ -97,7 +97,7 @@ map.on('load', function () {
         'paint': {
             'fill-color': [
                 'match',
-                ['get', 'R_B-P'],
+                ['get', 'BI_R_H-P'],
                 'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
                 'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
                 'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
@@ -134,7 +134,7 @@ map.on('load', function () {
             'circle-color': [
                 'case',
                 ['==', ['typeof', ['get', 'Amount']], 'number'], // 检查Amount是否为数字类型
-                ['step', ['get', 'Amount'], // 如果是数字，根据Amount的值决定颜色
+                ['step', ['get', 'Amount'], // 如果是数字，根据Amount的值决定颜色 If it is a number, the color is determined based on the value of Amount
                     '#ffffff', 0,
                     '#ffa463', 35350,
                     '#ff8363', 85000,
@@ -704,7 +704,6 @@ map.on('load', function () {
         map.moveLayer('poi-label');
         map.moveLayer('waterway-label');
         map.moveLayer('airport-label');
-        map.moveLayer('natural-point-label');
         map.moveLayer('road-label-simple');
 
         const style = map.getStyle();
@@ -720,11 +719,11 @@ map.on('load', function () {
                 
                 // 从feature中读取amount和duration属性
                 var amount = feature.properties['Amount']|| ''; 
-                var signdate = feature.properties['Date Signed']|| ''; 
+                var signdate = feature.properties['Signing Date']|| ''; 
                 var releasedate = feature.properties['Date Release Signed']|| ''; 
                 var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
-                var duration = feature.properties['Lien duration by Year']|| ''; 
-                var bondcompany = feature.properties['Bail Bond Company']|| ''; 
+                var duration = feature.properties['Lien Duration']|| ''; 
+                var bondcompany = feature.properties['Bonding Company']|| ''; 
                 
                 // 创建Popup实例并设置内容
                 var popup = new mapboxgl.Popup()
@@ -733,59 +732,59 @@ map.on('load', function () {
                                 '<p><b>Amount($)</b>: ' + amount + '</p>' +
                                 '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
                                 '<p><b>Sign date</b>: ' + signdate + '</p>' +
-                                '<p><b>Release date</b>: ' + releasedate + '</p>' +
+                                '<p><b>Release date</b>: ' + (releasedate || 'Pending') + '</p>' +
                                 '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
-                                '<p><b>Duration(year)</b>: ' + duration + '</p>') 
+                                '<p><b>Duration(year)</b>: ' +  (releasedate ? duration : 'Pending') + '</p>') 
                     .addTo(map); 
             }
         });
 
-        // function filterLayer() {
-        //     // 针对 lien_overall 层的过滤条件
-        //     const overallFilters = ['any'];
-        //     const signed = document.getElementById('liensigned').checked;
-        //     const released = document.getElementById('lienreleased').checked;
-        //     const foreclosed = document.getElementById('lienforeclosed').checked;
-        //     const pending = document.getElementById('lienpending').checked;
+        function filterLayer() {
+            // 针对 lien_overall 层的过滤条件
+            const overallFilters = ['any'];
+            const signed = document.getElementById('liensigned').checked;
+            const released = document.getElementById('lienreleased').checked;
+            const foreclosed = document.getElementById('lienforeclosed').checked;
+            const pending = document.getElementById('lienpending').checked;
         
-        //     if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
-        //     if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
-        //     if (foreclosed) {
-        //         overallFilters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
-        //         overallFilters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
-        //     }
-        //     if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
+            if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
+            if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
+            if (foreclosed) {
+                overallFilters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
+                overallFilters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
+            }
+            if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
         
-        //     // 应用过滤条件到 lien_overall 图层
-        //     map.setFilter('lien_overall', overallFilters.length > 1 ? overallFilters : null);
+            // 应用过滤条件到 lien_overall 图层
+            map.setFilter('lien_overall', overallFilters.length > 1 ? overallFilters : null);
         
-        //     // 针对每个年份层的过滤条件
-        //     const yearsFilters = ['any'];
-        //     if (signed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Signed That Year']);
-        //     if (released) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Released That Year']);
-        //     if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Foreclosed That Year']);
-        //     if (pending) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Pending']);
+            // 针对每个年份层的过滤条件
+            const yearsFilters = ['any'];
+            if (signed) yearsFilters.push(['==', ['get', 'Status Per'], 'Signed That Year']);
+            if (released) yearsFilters.push(['==', ['get', 'Status Per'], 'Released That Year']);
+            if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per'], 'Foreclosed That Year']);
+            if (pending) yearsFilters.push(['==', ['get', 'Status Per'], 'Pending']);
         
-        //     // 应用过滤条件到每个年份图层
-        //     const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
-        //     years.forEach(year => {
-        //         const layerId = `lien_${year}`;
-        //         try {
-        //             map.setFilter(layerId, yearsFilters.length > 1 ? yearsFilters : null);
-        //         } catch (error) {
-        //             console.error(`Error applying filter to layer ${layerId}:`, error);
-        //         }
-        //     });
-        // }
+            // 应用过滤条件到每个年份图层
+            const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
+            years.forEach(year => {
+                const layerId = `lien_${year}`;
+                try {
+                    map.setFilter(layerId, yearsFilters.length > 1 ? yearsFilters : null);
+                } catch (error) {
+                    console.error(`Error applying filter to layer ${layerId}:`, error);
+                }
+            });
+        }
         
-        // // 为每个复选框添加事件监听器
-        // document.getElementById('liensigned').addEventListener('change', filterLayer);
-        // document.getElementById('lienreleased').addEventListener('change', filterLayer);
-        // document.getElementById('lienforeclosed').addEventListener('change', filterLayer);
-        // document.getElementById('lienpending').addEventListener('change', filterLayer);
+        // 为每个复选框添加事件监听器
+        document.getElementById('liensigned').addEventListener('change', filterLayer);
+        document.getElementById('lienreleased').addEventListener('change', filterLayer);
+        document.getElementById('lienforeclosed').addEventListener('change', filterLayer);
+        document.getElementById('lienpending').addEventListener('change', filterLayer);
         
-        // // 初始时调用filterLayer函数以应用初始过滤条件
-        // filterLayer();
+        // 初始时调用filterLayer函数以应用初始过滤条件
+        filterLayer();
         
 
 ////
@@ -882,16 +881,17 @@ document.getElementById('race-select').addEventListener('change', function(e) {
 
 
 var data = [
-    { company: "Azteca Bail Bonds LLC", count: 225 },
-    { company: "Quick Bail, Inc.", count: 205 },
-    { company: "Arizona Quest Bail Bonds", count: 125 },
-    { company: "Financial Casualty & Surety", count: 115 },
-    { company: "Allegheny Casualty Company", count: 37 },
-    { company: "American Surety Company ", count: 33 },
-    { company: "Lexington National", count: 26 },
-    { company: "Didn't Do It Bail Bonds/Premier Bail Bonds Inc.", count: 4 },
-    { company: "Action Bail Bonds", count: 1 },
-    { company: "Silverlake Bail Bonds", count: 1 },
+    { company: "AAA Bail Bonds", count: 366 },
+    { company: "Pacheco Bonding", count: 325 },
+    { company: "A Bail Bond Co.", count: 207 },
+    { company: "ASAP Bail Bond", count: 157 },
+    { company: "Aardvark Bail Bond", count: 56 },
+    { company: "Affordable Bail Bonds", count: 27 },
+    { company: "Martinez Bail Bonds", count: 18 },
+    { company: "Help Bail Bonds", count: 17 },
+    { company: "ABC Bail Bonds", count: 17 },
+    { company: "Gonzales Bail Bonds", count: 14 },
+    { company: "Other", count: 89 },
 ];
 
 function drawBarChart(data) {
@@ -966,17 +966,17 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
     if (e.target.value ===  'option3') {
         map.setPaintProperty('lien_overall', 'circle-color', [
             'match',
-            ['get', 'Bail Bond Company'],
-            'Azteca Bail Bonds LLC', '#fcf467',
-            'Quick Bail, Inc.', '#d8c4fb',
-            'Arizona Quest Bail Bonds', '#ea8972',
-            'Financial Casualty & Surety', '#5fcad2',
-            'Allegheny Casualty Company', '#4ca48a',
-            'American Surety Company', '#FF7733',
-            'Lexington National', '#f2c947',
-            "Didn't Do It Bail Bonds/Premier Bail Bonds Inc.", '#F48A28',
-            'Action Bail Bonds', '#80BB47',
-            'Silverlake Bail Bonds', '#FEBA2A',
+            ['get', 'Bonding Company'],
+            'AAA Bail Bonds', '#fcf467',
+            'Pacheco Bonding', '#ea8972',
+            'A Bail Bond Co.', '#0B8A7C',
+            'ASAP Bail Bond', '#5fcad2',
+            'Aardvark Bail Bond', '#4ca48a',
+            'Affordable Bail Bonds', '#FF7733',
+            'Martinez Bail Bonds', '#f2c947',
+            'Help Bail Bonds', '#F48A28',
+            'ABC Bail Bonds', '#80BB47',
+            'Gonzales Bail Bonds', '#FEBA2A',
             '#949494' 
         ]);
         incomeLegend.style.display = 'none';
