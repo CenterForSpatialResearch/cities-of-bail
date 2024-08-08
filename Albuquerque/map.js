@@ -755,7 +755,7 @@ map.on('load', function () {
             if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
             if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
             if (foreclosed) {
-                overallFilters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
+                overallFilters.push(['==', ['get', 'Status_overall'], 'Foreclosed']);
                 overallFilters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
             }
             if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
