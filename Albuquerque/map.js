@@ -719,9 +719,9 @@ map.on('load', function () {
                 
                 // 从feature中读取amount和duration属性
                 var amount = feature.properties['Amount']|| ''; 
-                var signdate = feature.properties['Signing Date']|| ''; 
-                var releasedate = feature.properties['Date Release Signed']|| ''; 
-                var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
+                var signdate = feature.properties['Signed Date']|| ''; 
+                var releasedate = feature.properties['Released Date']|| ''; 
+                var foreclosedate = feature.properties['Foreclosed Date']|| ''; 
                 var duration = feature.properties['Lien Duration']|| ''; 
                 var bondcompany = feature.properties['Bonding Company']|| ''; 
                 
