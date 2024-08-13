@@ -147,132 +147,6 @@ map.on('load', function () {
             'circle-radius': 3, 
         }
     });
-
-    map.addLayer({
-        'id': 'lien_2000',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2000_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2000', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2001',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2001_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2001', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2002',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2002_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2002', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2003',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2003_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2003', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2004',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2004_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2004', 'visibility', 'none');
     map.addLayer({
         'id': 'lien_2005',
         'type': 'circle',
@@ -680,11 +554,6 @@ map.on('load', function () {
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
-        map.moveLayer('lien_2000');
-        map.moveLayer('lien_2001');
-        map.moveLayer('lien_2002');
-        map.moveLayer('lien_2003');
-        map.moveLayer('lien_2004');
         map.moveLayer('lien_2005');
         map.moveLayer('lien_2006');
         map.moveLayer('lien_2007');
@@ -720,7 +589,7 @@ map.on('load', function () {
                 // 从feature中读取amount和duration属性
                 var amount = feature.properties['Amount']|| ''; 
                 var signdate = feature.properties['Signing Date']|| ''; 
-                var releasedate = feature.properties['Date Release Signed']|| ''; 
+                var releasedate = feature.properties['Released Date']|| ''; 
                 var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
                 var duration = feature.properties['Lien Duration']|| ''; 
                 var bondcompany = feature.properties['Bonding Company']|| ''; 
@@ -729,48 +598,67 @@ map.on('load', function () {
                 var popup = new mapboxgl.Popup()
                     .setLngLat(e.lngLat) 
                     .setHTML(
-                                '<p><b>Amount($)</b>: ' + amount + '</p>' +
-                                '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
-                                '<p><b>Sign date</b>: ' + signdate + '</p>' +
-                                '<p><b>Release date</b>: ' + (releasedate || 'Pending') + '</p>' +
-                                '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
-                                '<p><b>Duration(year)</b>: ' +  (releasedate ? duration : 'Pending') + '</p>') 
+                            '<p><b>Amount($)</b>: ' + amount + '</p>' +
+                            '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
+                            '<p><b>Sign date</b>: ' + signdate + '</p>' +
+                            '<p><b>Release date</b>: ' + releasedate + '</p>' +
+                            '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
+                            '<p><b>Duration(year)</b>: ' + duration + '</p>') 
                     .addTo(map); 
             }
         });
 
         function filterLayer() {
-            // 针对 lien_overall 层的过滤条件
+            // Filtering conditions for the lien_overall layer
             const overallFilters = ['any'];
             const signed = document.getElementById('liensigned').checked;
             const released = document.getElementById('lienreleased').checked;
             const foreclosed = document.getElementById('lienforeclosed').checked;
             const pending = document.getElementById('lienpending').checked;
+
+            console.log(signed);
+            console.log(released);
+            console.log(foreclosed);
+            console.log(pending);
         
-            if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
-            if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
-            if (foreclosed) {
-                overallFilters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
-                overallFilters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
-            }
-            if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
+            const signedFilter = ['==', ['get', 'Status'], 'Signed'];
+            const releasedFilter = ['==', ['get', 'Status'], 'Released'];
+            const foreclosedFilter = ['==', ['get', 'Status'], 'Foreclosed'];
+            const releaseBeforeForeclosedFilter = [
+                '==',
+                ['get', 'Status'],
+                'Release (before foreclose)',
+                ];
+            const pendingFilter = ['==', ['get', 'Status'], 'Pending'];
+
+                if (signed)
+                overallFilters.push(signedFilter);
+                if (released) overallFilters.push(releasedFilter);
+                if (foreclosed) {
+                overallFilters.push(foreclosedFilter, releaseBeforeForeclosedFilter);
+                }
+                if (pending) overallFilters.push(pendingFilter);
+
+    
         
-            // 应用过滤条件到 lien_overall 图层
-            map.setFilter('lien_overall', overallFilters.length > 1 ? overallFilters : null);
+            // Apply filtering conditions to the lien_overall layer; return overallfilters if at least one checkbox is checked
+            map.setFilter('lien_overall', overallFilters.length > 0 ? overallFilters : null);
         
-            // 针对每个年份层的过滤条件
+            // Filtering conditions for each year layer
             const yearsFilters = ['any'];
-            if (signed) yearsFilters.push(['==', ['get', 'Status Per'], 'Signed That Year']);
-            if (released) yearsFilters.push(['==', ['get', 'Status Per'], 'Released That Year']);
-            if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per'], 'Foreclosed That Year']);
-            if (pending) yearsFilters.push(['==', ['get', 'Status Per'], 'Pending']);
+            if (signed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Signed That Year']);
+            if (released) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Released That Year']);
+            if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Foreclosed That Year']);
+            if (pending) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Pending']);
         
+            
+            
             // 应用过滤条件到每个年份图层
-            const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
+            const years = Array.from({length: 21}, (_, i) => i + 2005); // 从2005到2020年
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {
-                    map.setFilter(layerId, yearsFilters.length > 1 ? yearsFilters : null);
+                    map.setFilter(layerId, yearsFilters.length > 0 ? yearsFilters : null);
                 } catch (error) {
                     console.error(`Error applying filter to layer ${layerId}:`, error);
                 }
@@ -804,7 +692,7 @@ function updateYearCheckboxes(selectedYear) {
   
 // 根据选中的年份设置地图图层的可见性
 function updateLayerVisibility(selectedYear) {
-    const years = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
+    const years = ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
     
     if (!selectedYear || selectedYear === 'all') {
         // 如果选中了'All'，显示'lien_overall'图层，隐藏其他所有年份图层
