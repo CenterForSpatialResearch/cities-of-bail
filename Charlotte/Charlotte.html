@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CITIES OF BAIL</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="../index.html">
+                <h2>CITIES OF BAIL</h2>
+            </a>
+        </div>
+        <div class="navbar-right">
+            <a href="#stories">Stories</a>
+            <a href="#explore">Explore</a>
+            <a href="../about.html">About</a>
+        </div>
+    </div>
+    <div id="sidebar">
+        <!-- <h2>CITIES OF BAIL</h2> -->
+        <h3>Charlotte</h3>
+        <h4>Bond information</h4>
+        <div class="dropdown">
+            <select id="bond-select" class="dropdown-bond">
+              <option value="option1">Amount</option>
+              <option value="option2">Duration</option>
+              <option value="option3">Company</option>
+            </select>
+        </div>
+        <div class="container-bailinfo">
+            <div id="filter-ledend" class="label column-bailinfo">
+            <div style="font-style: italic;">Click to filter map</div>  
+            <div><input type="checkbox" id="liensigned" checked>
+                <label for="liensigned" class="label-padding">Signed</label></div>
+            <div><input type="checkbox" id="lienreleased" checked>
+                <label for="lienreleased" class="label-padding">Released</label></div>
+            <div><input type="checkbox" id="lienforeclosed" checked>
+                <label for="lienforeclosed" class="label-padding">Foreclosed</label></div>
+            <div><input type="checkbox" id="lienpending" checked>
+                <label for="lienpending" class="label-padding">Pending</label></div>
+            </div>
+
+            <div id="income-legend" class="legend column-bailinfo">
+                <div><span style="background-color: #FF994F"></span>$0 - 35k</div>
+                <div><span style="background-color: #F96F4B"></span>$35k - 80k</div>
+                <div><span style="background-color: #E34344"></span>$80k - 150k</div>
+                <div><span style="background-color: #DF0038"></span>$150k - 350k</div>
+                <div><span style="background-color: #C4002F"></span>$350k - 1m</div>
+            </div>
+        </div>
+        <div class="company-barchart"></div>
+        <div class="makeup">
+        <h4>Makeup of Community</h4>
+            <input type="checkbox" id="race2020" checked>
+            <label for="race2020" class="label-padding">Race</label>
+            <select id="race-select" class="dropdown-race">
+              <option value="option1">White</option>
+              <option value="option2">Black</option>
+              <option value="option3">Native American/Alaska Native</option>
+              <option value="option4">Asian</option>
+              <option value="option5">Native Hawaiian/Other Pacific Islande</option>
+              <option value="option6">Hispanic or Latino</option>
+            </select>
+            <!-- Race Legend -->
+            <div class="legend-container">
+                <div class="legend-labels">
+                    <span>0</span>
+                    <span>20%</span>
+                    <span>40%</span>
+                    <span>60%</span>
+                    <span>80%</span>
+                    <span>100%</span>
+                </div>
+                <div class="legend-colors">
+                    <div style="background-color: #003A04; width: 20%;"></div>
+                    <div style="background-color: #006B1D; width: 20%;"></div>
+                    <div style="background-color: #009D36; width: 20%;"></div>
+                    <div style="background-color: #00CE4E; width: 20%;"></div>
+                    <div style="background-color: #00FF67; width: 20%;"></div>
+                </div>
+            </div>
+
+            <input type="checkbox" id="poverty2020" checked>
+                <label for="poverty2020" class="label-padding">Poverty</label>
+            <!-- Poverty Legend -->
+            <div class="legend-container">
+                <div class="legend-labels">
+                    <span>0</span>
+                    <span>12%</span>
+                    <span>24%</span>
+                    <span>36%</span>
+                    <span>48%</span>
+                    <span>60%</span>
+                </div>
+                <div class="legend-colors">
+                    <div style="background-color: #2E0047; width: 20%;"></div>
+                    <div style="background-color: #610075; width: 20%;"></div>
+                    <div style="background-color: #9300A3; width: 20%;"></div>
+                    <div style="background-color: #C500D1; width: 20%;"></div>
+                    <div style="background-color: #F800FF; width: 20%;"></div>
+                </div>
+            </div>
+
+            <input type="checkbox" id="housing2020" checked>
+            <label for="housing2020" class="label-padding">Property Value($)</label>
+            <!-- Housing Legend -->
+            <div class="legend-container">
+                <div class="legend-labels">
+                    <span>0</span>
+                    <span>160k</span>
+                    <span>320k</span>
+                    <span>480k</span>
+                    <span>640k</span>
+                    <span>800k</span>
+                </div>
+                <div class="legend-colors">
+                    <div style="background-color: #011356; width: 20%;"></div>
+                    <div style="background-color: #01417F; width: 20%;"></div>
+                    <div style="background-color: #016EA8; width: 20%;"></div>
+                    <div style="background-color: #009CD0; width: 20%;"></div>
+                    <div style="background-color: #00CAF9; width: 20%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="image">
+            <!-- <img src="data/Group 35.png" alt="img"> -->
+        </div>
+        <div id="matrix">
+
+        </div>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <input type="checkbox" id="year-all" class="year-checkbox" checked/>
+            <label for="year-all" class="year-label">All</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2000" class="year-checkbox" />
+            <label for="year-2000" class="year-label">2000</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2001" class="year-checkbox" />
+            <label for="year-2001" class="year-label">2001</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2002" class="year-checkbox" />
+            <label for="year-2002" class="year-label">2002</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2003" class="year-checkbox" />
+            <label for="year-2003" class="year-label">2003</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2004" class="year-checkbox" />
+            <label for="year-2004" class="year-label">2004</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2005" class="year-checkbox" />
+            <label for="year-2005" class="year-label">2005</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2006" class="year-checkbox" />
+            <label for="year-2006" class="year-label">2006</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2007" class="year-checkbox" />
+            <label for="year-2007" class="year-label">2007</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2008" class="year-checkbox" />
+            <label for="year-2008" class="year-label">2008</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2009" class="year-checkbox" />
+            <label for="year-2009" class="year-label">2009</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2010" class="year-checkbox" />
+            <label for="year-2010" class="year-label">2010</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2011" class="year-checkbox" />
+            <label for="year-2011" class="year-label">2011</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2012" class="year-checkbox" />
+            <label for="year-2012" class="year-label">2012</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2013" class="year-checkbox" />
+            <label for="year-2013" class="year-label">2013</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2014" class="year-checkbox" />
+            <label for="year-2014" class="year-label">2014</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2015" class="year-checkbox" />
+            <label for="year-2015" class="year-label">2015</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2016" class="year-checkbox" />
+            <label for="year-2016" class="year-label">2016</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2017" class="year-checkbox" />
+            <label for="year-2017" class="year-label">2017</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2018" class="year-checkbox" />
+            <label for="year-2018" class="year-label">2018</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2019" class="year-checkbox" />
+            <label for="year-2019" class="year-label">2019</label>
+        </div>
+        <div class="timeline-item"><input type="checkbox" id="year-2020" class="year-checkbox" />
+            <label for="year-2020" class="year-label">2020</label>
+        </div>
+    </div>
+
+
+    <div id="map"></div>
+
+    <script src="map.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

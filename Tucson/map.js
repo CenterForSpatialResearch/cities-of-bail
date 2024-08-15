@@ -2,10 +2,10 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaG9uZ3FpYW5saSIsImEiOiJjbGticW84cjIwaGRjM2xvN
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/hongqianli/cluh62aew033f01qqcszb71kp',
-    zoom: 11,
-    minZoom: 10.5, 
+    zoom: 10.5,
+    minZoom: 10, 
     maxZoom: 11.5,
-    center: [-106.6945, 35.0533],
+    center: [-111.011789, 32.213460],
     pitch: 0, 
     bearing: 0 
 });
