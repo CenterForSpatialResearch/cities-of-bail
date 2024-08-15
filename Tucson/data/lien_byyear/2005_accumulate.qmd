@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis version="3.32.1-Lima">
+<qgis version="3.28.2-Firenze">
   <identifier></identifier>
   <parentidentifier></parentidentifier>
   <language></language>
@@ -7,7 +7,6 @@
   <title></title>
   <abstract></abstract>
   <links/>
-  <dates/>
   <fees></fees>
   <encoding></encoding>
   <crs>
