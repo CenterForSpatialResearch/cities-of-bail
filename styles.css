@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 * {
     box-sizing: border-box;
     margin: 0;
@@ -22,7 +21,7 @@ body {
 
 #container {
     position: absolute; /* 위치를 상대적으로 지정 */
-    width: 100%;
+    width: 100vw;
     max-width: 100%;
     margin: 0px;
     margin-top: 0px;
@@ -32,10 +31,9 @@ body {
 
 #map_landing {
     position: absolute;
-    right: 0%;
-    top: 64px;
-    bottom: 8px;
-    width: calc(100% - 328px); /* 오른쪽 여백과 사이드바 너비를 뺀 너비 */
+    top: 10vh;
+    left: 35vw;
+    width: 65vw; /* 오른쪽 여백과 사이드바 너비를 뺀 너비 */
     height: calc(100% - 50px); 
 }
 
@@ -43,12 +41,12 @@ body {
 #sidebar_landing {
     position: absolute;
 	font-family: helvetica;
-    left: 8px;
-    top: 64px;
-    width: 350px; 
-    height: 88%; 
+    left: 2vw;
+    top: 10vh;
+    width: 28vw; 
+    height: 100%; 
     background-color: rgba(0, 0, 0, 0.9); 
-    padding: 20px; 
+    padding: 1vw; 
     overflow-y: auto; 
 	z-index: 100;
 }
@@ -59,7 +57,8 @@ h2 {
 }
 
 .location {
-    margin: 10px 0;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
     display: flex;
     justify-content: space-between;
 }
@@ -79,13 +78,12 @@ h2 {
 }
 
 .read-more {
-    margin-left: 10px;
+    margin-left: 1vw;
 }
 
 .intro {
-    margin-bottom: 50px;
-    padding-left: 0px;
-    margin-top: 20px;
+    margin-bottom: 10vh;
+    margin-top: 5vh;
 }
 
 h3{
@@ -115,28 +113,29 @@ h5 {font-size: 14px;}
     display: flex; /* 开启Flexbox布局 */
     justify-content: space-between; /* 两端对齐 */
     align-items: center; /* 垂直居中 */
-    left: 0px;
+    left: 0vw;
     top: 0px;
-    width: 100%; 
-    height: 58px; 
-    padding-left: 30px;
-    padding-right: 30px;
+    width: 99vw; 
+    height: 8vh; 
     background-color: rgba(0, 0, 0, 0.9);
     overflow-y: hidden; 
 	z-index: 100;
-    border-bottom: 2px solid #b5b5b5;
+    border-bottom: 0.3vh solid #b5b5b5;
   
 }
-.navbar-left,
-.navbar-right {
-    display: flex;
-
+.navbar-left{
+    padding-left: 3vw;
 }
+
+.navbar-right{
+    padding-right: 3vw;
+}
+
 .navbar-right a {
     color: white;
-    padding: 14px 16px;
+    padding: 1vw 1vw;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1.2vw;
 }
 
 #sidebar {
@@ -359,7 +358,6 @@ input[type="checkbox"]:checked {
     display: flex;
     font-size: 20px;
     color: rgb(195, 248, 255); 
-<<<<<<< HEAD
 }
 /*추가*/
 #map .mapboxgl-popup {
@@ -384,368 +382,12 @@ input[type="checkbox"]:checked {
     font-size: 16px; /* 버튼의 글꼴 크기 설정 */
     color: #999; /* 버튼 색상 설정 */
     /* 기타 필요한 스타일 설정 */
-=======
-=======
-* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-html{
-    height: 100%;
-}
-
-body {
-    background-color: black;
-    color: white;
-    font-family: helvetica;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-}
-
-#container {
-    position: absolute; /* 위치를 상대적으로 지정 */
-    width: 100%;
-    max-width: 100%;
-    margin: 0px;
-    margin-top: 0px;
-    height: 100vh; /* 높이를 유동적으로 지정 */
-    text-align: justify;
-}
-
-#map_landing {
-    position: absolute;
-    right: 0%;
-    top: 64px;
-    bottom: 8px;
-    width: calc(100% - 328px); /* 오른쪽 여백과 사이드바 너비를 뺀 너비 */
-    height: calc(100% - 50px); 
-}
-
-
-#sidebar_landing {
-    position: absolute;
-	font-family: helvetica;
-    left: 8px;
-    top: 64px;
-    width: 328px; 
-    height: 88%; 
-    background-color: rgba(0, 0, 0, 0.9); 
-    padding: 20px; 
-    overflow-y: auto; 
-	z-index: 100;
-}
-
-h2 {
-    margin: 0;
-    font-size: 24px;
-}
-
-.location {
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
-}
-
-.location a {
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.read-more a {
-    color: #868686;
-    text-decoration: none;
-}
-
-.location a:hover {
-    text-decoration: underline;
-}
-
-.read-more {
-    margin-left: 10px;
-}
-
-.intro {
-    margin-bottom: 50px;
-    padding-left: 0px;
-    margin-top: 20px;
-}
-
-h3{
-	padding-bottom: 8px;
-	padding-top: 8px;
-	font-weight: normal;
-	color: #ffffff;
-}
-
-h4 {
-	margin-top: 12px;
-	margin-bottom: 4px;
-	font-weight: normal;
-	color: #ffffff;
-}
-
-h5 {font-size: 14px;}
-
-#map {
-    width: 100%;
-    height: 100%;
-}
-
-.navbar {
-    position: absolute;
-	font-family: helvetica;
-    display: flex; /* 开启Flexbox布局 */
-    justify-content: space-between; /* 两端对齐 */
-    align-items: center; /* 垂直居中 */
-    left: 0px;
-    top: 0px;
-    width: 100%; 
-    height: 58px; 
-    padding-left: 30px;
-    padding-right: 30px;
-    background-color: rgba(0, 0, 0, 0.9);
-    overflow-y: hidden; 
-	z-index: 100;
-    border-bottom: 2px solid #b5b5b5;
-  
-}
-.navbar-left,
-.navbar-right {
-    display: flex;
-
-}
-.navbar-right a {
-    color: white;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 18px;
-}
-
-#sidebar {
-    position: absolute;
-	font-family: helvetica;
-    left: 8px;
-    top: 64px;
-    width: 328px; 
-    height: 88%; 
-    background-color: rgba(0, 0, 0, 0.9); 
-    padding: 20px; 
-    overflow-y: auto; 
-	z-index: 100;
-}
-
-input[type="checkbox"] {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    appearance: none; 
-    margin: 0;
-    width: 16px;
-    height: 16px;
-    border: 1px solid #ffffff;
-    vertical-align: middle;
-    position: relative;
-    outline: none; 
-}
-
-input[type="checkbox"]:checked {
-    background-color: #ffffff;
-    box-shadow: inset 0 0 0 2px #000000; 
-}
-
-.dropdown select, .makeup select {
-	background-color: #000000;
-	color: #ffffff;
-	border: 1px solid #ffffff;
-}
-
-.container-bailinfo {
-	display: flex;
-}
-
-.column-bailinfo {
-	flex: 1; 
-	padding: 4px; 
-	font-size: 14px;
-	color: #ffffff;
-}
-
-.label.column-bailinfo div{
-    margin-bottom: 2px;
-}
-
-.dropdown-bond {
-	width: 270px;
-	font-size: 14px;
-}
-
-.dropdown-race {
-	width: 210px;
-	margin-bottom: 4px;
-	font-size: 14px;
-}
-
-.label-padding {
-	padding-bottom: 10px;
-	color: #ffffff;
-}
-
-.legend {
-    position: relative;
-    right: 10px;
-	font-size: 14px;
-	color: #ffffff;
-}
-
-.legend div span {
-    margin: auto;
-    display: inline-block;
-    height: 16px;
-    margin-top: 0px;
-    margin-right: 4px;
-    width: 44px;
-}
-
-.legend-container {
-    font-size: 14px; 
-	padding-bottom: 8px;
-	color: #ffffff;
-}
-
-.legend-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 4px; 
-}
-
-.legend-colors {
-    display: flex;
-    height: 16px; 
-	width: 240px;
-}
-
-.legend-colors div {
-    height: 100%;
-    flex-grow: 1;
-}
-
-.image img{
-	margin-top: 8px;
-	width: 240px;
-	height: 240px;
-}
-
-.makeup label{
-	font-size: 14px;
-}
-
-.timeline {
-	position: fixed;
-    bottom: 16px;
-    left: 360px;
-    padding: 10px;
-    overflow-x: auto;
-    white-space: nowrap;
-    z-index: 500;    
-}
-
-.timeline-item {
-	display: inline-block; 
-	text-align: center; 
-	margin-right: 16px; 
-}
-
-.year-checkbox {
-	appearance: none;
-
-	width: 20px; 
-	height: 20px; 
-	margin-bottom: 5px;
-	cursor: pointer;
-}
-
-.year-checkbox:checked {
-	background-color: orange; 
-}
-
-.year-label {
-	font-family: Helvetica, sans-serif;
-	font-size: 14px;
-	display: block; 
-	color: white; 
-	cursor: pointer;
-}
-
-.timeline input[type="checkbox"] {
-    -webkit-appearance: none; 
-    -moz-appearance: none; 
-    appearance: none; 
-    margin-bottom: 4px;
-    width: 14px;
-    height: 14px;
-    border: 1px solid #ffffff;
-	border-radius: 16px;
-    vertical-align: middle;
-    position: relative;
-    outline: none; 
-}
-
-.timeline input[type="checkbox"]:checked {
-    background-color: #ffffff;
-    box-shadow: inset 0 0 0 2px #000000; 
-}
-
-
-.mapboxgl-popup {
-    font-size: 14px; 
-    width: 600px; 
-    opacity: 0.8; 
-}
 
 .mapboxgl-popup-content {
     padding: 20px; 
-}
-
-.mapboxgl-popup-close-button {
-    font-size: 24px; 
-    padding: 4px;
-}
-
-.about_heading {
-    display: flex;
-}
-
-#about {
-    position: relative;
-	font-family: helvetica;
-    left: 8px;
-    top: 94px;
-    width: 65%; 
-    height: 100%; 
-    background-color: rgba(0, 0, 0, 0.9); 
-    padding: 20px; 
-    overflow-y: auto; 
-	z-index: 100;
-    white-space: pre-line;
-    overflow-y: auto;
-    box-sizing: border-box;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;
-}
-
-.about_main {
-    line-height: 1.3;
-}
-
-.about_subheading {
-    margin-top: 70px ;
-    display: flex;
-    font-size: 20px;
-    color: rgb(195, 248, 255); 
->>>>>>> Stashed changes
->>>>>>> 1e689c3d04c9a53ad0acd8a11dcdf3b208818bc0
 }

@@ -685,7 +685,35 @@ map.on('load', function () {
         console.log(style);
     // 根据选项值获取对应的属性名称
 
+     // 마우스 엔터 이벤트 핸들링
+     map.on('mouseenter', 'lien_overall', function (e) {
+        map.getCanvas().style.cursor = 'pointer';
+        if (e.features.length > 0) {
+            if (hoveredFeatureId) {
+                map.setFeatureState(
+                    { source: 'lien_overall', id: hoveredFeatureId },
+                    { hover: false }
+                );
+            }
+            hoveredFeatureId = e.features[0].id;
+            map.setFeatureState(
+                { source: 'lien_overall', id: hoveredFeatureId },
+                { hover: true }
+            );
+        }
+    });
 
+    // 마우스 리브 이벤트 핸들링
+    map.on('mouseleave', 'lien_overall', function () {
+        map.getCanvas().style.cursor = '';
+        if (hoveredFeatureId) {
+            map.setFeatureState(
+                { source: 'lien_overall', id: hoveredFeatureId },
+                { hover: false }
+            );
+        }
+        hoveredFeatureId = null;
+    });
 
         map.on('click', 'lien_overall', function(e) {
             // 确保至少选中了一个feature

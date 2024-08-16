@@ -673,8 +673,33 @@ map.on('load', function () {
         }
     });
     map.setLayoutProperty('lien_2020', 'visibility', 'none');
+    
+            let hoveredFeatureId = null;
 
-
+    // lien_overall 레이어 추가
+    map.addLayer({
+        'id': 'lien_overall',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_overall/lien_overall.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'],
+                ['step', ['get', 'Amount'], '#ffffff', 0, '#ffa463', 35350, '#ff8363', 85000, '#ff6263', 164500, '#ff4062', 305500, '#ff1f62'],
+                '#cccccc'
+            ],
+            'circle-radius': [
+                'case',
+                ['boolean', ['feature-state', 'hover'], false],
+                10.5, // Hover radius
+                3 // Default radius
+            ],
+            'circle-opacity': 0.8
+        }
+    });
 
     // 确保道路和水体图层在自定义图层之上
         map.moveLayer('water');
@@ -711,6 +736,35 @@ map.on('load', function () {
     // 根据选项值获取对应的属性名称
 
 
+        // 마우스 엔터 이벤트 핸들링
+    map.on('mouseenter', 'lien_overall', function (e) {
+        map.getCanvas().style.cursor = 'pointer';
+        if (e.features.length > 0) {
+            if (hoveredFeatureId) {
+                map.setFeatureState(
+                    { source: 'lien_overall', id: hoveredFeatureId },
+                    { hover: false }
+                );
+            }
+            hoveredFeatureId = e.features[0].id;
+            map.setFeatureState(
+                { source: 'lien_overall', id: hoveredFeatureId },
+                { hover: true }
+            );
+        }
+    });
+
+    // 마우스 리브 이벤트 핸들링
+    map.on('mouseleave', 'lien_overall', function () {
+        map.getCanvas().style.cursor = '';
+        if (hoveredFeatureId) {
+            map.setFeatureState(
+                { source: 'lien_overall', id: hoveredFeatureId },
+                { hover: false }
+            );
+        }
+        hoveredFeatureId = null;
+    });
 
         map.on('click', 'lien_overall', function(e) {
             // 确保至少选中了一个feature
@@ -1131,4 +1185,5 @@ document.getElementById('housing2020').addEventListener('change', checkSelection
     document.getElementById('race2020').checked = true;  
     document.getElementById('poverty2020').checked = false;
     document.getElementById('housing2020').checked = false;
+
 
