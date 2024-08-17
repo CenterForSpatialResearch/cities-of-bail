@@ -115,7 +115,7 @@ h5 {font-size: 14px;}
     align-items: center; /* 垂直居中 */
     left: 0vw;
     top: 0px;
-    width: 99vw; 
+    width: 100vw; 
     height: 8vh; 
     background-color: rgba(0, 0, 0, 0.9);
     overflow-y: hidden; 
@@ -141,12 +141,12 @@ h5 {font-size: 14px;}
 #sidebar {
     position: absolute;
 	font-family: helvetica;
-    left: 8px;
-    top: 64px;
-    width: 328px; 
-    height: 88%; 
+    left: 0vw;
+    top: 7.8vh;
+    width:20vw; 
+    height: 92.2vh; 
     background-color: rgba(0, 0, 0, 0.9); 
-    padding: 20px; 
+    padding: 1vw; 
     overflow-y: auto; 
 	z-index: 100;
 }
