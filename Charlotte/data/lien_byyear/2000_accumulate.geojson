@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "2000_accumulate",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "James A. FallenbeckJames A. Fallenbeck - Deed of Release and Reconveyance ", "Bonding Company": "Bail USA,Bail USA", "Amount_String": "$110,000 ", "Signed Date": "7/13/2000", "Street Number (from Lien)": 6305, "Street (from Lien)": "Hanna Court", "Apt. # (from Lien)": null, "City (from Lien)": "Charlotte", "Zip (from Lien)": 28212, "Formula Complete Address (from Lien)": "6305 Hanna Court, Charlotte North Carolina 2812", "Latitude": 35.21764398, "Longitude": -80.75, "Released Date": "9/18/2014", "Foreclosed Date": null, "Lien Duration": null, "Status": "Released", "Year Signed": 2000, "Year Released": 2014, "Year Foreclosed": 9999, "Status Per Year": "Signed That Year", "Amount": 110000 }, "geometry": { "type": "Point", "coordinates": [ -80.75, 35.21764398 ] } }
+]
+}

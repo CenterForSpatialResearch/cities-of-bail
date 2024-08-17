@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "2006_accumulate",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "Release Doc. No.": 2006457172, "Bonding Company": "Bad Boys Bail Bonds", "Signed Date": "1/27/2005", "Amount_String": "$12,500 ", "Street Number (from Related Lien)": 465, "Street Name (from Related Lien)": "98th Avenue", "City (from Related Lien)": "Oakland", "ZIP (from Related Lien)": 94603, "Address (from Related Lien)": "465 98th Avenue, Oakland, CA 94603", "Latitude": 37.7347249, "Longitude": -122.1873011, "Released Date": "12/14/2006", "Foreclosed Date": null, "Lien Duration": 686, "Status": "Released", "Year Signed": 2005, "Year Released": 2006, "Year Foreclosed": 9999, "Status Per Year": "Released That Year", "Amount": 12500 }, "geometry": { "type": "Point", "coordinates": [ -122.1873011, 37.7347249 ] } }
+]
+}

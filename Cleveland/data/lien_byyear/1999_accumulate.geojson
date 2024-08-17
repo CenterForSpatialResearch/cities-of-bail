@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "1999_accumulate",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "Release Doc. No.": 200107000000.0, "Bonding Company": "ABC Bail Bonds", "Signed Date": "12/7/1999", "Amount_String": "$25,214 ", "Street Number (from Related Lien)": 1039, "Street Name (from Related Lien)": "Woodview Road", "City (from Related Lien)": "Cleveland Heights", "ZIP (from Related Lien)": 44121, "Address (from Related Lien)": "1039 Woodview Road, Cleveland Heights, OH 44121", "Latitude": 41.5316165, "Longitude": -81.5571137, "Coordinates (from Related Lien)": "41.5316165, -81.5571137", "Released Date": "7/20/2001", "Foreclosed Date": null, "Lien Duration": 591, "Status": "Released", "Year Signed": 1999, "Year Released": 2001, "Year Foreclosed": 9999, "Status Per Year": "Signed That Year", "Amount": 25214 }, "geometry": { "type": "Point", "coordinates": [ -81.5571137, 41.5316165 ] } },
+{ "type": "Feature", "properties": { "Release Doc. No.": 200302000000.0, "Bonding Company": "Carson N. Chlepciak,J.C. Bail Bonding Inc.", "Signed Date": "9/24/1999", "Amount_String": "$12,500 ", "Street Number (from Related Lien)": 4086, "Street Name (from Related Lien)": "East 142nd Street", "City (from Related Lien)": "Cleveland", "ZIP (from Related Lien)": 44128, "Address (from Related Lien)": "4086 East 142nd Street, Cleveland, OH 44128", "Latitude": 41.4480123, "Longitude": -81.5857358, "Coordinates (from Related Lien)": "41.4480123, -81.5857358", "Released Date": "2/13/2003", "Foreclosed Date": null, "Lien Duration": 1238, "Status": "Released", "Year Signed": 1999, "Year Released": 2003, "Year Foreclosed": 9999, "Status Per Year": "Signed That Year", "Amount": 12500 }, "geometry": { "type": "Point", "coordinates": [ -81.5857358, 41.4480123 ] } }
+]
+}

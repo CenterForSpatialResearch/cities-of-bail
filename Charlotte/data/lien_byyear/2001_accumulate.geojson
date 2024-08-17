@@ -1,0 +1,9 @@
+{
+"type": "FeatureCollection",
+"name": "2001_accumulate",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "James A. FallenbeckJames A. Fallenbeck - Deed of Release and Reconveyance ", "Bonding Company": "Bail USA,Bail USA", "Amount_String": "$110,000 ", "Signed Date": "7/13/2000", "Street Number (from Lien)": 6305, "Street (from Lien)": "Hanna Court", "Apt. # (from Lien)": null, "City (from Lien)": "Charlotte", "Zip (from Lien)": 28212, "Formula Complete Address (from Lien)": "6305 Hanna Court, Charlotte North Carolina 2812", "Latitude": 35.21764398, "Longitude": -80.75, "Released Date": "9/18/2014", "Foreclosed Date": null, "Lien Duration": null, "Status": "Released", "Year Signed": 2000, "Year Released": 2014, "Year Foreclosed": 9999, "Status Per Year": "Pending", "Amount": 110000 }, "geometry": { "type": "Point", "coordinates": [ -80.75, 35.21764398 ] } },
+{ "type": "Feature", "properties": { "Name": "Jerry E. Wright - Satisfaction of Deed of Trust Release and Reconveyance", "Bonding Company": null, "Amount_String": "$25,000 ", "Signed Date": "5/10/2001", "Street Number (from Lien)": null, "Street (from Lien)": null, "Apt. # (from Lien)": null, "City (from Lien)": null, "Zip (from Lien)": null, "Formula Complete Address (from Lien)": null, "Latitude": null, "Longitude": null, "Released Date": "12/5/2001", "Foreclosed Date": null, "Lien Duration": 209, "Status": "Released", "Year Signed": 2001, "Year Released": 2001, "Year Foreclosed": 9999, "Status Per Year": "Signed That Year, Released That Year", "Amount": 25000 }, "geometry": null }
+]
+}

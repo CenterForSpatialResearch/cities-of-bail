@@ -747,9 +747,9 @@ map.on('load', function () {
                 
                 // 从feature中读取amount和duration属性
                 var amount = feature.properties['Amount']|| ''; 
-                var signdate = feature.properties['Signing Date']|| ''; 
-                var releasedate = feature.properties['Date Release Signed']|| ''; 
-                var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
+                var signdate = feature.properties['Signed Date']|| ''; 
+                var releasedate = feature.properties['Released Date']|| ''; 
+                var foreclosedate = feature.properties['Foreclosed Date']|| ''; 
                 var duration = feature.properties['Lien Duration']|| ''; 
                 var bondcompany = feature.properties['Bonding Company']|| ''; 
                 
@@ -780,24 +780,38 @@ map.on('load', function () {
             console.log(foreclosed);
             console.log(pending);
         
-            if (signed) overallFilters.push(['==', ['get', 'Status_overall'], 'Signed']);
-            if (released) overallFilters.push(['==', ['get', 'Status_overall'], 'Released']);
-            if (foreclosed) {
-                overallFilters.push(['==', ['get', 'Status_overall'], 'Forclosed']);
-                overallFilters.push(['==', ['get', 'Status_overall'], 'Release (before foreclose)']);
-            }
-            if (pending) overallFilters.push(['==', ['get', 'Status_overall'], 'Pending']);
+            const signedFilter = ['==', ['get', 'Status'], 'Signed'];
+            const releasedFilter = ['==', ['get', 'Status'], 'Released'];
+            const foreclosedFilter = ['==', ['get', 'Status'], 'Foreclosed'];
+            const releaseBeforeForeclosedFilter = [
+                '==',
+                ['get', 'Status'],
+                'Release (before foreclose)',
+                ];
+            const pendingFilter = ['==', ['get', 'Status'], 'Pending'];
+
+                if (signed)
+                overallFilters.push(signedFilter);
+                if (released) overallFilters.push(releasedFilter);
+                if (foreclosed) {
+                overallFilters.push(foreclosedFilter, releaseBeforeForeclosedFilter);
+                }
+                if (pending) overallFilters.push(pendingFilter);
+
+    
         
-            // 应用过滤条件到 lien_overall 图层; return overallfilters if at least one checkbox is checked
+            // Apply filtering conditions to the lien_overall layer; return overallfilters if at least one checkbox is checked
             map.setFilter('lien_overall', overallFilters.length > 0 ? overallFilters : null);
         
-            // 针对每个年份层的过滤条件
+            // Filtering conditions for each year layer
             const yearsFilters = ['any'];
-            if (signed) yearsFilters.push(['==', ['get', 'Status Per'], 'Signed That Year']);
-            if (released) yearsFilters.push(['==', ['get', 'Status Per'], 'Released That Year']);
-            if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per'], 'Foreclosed That Year']);
-            if (pending) yearsFilters.push(['==', ['get', 'Status Per'], 'Pending']);
+            if (signed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Signed That Year']);
+            if (released) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Released That Year']);
+            if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Foreclosed That Year']);
+            if (pending) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Pending']);
         
+            
+            
             // 应用过滤条件到每个年份图层
             const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
             years.forEach(year => {

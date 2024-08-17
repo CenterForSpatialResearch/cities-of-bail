@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "1999_accumulate",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"features": [
+{ "type": "Feature", "properties": { "Release Doc. No.": 2005543269, "Bonding Company": "Amwest Surety Ins Co", "Signed Date": "9/20/1999", "Amount_String": null, "Street Number (from Related Lien)": 26767, "Street Name (from Related Lien)": "Trinidad Street", "City (from Related Lien)": "Hayward", "ZIP (from Related Lien)": 94545, "Address (from Related Lien)": "26767 Trinidad Street, Hayward, CA 94545", "Latitude": 37.6319286, "Longitude": -122.1087675, "Released Date": "12/22/2005", "Foreclosed Date": null, "Lien Duration": 2285, "Status": "Released", "Year Signed": 1999, "Year Released": 2005, "Year Foreclosed": 9999, "Status Per Year": "Signed That Year", "Amount": null }, "geometry": { "type": "Point", "coordinates": [ -122.1087675, 37.6319286 ] } }
+]
+}
