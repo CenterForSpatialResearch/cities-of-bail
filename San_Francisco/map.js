@@ -564,7 +564,7 @@ map.on('load', function () {
             
             
             // 应用过滤条件到每个年份图层
-            const years = Array.from({length: 21}, (_, i) => i + 1999); // 从1999到2020年
+            const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {

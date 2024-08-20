@@ -1,7 +1,7 @@
 {
 "type": "FeatureCollection",
 "name": "lien_overall",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:EPSG::3857" } },
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 "features": [
 { "type": "Feature", "properties": { "Name": "David Hill - ", "Bonding Company": "Bail America Bonding", "Amount_String": "$115,000 ", "Signed Date": "6/30/2007", "Street Number (from Lien)": "19512", "Street (from Lien)": "Sunnypoint Court", "Apt. # (from Lien)": null, "City (from Lien)": "Cornelius", "Zip (from Lien)": 28031, "Formula Complete Address (from Lien)": "19512 Sunnypoint Court, Cornelius North Carolina, 28031", "Latitude": 35.47934404, "Longitude": -80.91, "Released Date": null, "Foreclosed Date": null, "Lien Duration": 5664, "Status": "Pending", "Amount": 115000 }, "geometry": { "type": "Point", "coordinates": [ -80.91, 35.47934404 ] } },
 { "type": "Feature", "properties": { "Name": "Miguel Angel Armendariz - Release of Lien ", "Bonding Company": "Gonzales & Gonzales Bonds and Insurance", "Amount_String": "$25,000 ", "Signed Date": "4/21/2009", "Street Number (from Lien)": "4600", "Street (from Lien)": "Carriage Drive Circle", "Apt. # (from Lien)": null, "City (from Lien)": "Charlotte", "Zip (from Lien)": 28205, "Formula Complete Address (from Lien)": "4600 Carriage Drive Cir., Charlotte, NC 28205", "Latitude": 35.21586301, "Longitude": -80.76, "Released Date": "6/8/2011", "Foreclosed Date": null, "Lien Duration": 778, "Status": "Released", "Amount": 25000 }, "geometry": { "type": "Point", "coordinates": [ -80.76, 35.21586301 ] } },
