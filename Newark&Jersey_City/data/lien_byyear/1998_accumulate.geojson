@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "1998_accumulate",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "Jose Solis - Trust Deed and Note Securing Bail Bond", "Bonding Company": "ABC Bail Bonds", "Amount_String": "$10,500.00 ", "Signed Date": "12/1/1998", "Street Number (from Lien)": 1460, "Street Name (from Lien)": "68th Street", "Apt. Number (from Lien)": null, "City (from Lien)": "North Bergen ", "Zip (from Lien)": 7047, "Formula Completing Street Address (from Lien)": "1460 68th Street   North Bergen  07047", "Longitude": -74.020078, "Latitude": 40.798595, "Released Date": null, "Foreclosed Date": null, "Lien Duration": 8797.0, "Status": "Pending", "Year Signed": 1998.0, "Year Released": 9999.0, "Year Foreclosed": 9999, "Status Per Year": "Signed That Year", "Amount": 1050000 }, "geometry": { "type": "Point", "coordinates": [ -74.020078, 40.798595 ] } }
+]
+}

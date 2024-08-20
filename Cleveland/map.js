@@ -194,6 +194,31 @@ map.on('load', function () {
     });
 
     map.addLayer({
+        'id': 'lien_1999',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_byyear/1999_accumulate.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc' 
+            ],
+            'circle-radius': 3, 
+        }
+    });
+    map.setLayoutProperty('lien_1999', 'visibility', 'none');    
+    map.addLayer({
         'id': 'lien_2000',
         'type': 'circle',
         'source': {
@@ -725,6 +750,7 @@ map.on('load', function () {
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
+        map.moveLayer('lien_1999');
         map.moveLayer('lien_2000');
         map.moveLayer('lien_2001');
         map.moveLayer('lien_2002');
@@ -858,7 +884,7 @@ map.on('load', function () {
             
             
             // 应用过滤条件到每个年份图层
-            const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
+            const years = Array.from({length: 21}, (_, i) => i + 1999); // 从1999到2020年
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {
@@ -896,7 +922,7 @@ function updateYearCheckboxes(selectedYear) {
   
 // 根据选中的年份设置地图图层的可见性
 function updateLayerVisibility(selectedYear) {
-    const years = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
+    const years = ["1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
     
     if (!selectedYear || selectedYear === 'all') {
         // 如果选中了'All'，显示'lien_overall'图层，隐藏其他所有年份图层
