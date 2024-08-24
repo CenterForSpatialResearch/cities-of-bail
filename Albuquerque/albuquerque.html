@@ -19,11 +19,44 @@
             </a>
         </div>
         <div class="navbar-right">
-            <a href="#stories">Stories</a>
+            <a href="#stories" id="stories-link">Stories</a>
             <a href="#explore">Explore</a>
             <a href="../about.html">About</a>
         </div>
     </div>
+
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <span id="close-btn" class="close">&times;</span>
+            <h6>Stories</h6>
+            <div id="story-list">
+                <div class="story-item" data-story="intro">
+                    Overview
+                </div>
+                <div class="story-item" data-story="industry">
+                    MArket Concentration
+                </div>
+                <div class="story-item" data-story="neighborhoods">
+                    Reform
+                </div>
+            </div>
+            <div id="story-details" class="hidden">
+                <div id="story-details-content">
+                    <h3 id="story-title"></h3>
+                    <h4 id="story-heading"></h4>
+                    <p id="story-description"></p>
+                    <a id="read-more" href="#">READ MORE ></a>
+                </div>
+            </div>
+            <div id="full-story" class="hidden">
+                <a href="#" id="back-to-stories">&lt; BACK TO ALL CASE STUDIES</a>
+                <h4 id="full-story-title"></h4>
+                <div id="navigation-dots"></div>
+                <div id="story-content"></div>
+            </div>
+        </div>
+    </div>
+
     <div id="sidebar">
         <!-- <h2>CITIES OF BAIL</h2> -->
         <h3>Albuquerque</h3>
@@ -133,9 +166,11 @@
         <div class="image">
             <!-- <img src="data/Group 35.png" alt="img"> -->
         </div>
-        <div id="matrix">
+        <div id="matrix"></div>
+        <div id="matrix2"></div>
+        <div id="matrix3"></div>
 
-        </div>
+        
     </div>
 
     <div class="timeline">

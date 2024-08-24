@@ -6,7 +6,6 @@ console.log('Loaded map.js')
 // your mapbox token
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2l0Mzc3NSIsImEiOiJjbHlsc3Z0bHowYmNmMmtvamZjeG1xYzJjIn0.6DjxqtbCSE9iiq1Xwd3YRw'
 
-
 var map_landing = new mapboxgl.Map({
     container: 'map_landing',
     style: 'mapbox://styles/kit3775/clym09mui01ws01qocfwh98ms',
@@ -18,6 +17,7 @@ var map_landing = new mapboxgl.Map({
     pitch: 0, 
     bearing: 0 
 });
+
 // Center
 var cities = [
     { name: 'Albuquerque', center: [-106.651138, 35.0844], link: 'Albuquerque/albuquerque.html' },
@@ -31,7 +31,7 @@ var cities = [
 ];
 
 // 점의 스타일을 정의하는 함수
-function createMarkerElement() {
+function createMarkerElement(city) {
     // Create a wrapper div for hover and click area
     var wrapper = document.createElement('div');
     wrapper.style.width = '36px'; // Expanded hover and click area size
@@ -52,8 +52,21 @@ function createMarkerElement() {
     marker.style.left = '50%';
     marker.style.transform = 'translate(-50%, -50%)'; // Center marker inside the wrapper
 
-    // Append marker to the wrapper
+    // Create the label element
+    var label = document.createElement('div');
+    label.innerText = city.name;
+    label.style.position = 'absolute';
+    label.style.left = '1.5vw'; // Adjust the position to the right of the marker
+    label.style.top = '0.8vh'; // Adjust the position to vertically center the label
+    label.style.whiteSpace = 'nowrap'; // Prevent text wrapping
+    label.style.padding = '2px 5px'; // Padding to ensure text is readable
+    label.style.borderRadius = '3px'; // Slight rounding of the corners
+    label.style.color = 'white'; // Font color
+    label.style.fontSize = '0.8vw'; // Font size
+
+    // Append marker and label to the wrapper
     wrapper.appendChild(marker);
+    wrapper.appendChild(label);
 
     return wrapper;
 }
@@ -63,7 +76,7 @@ var markers = [];
 // 각 도시에 대해 마커 생성 및 이벤트 처리기 추가
 cities.forEach(function(city) {
     var marker = new mapboxgl.Marker({
-        element: createMarkerElement(), // Use the new marker element with expanded area
+        element: createMarkerElement(city), // Use the new marker element with city label
         draggable: false
     })
     .setLngLat(city.center)
@@ -95,4 +108,19 @@ cities.forEach(function(city) {
 
     // 마커를 markers 배열에 추가
     markers.push(marker);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('stories-link').addEventListener('click', function(event) {   
+        event.preventDefault();   
+        const popup = document.getElementById('popup_main');   
+        popup.classList.remove('hidden_main');   
+        popup.classList.add('visible_main');   
+    });  
+
+    document.getElementById('close-btn_main').addEventListener('click', function() {   
+        const popup = document.getElementById('popup_main');   
+        popup.classList.remove('visible_main');   
+        popup.classList.add('hidden_main');   
+    });
 });

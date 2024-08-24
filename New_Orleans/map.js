@@ -1229,7 +1229,7 @@ yAxisValues.forEach((value, i) => {
        .attr('x', margin.left-36) // 标签在左侧的位置
        .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
        .style('fill', 'white') // 文本颜色
-       .style('font-size', '14px')
+       .style('font-size', '11px')
        .style('alignment-baseline', 'middle') // 文本垂直居中
        .style('text-anchor', 'end') // 文本靠右对齐
        .text(`${value}%`); // 添加文本
@@ -1241,13 +1241,13 @@ xAxisValues.forEach((value, i) => {
        .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
        .attr('y', height + margin.bottom / 2) // 标签在底部的位置
        .style('fill', 'white') 
-       .style('font-size', '14px')// 文本颜色
+       .style('font-size', '11px')// 文本颜色
        .style('text-anchor', 'middle') // 文本水平居中
        .text(`${value}%`); // 添加文本
 });
 
 const yAxisValues2 = d3.range(60, -1, -12);
-const xAxisValues2 = d3.range(0, 101, 20);
+const xAxisLabels2 = ['0', '160k', '320k', '480k', '640k', '800k'];
 
 // 添加Y轴百分比标签
 yAxisValues2.forEach((value, i) => {
@@ -1255,48 +1255,49 @@ yAxisValues2.forEach((value, i) => {
        .attr('x', margin.left-36) // 标签在左侧的位置
        .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
        .style('fill', 'white') // 文本颜色
-       .style('font-size', '14px')
+       .style('font-size', '11px')
        .style('alignment-baseline', 'middle') // 文本垂直居中
        .style('text-anchor', 'end') // 文本靠右对齐
        .text(`${value}%`); // 添加文本
 });
 
 // 添加X轴百分比标签
-xAxisValues2.forEach((value, i) => {
+xAxisLabels2.forEach((label, i) => {
     svg2.append('text')
        .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
        .attr('y', height + margin.bottom / 2) // 标签在底部的位置
        .style('fill', 'white') 
-       .style('font-size', '14px')// 文本颜色
+       .style('font-size', '11px')// 文本颜色
        .style('text-anchor', 'middle') // 文本水平居中
-       .text(`${value}%`); // 添加文本
+       .text(label); // 添加文本
 });
 
-const yAxisValues3 = d3.range(60, -1, -12);
-const xAxisValues3 = d3.range(0, 101, 20);
+const yAxisValues3 = d3.range(0, 101, 20);
+const xAxisValues3 = ['0', '160k', '320k', '480k', '640k', '800k'];
 
 // 添加Y轴百分比标签
 yAxisValues3.forEach((value, i) => {
     svg3.append('text')
-       .attr('x', margin.left-36) // 标签在左侧的位置
-       .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
-       .style('fill', 'white') // 文本颜色
-       .style('font-size', '14px')
-       .style('alignment-baseline', 'middle') // 文本垂直居中
-       .style('text-anchor', 'end') // 文本靠右对齐
-       .text(`${value}%`); // 添加文本
+       .attr('x', margin.left - 36) // 레이블의 X 위치
+       .attr('y', height - i * blockSize - blockSize / 2) // Y축의 레이블 위치 조정
+       .style('fill', 'white') // 텍스트 색상
+       .style('font-size', '11px') // 텍스트 크기
+       .style('alignment-baseline', 'middle') // 텍스트 수직 중앙 정렬
+       .style('text-anchor', 'end') // 텍스트 오른쪽 정렬
+       .text(value.toString() + '%'); // 텍스트 내용
 });
 
 // 添加X轴百分比标签
-xAxisValues3.forEach((value, i) => {
+xAxisValues3.forEach((label, i) => {
     svg3.append('text')
        .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
        .attr('y', height + margin.bottom / 2) // 标签在底部的位置
        .style('fill', 'white') 
-       .style('font-size', '14px')// 文本颜色
+       .style('font-size', '11px')// 文本颜色
        .style('text-anchor', 'middle') // 文本水平居中
-       .text(`${value}%`); // 添加文本
+       .text(label); // 添加文本
 });
+
 
 
 function checkSelection() {

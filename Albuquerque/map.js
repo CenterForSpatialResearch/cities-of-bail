@@ -4,8 +4,8 @@ const map = new mapboxgl.Map({
     style: 'mapbox://styles/hongqianli/cluh62aew033f01qqcszb71kp',
     zoom: 11,
     minZoom: 10.5, 
-    maxZoom: 11.5,
-    center: [-106.6945, 35.0533],
+    maxZoom: 15,
+    center: [-106.6945, 35.0833],
     pitch: 0, 
     bearing: 0 
 });
@@ -98,16 +98,61 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['get', 'BI_R_H-P'],
-                'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
-                'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
-                'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
-                'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
-                'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
+                'E1', '#BF72AF','E2', '#CB91C0','E3', '#D9B2D4','E4', '#EAD6E9','E5', '#FFFFFF',
+                'D1', '#AA6E97','D2', '#B58BA5','D3', '#C2A9B5','D4', '#D0CAC5','D5', '#E0EFD7',
+                'C1', '#946B91','C2', '#9E858D','C3', '#AAA199','C4', '#B6C0A5','C5', '#C5E1B3',
+                'B1', '#756284','B2', '#828783','B3', '#919A7F','B4', '#9DB588','B5', '#A9D591',
+                'A1', '#42535A','A2', '#56826D','A3', '#6BA06E','A4', '#83AC6A','A5', '#8DC96F',
                 '#000000' 
                 ]
             }
         });
         map.setLayoutProperty('race+poverty', 'visibility', 'none');
+
+        map.addLayer({
+            'id': 'poverty+property',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/binarymap/binarymap_Poverty_Property.geojson'
+            },
+            'paint': {
+                'fill-color': [
+                    'match',
+                    ['get', 'Bi2_class'],
+                    'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
+                    'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
+                    'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
+                    'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
+                    'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
+                    '#000000' 
+                    ]
+                }
+            });
+            map.setLayoutProperty('poverty+property', 'visibility', 'none');    
+    
+        map.addLayer({
+            'id': 'race+property',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/binarymap/binarymap_Race_Property.geojson'
+            },
+            'paint': {
+                'fill-color': [
+                    'match',
+                    ['get', 'Bi3_class'],
+                    'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
+                    'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
+                    'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
+                    'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
+                    'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
+                    '#000000' 
+                    ]
+                }
+            });
+            map.setLayoutProperty('race+property', 'visibility', 'none');    
+
 
     map.addLayer({
         'id': 'race_2020_stroke',
@@ -1080,6 +1125,15 @@ d3.select('.company-barchart svg').remove();
 
 // 假设的数据和颜色
 const matrixData = [
+    ["#B4519E", "#BF72AF", "#CB91C0", "#D9B2D4", "#EAD6E9", "#FFFFFF"],
+    ["#A24499", "#AA6E97", "#B58BA5", "#C2A9B5", "#D0CAC5", "#E0EFD7"],
+    ["#8B2D91", "#946B91", "#9E858D", "#AAA199", "#B6C0A5", "#C5E1B3"],
+    ["#5F2772", "#756284", "#828783", "#919A7F", "#9DB588", "#A9D591"],
+    ["#2E0D46", "#42535A", "#56826D", "#6BA06E", "#83AC6A", "#8DC96F"],
+    ["#000000", "#193A1B", "#0B6B37", "#079D49", "#49B74D", "#71BF4E"],
+];
+
+const matrix2Data = [
     ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
     ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
     ["#9300A3", "#93309B", "#915DA5", "#908AAF", "#8EB7B8", "#8CE4C2"],
@@ -1088,6 +1142,16 @@ const matrixData = [
     ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
 ];
 
+const matrix3Data = [
+    ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
+    ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
+    ["#9300A3", "#93309B", "#915DA5", "#908AAF", "#8EB7B8", "#8CE4C2"],
+    ["#610075", "#623468", "#616277", "#609186", "#5FBF95", "#5EEDA4"],
+    ["#2E0047", "#313736", "#30664A", "#30975E", "#2FC671", "#2FF685"],
+    ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
+];
+
+
 // SVG的尺寸和边距
 const margin = { top: 20, right: 20, bottom: 30, left: 32},
         width = 262 - margin.left - margin.right,
@@ -1095,6 +1159,18 @@ const margin = { top: 20, right: 20, bottom: 30, left: 32},
 
 // 创建SVG元素
 const svg = d3.select('#matrix').append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+const svg2 = d3.select('#matrix2').append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+const svg3 = d3.select('#matrix3').append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
@@ -1115,6 +1191,28 @@ matrixData.forEach((row, i) => {
     });
 });
 
+matrix2Data.forEach((row, i) => {
+    row.forEach((color, j) => {
+    svg2.append('rect')
+        .attr('x', j * blockSize)
+        .attr('y', i * blockSize)
+        .attr('width', blockSize)
+        .attr('height', blockSize)
+        .style('fill', color);
+    });
+});
+
+matrix3Data.forEach((row, i) => {
+    row.forEach((color, j) => {
+    svg3.append('rect')
+        .attr('x', j * blockSize)
+        .attr('y', i * blockSize)
+        .attr('width', blockSize)
+        .attr('height', blockSize)
+        .style('fill', color);
+    });
+});
+
 // 创建左侧和底部的百分比标签
 const yAxisValues = d3.range(60, -1, -12);
 const xAxisValues = d3.range(0, 101, 20);
@@ -1125,7 +1223,7 @@ yAxisValues.forEach((value, i) => {
        .attr('x', margin.left-36) // 标签在左侧的位置
        .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
        .style('fill', 'white') // 文本颜色
-       .style('font-size', '14px')
+       .style('font-size', '11px')
        .style('alignment-baseline', 'middle') // 文本垂直居中
        .style('text-anchor', 'end') // 文本靠右对齐
        .text(`${value}%`); // 添加文本
@@ -1137,10 +1235,63 @@ xAxisValues.forEach((value, i) => {
        .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
        .attr('y', height + margin.bottom / 2) // 标签在底部的位置
        .style('fill', 'white') 
-       .style('font-size', '14px')// 文本颜色
+       .style('font-size', '11px')// 文本颜色
        .style('text-anchor', 'middle') // 文本水平居中
        .text(`${value}%`); // 添加文本
 });
+
+const yAxisValues2 = d3.range(60, -1, -12);
+const xAxisLabels2 = ['0', '160k', '320k', '480k', '640k', '800k'];
+
+// 添加Y轴百分比标签
+yAxisValues2.forEach((value, i) => {
+    svg2.append('text')
+       .attr('x', margin.left-36) // 标签在左侧的位置
+       .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
+       .style('fill', 'white') // 文本颜色
+       .style('font-size', '11px')
+       .style('alignment-baseline', 'middle') // 文本垂直居中
+       .style('text-anchor', 'end') // 文本靠右对齐
+       .text(`${value}%`); // 添加文本
+});
+
+// 添加X轴百分比标签
+xAxisLabels2.forEach((label, i) => {
+    svg2.append('text')
+       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
+       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .style('fill', 'white') 
+       .style('font-size', '11px')// 文本颜色
+       .style('text-anchor', 'middle') // 文本水平居中
+       .text(label); // 添加文本
+});
+
+const yAxisValues3 = d3.range(0, 101, 20);
+const xAxisValues3 = ['0', '160k', '320k', '480k', '640k', '800k'];
+
+// 添加Y轴百分比标签
+yAxisValues3.forEach((value, i) => {
+    svg3.append('text')
+       .attr('x', margin.left - 36) // 레이블의 X 위치
+       .attr('y', height - i * blockSize - blockSize / 2) // Y축의 레이블 위치 조정
+       .style('fill', 'white') // 텍스트 색상
+       .style('font-size', '11px') // 텍스트 크기
+       .style('alignment-baseline', 'middle') // 텍스트 수직 중앙 정렬
+       .style('text-anchor', 'end') // 텍스트 오른쪽 정렬
+       .text(value.toString() + '%'); // 텍스트 내용
+});
+
+// 添加X轴百分比标签
+xAxisValues3.forEach((label, i) => {
+    svg3.append('text')
+       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
+       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .style('fill', 'white') 
+       .style('font-size', '11px')// 文本颜色
+       .style('text-anchor', 'middle') // 文本水平居中
+       .text(label); // 添加文本
+});
+
 
 function checkSelection() {
     // 获取每个复选框的状态
@@ -1173,6 +1324,30 @@ function checkSelection() {
     matrixElement.style.display = 'none';
     map.setLayoutProperty('race+poverty', 'visibility', 'none');
     }
+
+     // 显示或隐藏matrix元素
+     const matrixElement2 = document.getElementById('matrix2');
+     if (housingChecked && povertyChecked) {
+       // 如果race和poverty都被选中，则显示matrix元素
+     matrixElement2.style.display = 'block';
+     map.setLayoutProperty('poverty+property', 'visibility', 'visible'); 
+     } else {
+     // 否则隐藏matrix元素
+     matrixElement2.style.display = 'none';
+     map.setLayoutProperty('poverty+property', 'visibility', 'none');
+     }
+ 
+     // 显示或隐藏matrix元素
+     const matrixElement3 = document.getElementById('matrix3');
+     if (housingChecked && raceChecked) {
+       // 如果race和poverty都被选中，则显示matrix元素
+     matrixElement3.style.display = 'block';
+     map.setLayoutProperty('race+property', 'visibility', 'visible'); 
+     } else {
+     // 否则隐藏matrix元素
+     matrixElement3.style.display = 'none';
+     map.setLayoutProperty('race+property', 'visibility', 'none');
+     }
 }
 
 // 为复选框添加事件监听器
@@ -1185,5 +1360,7 @@ document.getElementById('housing2020').addEventListener('change', checkSelection
     document.getElementById('race2020').checked = true;  
     document.getElementById('poverty2020').checked = false;
     document.getElementById('housing2020').checked = false;
+    document.getElementById('matrix2').style.display = 'none'; 
+    document.getElementById('matrix3').style.display = 'none'; 
 
 

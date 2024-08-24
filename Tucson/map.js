@@ -45,8 +45,8 @@ map.on('load', function () {
         'paint': {
             'fill-color': [
                 'case',
-                ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'], null], 'transparent',
-                ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Estimate!!Percent below poverty level!!Population for whom poverty status is determined'],
+                ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'], null], 'transparent',
+                ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'],
                     '#ffffff',
                     0, '#2E0047',
                     12, '#610075',
@@ -97,7 +97,7 @@ map.on('load', function () {
         'paint': {
             'fill-color': [
                 'match',
-                ['get', 'BI_R_H-P'],
+                ['get', 'Bi_class'],
                 'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
                 'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
                 'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
@@ -108,6 +108,52 @@ map.on('load', function () {
             }
         });
         map.setLayoutProperty('race+poverty', 'visibility', 'none');
+
+        map.addLayer({
+            'id': 'poverty+property',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/binarymap/binarymap_Poverty_Property.geojson'
+            },
+            'paint': {
+                'fill-color': [
+                    'match',
+                    ['get', 'Bi2_class'],
+                    'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
+                    'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
+                    'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
+                    'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
+                    'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
+                    '#000000' 
+                    ]
+                }
+            });
+            map.setLayoutProperty('poverty+property', 'visibility', 'none');    
+    
+        map.addLayer({
+            'id': 'race+property',
+            'type': 'fill',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/binarymap/binarymap_Race_Property.geojson'
+            },
+            'paint': {
+                'fill-color': [
+                    'match',
+                    ['get', 'Bi3_class'],
+                    'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
+                    'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
+                    'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
+                    'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
+                    'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
+                    '#000000' 
+                    ]
+                }
+            });
+            map.setLayoutProperty('race+property', 'visibility', 'none');    
+
+            
 
     map.addLayer({
         'id': 'race_2020_stroke',
@@ -147,6 +193,132 @@ map.on('load', function () {
             'circle-radius': 3, 
         }
     });
+
+    map.addLayer({
+        'id': 'lien_2000',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_byyear/2000_accumulate.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc' 
+            ],
+            'circle-radius': 3, 
+        }
+    });
+    map.setLayoutProperty('lien_2000', 'visibility', 'none');
+    map.addLayer({
+        'id': 'lien_2001',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_byyear/2001_accumulate.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc' 
+            ],
+            'circle-radius': 3, 
+        }
+    });
+    map.setLayoutProperty('lien_2001', 'visibility', 'none');
+    map.addLayer({
+        'id': 'lien_2002',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_byyear/2002_accumulate.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc' 
+            ],
+            'circle-radius': 3, 
+        }
+    });
+    map.setLayoutProperty('lien_2002', 'visibility', 'none');
+    map.addLayer({
+        'id': 'lien_2003',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_byyear/2003_accumulate.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc' 
+            ],
+            'circle-radius': 3, 
+        }
+    });
+    map.setLayoutProperty('lien_2003', 'visibility', 'none');
+    map.addLayer({
+        'id': 'lien_2004',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_byyear/2004_accumulate.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc' 
+            ],
+            'circle-radius': 3, 
+        }
+    });
+    map.setLayoutProperty('lien_2004', 'visibility', 'none');
     map.addLayer({
         'id': 'lien_2005',
         'type': 'circle',
@@ -554,6 +726,11 @@ map.on('load', function () {
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
+        map.moveLayer('lien_2000');
+        map.moveLayer('lien_2001');
+        map.moveLayer('lien_2002');
+        map.moveLayer('lien_2003');
+        map.moveLayer('lien_2004');
         map.moveLayer('lien_2005');
         map.moveLayer('lien_2006');
         map.moveLayer('lien_2007');
@@ -616,9 +793,9 @@ map.on('load', function () {
                 
                 // 从feature中读取amount和duration属性
                 var amount = feature.properties['Amount']|| ''; 
-                var signdate = feature.properties['Signing Date']|| ''; 
+                var signdate = feature.properties['Signed Date']|| ''; 
                 var releasedate = feature.properties['Released Date']|| ''; 
-                var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
+                var foreclosedate = feature.properties['Foreclosed Date']|| ''; 
                 var duration = feature.properties['Lien Duration']|| ''; 
                 var bondcompany = feature.properties['Bonding Company']|| ''; 
                 
@@ -626,18 +803,18 @@ map.on('load', function () {
                 var popup = new mapboxgl.Popup()
                     .setLngLat(e.lngLat) 
                     .setHTML(
-                            '<p><b>Amount($)</b>: ' + amount + '</p>' +
-                            '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
-                            '<p><b>Sign date</b>: ' + signdate + '</p>' +
-                            '<p><b>Release date</b>: ' + releasedate + '</p>' +
-                            '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
-                            '<p><b>Duration(year)</b>: ' + duration + '</p>') 
+                                '<p><b>Amount($)</b>: ' + amount + '</p>' +
+                                '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
+                                '<p><b>Sign date</b>: ' + signdate + '</p>' +
+                                '<p><b>Release date</b>: ' + releasedate + '</p>' +
+                                '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
+                                '<p><b>Duration(year)</b>: ' + duration + '</p>') 
                     .addTo(map); 
             }
         });
 
         function filterLayer() {
-            // Filtering conditions for the lien_overall layer
+            // 针对 lien_overall 层的过滤条件
             const overallFilters = ['any'];
             const signed = document.getElementById('liensigned').checked;
             const released = document.getElementById('lienreleased').checked;
@@ -682,7 +859,7 @@ map.on('load', function () {
             
             
             // 应用过滤条件到每个年份图层
-            const years = Array.from({length: 21}, (_, i) => i + 2005); // 从2005到2020年
+            const years = Array.from({length: 21}, (_, i) => i + 2000); // 从2000到2020年
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {
@@ -720,7 +897,7 @@ function updateYearCheckboxes(selectedYear) {
   
 // 根据选中的年份设置地图图层的可见性
 function updateLayerVisibility(selectedYear) {
-    const years = ["2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
+    const years = ["2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
     
     if (!selectedYear || selectedYear === 'all') {
         // 如果选中了'All'，显示'lien_overall'图层，隐藏其他所有年份图层
@@ -931,6 +1108,24 @@ const matrixData = [
     ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
 ];
 
+const matrix2Data = [
+    ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
+    ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
+    ["#9300A3", "#93309B", "#915DA5", "#908AAF", "#8EB7B8", "#8CE4C2"],
+    ["#610075", "#623468", "#616277", "#609186", "#5FBF95", "#5EEDA4"],
+    ["#2E0047", "#313736", "#30664A", "#30975E", "#2FC671", "#2FF685"],
+    ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
+];
+
+const matrix3Data = [
+    ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
+    ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
+    ["#9300A3", "#93309B", "#915DA5", "#908AAF", "#8EB7B8", "#8CE4C2"],
+    ["#610075", "#623468", "#616277", "#609186", "#5FBF95", "#5EEDA4"],
+    ["#2E0047", "#313736", "#30664A", "#30975E", "#2FC671", "#2FF685"],
+    ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
+];
+
 // SVG的尺寸和边距
 const margin = { top: 20, right: 20, bottom: 30, left: 32},
         width = 262 - margin.left - margin.right,
@@ -938,6 +1133,19 @@ const margin = { top: 20, right: 20, bottom: 30, left: 32},
 
 // 创建SVG元素
 const svg = d3.select('#matrix').append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+
+const svg2 = d3.select('#matrix2').append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
+
+const svg3 = d3.select('#matrix3').append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
@@ -958,6 +1166,29 @@ matrixData.forEach((row, i) => {
     });
 });
 
+matrix2Data.forEach((row, i) => {
+    row.forEach((color, j) => {
+    svg2.append('rect')
+        .attr('x', j * blockSize)
+        .attr('y', i * blockSize)
+        .attr('width', blockSize)
+        .attr('height', blockSize)
+        .style('fill', color);
+    });
+});
+
+matrix3Data.forEach((row, i) => {
+    row.forEach((color, j) => {
+    svg3.append('rect')
+        .attr('x', j * blockSize)
+        .attr('y', i * blockSize)
+        .attr('width', blockSize)
+        .attr('height', blockSize)
+        .style('fill', color);
+    });
+});
+
+
 // 创建左侧和底部的百分比标签
 const yAxisValues = d3.range(60, -1, -12);
 const xAxisValues = d3.range(0, 101, 20);
@@ -968,7 +1199,7 @@ yAxisValues.forEach((value, i) => {
        .attr('x', margin.left-36) // 标签在左侧的位置
        .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
        .style('fill', 'white') // 文本颜色
-       .style('font-size', '14px')
+       .style('font-size', '11px')
        .style('alignment-baseline', 'middle') // 文本垂直居中
        .style('text-anchor', 'end') // 文本靠右对齐
        .text(`${value}%`); // 添加文本
@@ -980,10 +1211,64 @@ xAxisValues.forEach((value, i) => {
        .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
        .attr('y', height + margin.bottom / 2) // 标签在底部的位置
        .style('fill', 'white') 
-       .style('font-size', '14px')// 文本颜色
+       .style('font-size', '11px')// 文本颜色
        .style('text-anchor', 'middle') // 文本水平居中
        .text(`${value}%`); // 添加文本
 });
+
+const yAxisValues2 = d3.range(60, -1, -12);
+const xAxisLabels2 = ['0', '160k', '320k', '480k', '640k', '800k'];
+
+// 添加Y轴百分比标签
+yAxisValues2.forEach((value, i) => {
+    svg2.append('text')
+       .attr('x', margin.left-36) // 标签在左侧的位置
+       .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
+       .style('fill', 'white') // 文本颜色
+       .style('font-size', '11px')
+       .style('alignment-baseline', 'middle') // 文本垂直居中
+       .style('text-anchor', 'end') // 文本靠右对齐
+       .text(`${value}%`); // 添加文本
+});
+
+// 添加X轴百分比标签
+xAxisLabels2.forEach((label, i) => {
+    svg2.append('text')
+       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
+       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .style('fill', 'white') 
+       .style('font-size', '11px')// 文本颜色
+       .style('text-anchor', 'middle') // 文本水平居中
+       .text(label); // 添加文本
+});
+
+const yAxisValues3 = d3.range(0, 101, 20);
+const xAxisValues3 = ['0', '160k', '320k', '480k', '640k', '800k'];
+
+// 添加Y轴百分比标签
+yAxisValues3.forEach((value, i) => {
+    svg3.append('text')
+       .attr('x', margin.left - 36) // 레이블의 X 위치
+       .attr('y', height - i * blockSize - blockSize / 2) // Y축의 레이블 위치 조정
+       .style('fill', 'white') // 텍스트 색상
+       .style('font-size', '11px') // 텍스트 크기
+       .style('alignment-baseline', 'middle') // 텍스트 수직 중앙 정렬
+       .style('text-anchor', 'end') // 텍스트 오른쪽 정렬
+       .text(value.toString() + '%'); // 텍스트 내용
+});
+
+// 添加X轴百分比标签
+xAxisValues3.forEach((label, i) => {
+    svg3.append('text')
+       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
+       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .style('fill', 'white') 
+       .style('font-size', '11px')// 文本颜色
+       .style('text-anchor', 'middle') // 文本水平居中
+       .text(label); // 添加文本
+});
+
+
 
 function checkSelection() {
     // 获取每个复选框的状态
@@ -1016,7 +1301,32 @@ function checkSelection() {
     matrixElement.style.display = 'none';
     map.setLayoutProperty('race+poverty', 'visibility', 'none');
     }
+
+    // 显示或隐藏matrix元素
+    const matrixElement2 = document.getElementById('matrix2');
+    if (housingChecked && povertyChecked) {
+      // 如果race和poverty都被选中，则显示matrix元素
+    matrixElement2.style.display = 'block';
+    map.setLayoutProperty('poverty+property', 'visibility', 'visible'); 
+    } else {
+    // 否则隐藏matrix元素
+    matrixElement2.style.display = 'none';
+    map.setLayoutProperty('poverty+property', 'visibility', 'none');
+    }
+
+    // 显示或隐藏matrix元素
+    const matrixElement3 = document.getElementById('matrix3');
+    if (housingChecked && raceChecked) {
+      // 如果race和poverty都被选中，则显示matrix元素
+    matrixElement3.style.display = 'block';
+    map.setLayoutProperty('race+property', 'visibility', 'visible'); 
+    } else {
+    // 否则隐藏matrix元素
+    matrixElement3.style.display = 'none';
+    map.setLayoutProperty('race+property', 'visibility', 'none');
+    }
 }
+
 
 // 为复选框添加事件监听器
 document.getElementById('race2020').addEventListener('change', checkSelection);
@@ -1028,3 +1338,5 @@ document.getElementById('housing2020').addEventListener('change', checkSelection
     document.getElementById('race2020').checked = true;  
     document.getElementById('poverty2020').checked = false;
     document.getElementById('housing2020').checked = false;
+    document.getElementById('matrix2').style.display = 'none'; 
+    document.getElementById('matrix3').style.display = 'none'; 
