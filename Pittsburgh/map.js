@@ -3,8 +3,8 @@ const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/hongqianli/cluh62aew033f01qqcszb71kp',
     zoom: 11,
-    minZoom: 10.5, 
-    maxZoom: 11.5,
+    minZoom: 10, 
+    maxZoom: 15,
     center: [-79.9959, 40.4406],
     pitch: 0, 
     bearing: 0 
