@@ -173,11 +173,6 @@ map.on('load', function () {
 
 
 
-
-
-
-
-
     // map.addLayer({
     //     'id': 'lien_overall',
     //     'type': 'circle',

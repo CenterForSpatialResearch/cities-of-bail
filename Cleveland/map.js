@@ -193,595 +193,730 @@ map.on('load', function () {
         }
     });
 
-    map.addLayer({
-        'id': 'lien_1999',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/1999_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_1999', 'visibility', 'none');    
-    map.addLayer({
-        'id': 'lien_2000',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2000_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2000', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2001',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2001_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2001', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2002',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2002_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2002', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2003',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2003_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2003', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2004',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2004_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2004', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2005',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2005_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2005', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2006',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2006_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2006', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2007',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2007_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2007', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2008',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2008_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2008', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2009',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2009_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2009', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2010',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2010_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2010', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2011',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2011_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2011', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2012',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2012_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2012', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2013',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2013_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2013', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2014',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2014_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2014', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2015',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2015_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2015', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2016',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2016_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2016', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2017',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2017_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2017', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2018',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2018_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2018', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2019',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2019_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2019', 'visibility', 'none');
-    map.addLayer({
-        'id': 'lien_2020',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_byyear/2020_accumulate.geojson'
-        },
-        'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc' 
-            ],
-            'circle-radius': 3, 
-        }
-    });
-    map.setLayoutProperty('lien_2020', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_1999',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/1999_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_1999', 'visibility', 'none');    
+    // map.addLayer({
+    //     'id': 'lien_2000',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2000_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2000', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2001',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2001_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2001', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2002',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2002_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2002', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2003',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2003_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2003', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2004',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2004_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2004', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2005',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2005_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2005', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2006',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2006_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2006', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2007',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2007_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2007', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2008',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2008_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2008', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2009',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2009_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2009', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2010',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2010_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2010', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2011',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2011_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2011', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2012',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2012_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2012', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2013',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2013_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2013', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2014',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2014_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2014', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2015',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2015_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2015', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2016',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2016_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2016', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2017',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2017_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2017', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2018',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2018_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2018', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2019',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2019_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2019', 'visibility', 'none');
+    // map.addLayer({
+    //     'id': 'lien_2020',
+    //     'type': 'circle',
+    //     'source': {
+    //         'type': 'geojson',
+    //         'data': 'data/lien_byyear/2020_accumulate.geojson'
+    //     },
+    //     'paint': {
+    //         'circle-color': [
+    //             'case',
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], 
+    //             ['step', ['get', 'Amount'], 
+    //                 '#ffffff', 0,
+    //                 '#ffa463', 35350,
+    //                 '#ff8363', 85000,
+    //                 '#ff6263', 164500,
+    //                 '#ff4062', 305500,
+    //                 '#ff1f62'
+    //             ],
+    //             '#cccccc' 
+    //         ],
+    //         'circle-radius': 3, 
+    //     }
+    // });
+    // map.setLayoutProperty('lien_2020', 'visibility', 'none');
 
+
+    // Generate a list of year strings given a start and end year
+    function provideYears(startYear, endYear) {
+        let yearsArray = [];
+        for (let year = parseInt(startYear); year <= parseInt(endYear); year++) {
+            yearsArray.push(year.toString());
+        }
+        return yearsArray;
+    }
+    
+    let yearsList = provideYears("2000", "2020"); // ("start year", "end year")
+
+    // Function to update the map layer based on selected option
+    function updateMapLayer(selectedOption) {
+        let colorExpression;
+
+        if (selectedOption === 'option1') {
+            colorExpression = [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                ['step', ['get', 'Amount'], 
+                    '#ffffff', 0,
+                    '#ffa463', 35350,
+                    '#ff8363', 85000,
+                    '#ff6263', 164500,
+                    '#ff4062', 305500,
+                    '#ff1f62'
+                ],
+                '#cccccc'
+            ];
+        } else if (selectedOption === 'option2') {
+            colorExpression = [
+                'case',
+                ['==', ['typeof', ['get', 'Lien Duration']], 'number'],
+                ['step', ['get', 'Lien Duration'],
+                    '#ffffff', 0,             // Division 1: 0 to 1824
+                    '#ffa463', 1825,          // Division 2: 1825 to 3649
+                    '#ff8363', 3650,          // Division 3: 3650 to 5474
+                    '#ff6263', 5475,          // Division 4: 5475 to 7299
+                    '#ff4062', 7300,           // Division 5: 7300 to 9124
+                    '#ff1f62'
+                ],
+                '#cccccc'
+            ];
+        }
+
+        // For each year, apply the paint property for the lien
+        yearsList.forEach(function(year) {
+            let layerName = 'lien_' + year;
+            map.setPaintProperty(layerName, 'circle-color', colorExpression);
+        });
+    }
+
+    // For each year, apply the paint property for the lien
+    yearsList.forEach(function(year) {
+        let lienYear = 'lien_' + year;
+        // Initial map layer setup
+        map.addLayer({
+            'id': lienYear,
+            'type': 'circle',
+            'source': {
+                'type': 'geojson',
+                'data': 'data/lien_byyear/' + year + '_accumulate.geojson'
+            },
+            'paint': {
+                'circle-color': [
+                    'case',
+                    ['==', ['typeof', ['get', 'Amount']], 'number'], 
+                    ['step', ['get', 'Amount'], 
+                        '#ffffff', 0,
+                        '#ffa463', 35350,
+                        '#ff8363', 85000,
+                        '#ff6263', 164500,
+                        '#ff4062', 305500,
+                        '#ff1f62'
+                    ],
+                    '#cccccc'
+                ],
+                'circle-radius': 3
+            }
+        });
+
+    });
+    
+    // Event listener for dropdown menu changes
+    document.getElementById('bond-select').addEventListener('change', function() {
+        const selectedOption = this.value;
+        updateMapLayer(selectedOption);
+    });
+    
+    
+    let hoveredFeatureId = null;
+
+    
+    // lien_overall 레이어 추가
+    map.addLayer({
+        'id': 'lien_overall',
+        'type': 'circle',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/lien_overall/lien_overall.geojson'
+        },
+        'paint': {
+            'circle-color': [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'],
+                ['step', ['get', 'Amount'], '#ffffff', 0, '#ffa463', 35350, '#ff8363', 85000, '#ff6263', 164500, '#ff4062', 305500, '#ff1f62'],
+                '#cccccc'
+            ],
+            'circle-radius': [
+                'case',
+                ['boolean', ['feature-state', 'hover'], false],
+                10.5, // Hover radius
+                3 // Default radius
+            ],
+            'circle-opacity': 0.8
+        }
+    });
 
 
     // 确保道路和水体图层在自定义图层之上
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
-        map.moveLayer('lien_1999');
-        map.moveLayer('lien_2000');
-        map.moveLayer('lien_2001');
-        map.moveLayer('lien_2002');
-        map.moveLayer('lien_2003');
-        map.moveLayer('lien_2004');
-        map.moveLayer('lien_2005');
-        map.moveLayer('lien_2006');
-        map.moveLayer('lien_2007');
-        map.moveLayer('lien_2008');
-        map.moveLayer('lien_2009');
-        map.moveLayer('lien_2010');
-        map.moveLayer('lien_2011');
-        map.moveLayer('lien_2012');
-        map.moveLayer('lien_2013');
-        map.moveLayer('lien_2014');
-        map.moveLayer('lien_2015');
-        map.moveLayer('lien_2016');
-        map.moveLayer('lien_2017');
-        map.moveLayer('lien_2018');
-        map.moveLayer('lien_2019');
-        map.moveLayer('lien_2020');
+        // For each year in the list, move the year lien layer
+        yearsList.forEach(function(year) {
+            let layerName = 'lien_' + year;
+            map.moveLayer(layerName);
+        });
         map.moveLayer('poi-label');
         map.moveLayer('waterway-label');
         map.moveLayer('airport-label');
         map.moveLayer('road-label-simple');
 
         const style = map.getStyle();
-        console.log(style);
     // 根据选项值获取对应的属性名称
 
-     // 마우스 엔터 이벤트 핸들링
+    // // 确保道路和水体图层在自定义图层之上
+    //     map.moveLayer('water');
+    //     map.moveLayer('road-simple');
+    //     map.moveLayer('lien_overall');
+    //     map.moveLayer('lien_1999');
+    //     map.moveLayer('lien_2000');
+    //     map.moveLayer('lien_2001');
+    //     map.moveLayer('lien_2002');
+    //     map.moveLayer('lien_2003');
+    //     map.moveLayer('lien_2004');
+    //     map.moveLayer('lien_2005');
+    //     map.moveLayer('lien_2006');
+    //     map.moveLayer('lien_2007');
+    //     map.moveLayer('lien_2008');
+    //     map.moveLayer('lien_2009');
+    //     map.moveLayer('lien_2010');
+    //     map.moveLayer('lien_2011');
+    //     map.moveLayer('lien_2012');
+    //     map.moveLayer('lien_2013');
+    //     map.moveLayer('lien_2014');
+    //     map.moveLayer('lien_2015');
+    //     map.moveLayer('lien_2016');
+    //     map.moveLayer('lien_2017');
+    //     map.moveLayer('lien_2018');
+    //     map.moveLayer('lien_2019');
+    //     map.moveLayer('lien_2020');
+    //     map.moveLayer('poi-label');
+    //     map.moveLayer('waterway-label');
+    //     map.moveLayer('airport-label');
+    //     map.moveLayer('road-label-simple');
+
+    //     const style = map.getStyle();
+    //     console.log(style);
+    // // 根据选项值获取对应的属性名称
+
+        // 마우스 엔터 이벤트 핸들링
      map.on('mouseenter', 'lien_overall', function (e) {
         map.getCanvas().style.cursor = 'pointer';
         if (e.features.length > 0) {
@@ -920,21 +1055,20 @@ function updateYearCheckboxes(selectedYear) {
     updateLayerVisibility(selectedYear);
 }
   
-// 根据选中的年份设置地图图层的可见性
+
+// 根据选中的年份设置地图图层的可见性 Set the visibility of the map layers based on the selected year
 function updateLayerVisibility(selectedYear) {
-    const years = ["1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
-    
     if (!selectedYear || selectedYear === 'all') {
         // 如果选中了'All'，显示'lien_overall'图层，隐藏其他所有年份图层
         map.setLayoutProperty('lien_overall', 'visibility', 'visible');
-        years.forEach(year => {
+        yearsList.forEach(year => {
             if (map.getLayer('lien_' + year)) {
                 map.setLayoutProperty('lien_' + year, 'visibility', 'none');
             }
         });
     } else {
         // 否则，显示选中年份的图层，隐藏'lien_overall'以及其他所有年份图层
-        years.forEach(year => {
+        yearsList.forEach(year => {
             if (map.getLayer('lien_' + year)) {
                 map.setLayoutProperty('lien_' + year, 'visibility', year === selectedYear ? 'visible' : 'none');
             }
@@ -1119,9 +1253,30 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
         ]);
         d3.select('.company-barchart svg').remove();
         incomeLegend.style.display = ''; 
+
+    } else if (e.target.value === 'option2') { // Add a new option for Lien Duration
+        
+        map.setPaintProperty('lien_overall', 'circle-color', [
+            'case',
+            ['==', ['typeof', ['get', 'Lien Duration']], 'number'], // Check if the Lien Duration field exists and is a number
+            ['step', 
+                ['get', 'Lien Duration'],
+                '#ffffff', 0,        // Division 1: 0 to 1824
+                '#ffa463', 1825,     // Division 2: 1825 to 3649
+                '#ff8363', 3650,     // Division 3: 3650 to 5474
+                '#ff6263', 5475,     // Division 4: 5475 to 7299
+                '#ff4062', 7300,     // Division 5: 7300 to 9124
+                '#ff1f62'            // Default color if above 9124 or no data
+            ],
+            '#cccccc' // Default color if Lien Duration is not a number
+        ]);
+        d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
+        incomeLegend.style.display = 'none'; // Hide the income legend
+        durationLegend.style.display = ''; // Enable the duration legend
     }
 });
-d3.select('.company-barchart svg').remove();
+d3.select('.company-barchart svg').remove(); // Ensure the chart is cleared initially
+
 
 // 假设的数据和颜色
 const matrixData = [
