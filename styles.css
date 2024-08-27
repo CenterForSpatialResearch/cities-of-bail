@@ -280,7 +280,7 @@ input[type="checkbox"]:checked {
 .timeline {
 	position: fixed;
     bottom: 16px;
-    left: 360px;
+    left: 25vw;
     padding: 10px;
     overflow-x: auto;
     white-space: nowrap;
@@ -556,8 +556,13 @@ h6{
     border: 1px solid #242424;
 }
 
-#popup .popup-content {
+#popup_main .popup-content {
     transition: all 0.3s ease;
+}
+
+.popup-content_main {
+    
+    padding: 1vw;
 }
 
 /* Add detailed story styles */
