@@ -10,6 +10,19 @@ const map = new mapboxgl.Map({
     bearing: 0 
 });
 
+map.on('load', function() {
+    // Find the water layer and update its paint properties
+    const waterLayer = map.getStyle().layers.find(layer => layer.id === 'water');
+
+    if (waterLayer) {
+        // Update paint properties for the water layer
+        map.setPaintProperty('water', 'fill-color', '#9e9e9e'); // Change to desired color (e.g., bright blue)
+        map.setPaintProperty('water', 'fill-opacity', 1.0); // Optional: Adjust opacity
+    } else {
+        console.error('Water layer not found');
+    }
+});
+
 map.on('load', function () {
     map.addLayer({
         'id': 'race_2020',

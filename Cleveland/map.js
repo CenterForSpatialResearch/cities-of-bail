@@ -1,13 +1,27 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoiaG9uZ3FpYW5saSIsImEiOiJjbGticW84cjIwaGRjM2xvNjNrMjh4cmRyIn0.o65hBMiuqrCXY-3-bxGsUg';
+
 const map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/hongqianli/cluh62aew033f01qqcszb71kp',
     zoom: 11,
-    minZoom: 10.5, 
+    minZoom: 10.5,
     maxZoom: 11.5,
     center: [-81.681290, 41.505493],
-    pitch: 0, 
-    bearing: 0 
+    pitch: 0,
+    bearing: 0
+});
+
+map.on('load', function() {
+    // Find the water layer and update its paint properties
+    const waterLayer = map.getStyle().layers.find(layer => layer.id === 'water');
+
+    if (waterLayer) {
+        // Update paint properties for the water layer
+        map.setPaintProperty('water', 'fill-color', '#9e9e9e'); // Change to desired color (e.g., bright blue)
+        map.setPaintProperty('water', 'fill-opacity', 1.0); // Optional: Adjust opacity
+    } else {
+        console.error('Water layer not found');
+    }
 });
 
 map.on('load', function () {

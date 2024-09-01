@@ -20,12 +20,12 @@ body {
 }
 
 #container {
-    position: absolute; /* 위치를 상대적으로 지정 */
+    position: absolute; 
     width: 100vw;
     max-width: 100%;
     margin: 0px;
     margin-top: 0px;
-    height: 100vh; /* 높이를 유동적으로 지정 */
+    height: 100vh; 
     text-align: justify;
 }
 
@@ -33,7 +33,7 @@ body {
     position: absolute;
     top: 10vh;
     left: 35vw;
-    width: 65vw; /* 오른쪽 여백과 사이드바 너비를 뺀 너비 */
+    width: 65vw; 
     height: calc(100% - 50px); 
 }
 
@@ -81,19 +81,19 @@ h2 {
 
 .location_description {
     position: absolute;
-    top: 37.5vh; /* 위치를 조정하기 위해 top을 설정 */
-    left: 0.4vw; /* 오른쪽으로 배치 */
-    width: 200px; /* 너비 설정 */
+    
+    left: 0.4vw; 
+    width: 200px;
     padding: 10px;
     color: #888;
     display: flex;
     flex-direction: column;
-    z-index: 105; /* 위치 설명이 위치 항목 위에 오도록 설정 */
+    z-index: 105; 
 }
 
-/* location_description 안의 small 태그 스타일 */
+/* Small tag stlye in location_description */
 .location_description small {
-    margin-top: 2.5vh;
+    margin-top: .8vh;
     display: block;
 }
 .read-more {
@@ -131,9 +131,9 @@ h5 {font-size: 14px;}
 .navbar {
     position: absolute;
 	font-family: helvetica;
-    display: flex; /* 开启Flexbox布局 */
-    justify-content: space-between; /* 两端对齐 */
-    align-items: center; /* 垂直居中 */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
     left: 0vw;
     top: 0px;
     width: 100vw; 
@@ -381,29 +381,25 @@ input[type="checkbox"]:checked {
     font-size: 20px;
     color: rgb(195, 248, 255); 
 }
-/*추가*/
+
 #map .mapboxgl-popup {
-    /* 팝업 전체적인 스타일 */
-    max-width: 300px; /* 팝업의 최대 너비 설정 */
-    background-color: white; /* 배경색 설정 */
-    border: 1px solid #ccc; /* 테두리 설정 */
-    border-radius: 4px; /* 테두리 모서리의 곡률 설정 */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* 그림자 설정 */
-    padding: 10px; /* 안쪽 여백 설정 */
-    transition: transform 0.2s ease; /* 변환 효과 추가 */
+    max-width: 300px; 
+    background-color: white; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    padding: 10px; 
+    transition: transform 0.2s ease; 
 }
 
 #map .mapboxgl-popup-content {
-    /* 팝업 내용의 스타일 */
-    color: #333; /* 텍스트 색상 설정 */
-    font-size: 14px; /* 글꼴 크기 설정 */
+    color: #333; 
+    font-size: 14px; 
 }
 
 #map .mapboxgl-popup-close-button {
-    /* 팝업 닫기 버튼의 스타일 */
-    font-size: 16px; /* 버튼의 글꼴 크기 설정 */
-    color: #999; /* 버튼 색상 설정 */
-    /* 기타 필요한 스타일 설정 */
+    font-size: 16px; 
+    color: #999; 
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -584,7 +580,6 @@ h6{
     display: none;
 }
 
-/* 네비게이션 점 스타일 */
 #navigation-dots {
     display: flex;
     justify-content: center;
@@ -607,27 +602,27 @@ h6{
 }
 
 a:visited {
-    color: white; /* 방문한 링크 색상을 흰색으로 설정 */
+    color: white; /* white color for visited link */
     text-decoration: none;
 }
 
 .navbar-left a {
-    color: white; /* 링크 텍스트 색상 */
-    text-decoration: none; /* 밑줄 제거 */
+    color: white; 
+    text-decoration: none; 
 }
 
 .navbar-left a:visited {
-    color: white; /* 방문한 링크 텍스트 색상 */
-    text-decoration: none; /* 밑줄 제거 */
+    color: white; 
+    text-decoration: none; 
 }
 
 .navbar-left a:hover {
-    color: white; /* 호버된 링크 텍스트 색상 */
-    text-decoration: none; /* 밑줄 제거 */
+    color: white; 
+    text-decoration: none; 
 }
 
 .navbar-left a:active {
-    color: white; /* 클릭된 상태의 링크 텍스트 색상 */
-    text-decoration: none; /* 밑줄 제거 */
+    color: white; 
+    text-decoration: none; 
 }
 
