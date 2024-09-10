@@ -1197,6 +1197,7 @@ svg.selectAll(".text")
 
 document.getElementById('bond-select').addEventListener('change', function(e) {
     var incomeLegend = document.getElementById('income-legend');
+    var durationLegend = document.getElementById('duration-legend');
     if (e.target.value ===  'option3') {
         map.setPaintProperty('lien_overall', 'circle-color', [
             'match',
@@ -1213,10 +1214,11 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
             'Gonzales Bail Bonds', '#FEBA2A',
             '#949494' 
         ]);
-        incomeLegend.style.display = 'none';
+        incomeLegend.style.display = 'none'; // Hide the income legend
+        durationLegend.style.display = 'none'; // Disable the duration legend
+        d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
+        drawBarChart(data); // Redraw the bar chart
 
-        d3.select('.company-barchart svg').remove();
-        drawBarChart(data);
     } else if (e.target.value === 'option1') {
         
         map.setPaintProperty('lien_overall', 'circle-color', [
@@ -1233,11 +1235,11 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
             ],
             '#cccccc' // 默认颜色，用于Amount不存在或不为数字的情况
         ]);
-        d3.select('.company-barchart svg').remove();
-        incomeLegend.style.display = ''; 
+        durationLegend.style.display = 'none'; // Disable the duration legend
+        d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
+        incomeLegend.style.display = ''; // Enable the income legend
+       
 
-
-        
     } else if (e.target.value === 'option2') { // Add a new option for Lien Duration
         
         map.setPaintProperty('lien_overall', 'circle-color', [
@@ -1260,6 +1262,7 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
     }
 });
 d3.select('.company-barchart svg').remove(); // Ensure the chart is cleared initially
+
 
 
 // 假设的数据和颜色
