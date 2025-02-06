@@ -24,9 +24,9 @@ var cities = [
     { name: 'Charlotte', center: [-80.8431, 35.2271], link: 'Charlotte/charlotte.html' },
     { name: 'Cleveland', center: [-81.681290, 41.505493], link: 'Cleveland/cleveland.html' },
 //{ name: 'New Orleans', center: [-90.071533, 29.951065], link: 'New_Orleans/new_orleans.html' },
-    { name: 'Newark&Jersey City', center: [-74.0776, 40.7282], link: 'Newark&Jersey_City/newark&jersey_city.html' },
+    { name: 'Newark & Jersey City', center: [-74.0776, 40.7282], link: 'Newark&Jersey_City/newark&jersey_city.html' },
     { name: 'Pittsburgh', center: [-79.9959, 40.4406], link: 'Pittsburgh/pittsburgh.html' },
-    { name: 'San Francsico', center: [-122.431297, 37.773972], link: 'San_Francisco/san_francisco.html' },
+    { name: 'San Francsico & Oakland', center: [-122.431297, 37.773972], link: 'San_Francisco/san_francisco.html' },
     { name: 'Tucson', center: [-110.9265, 32.2226], link: 'Tucson/tucson.html' }
 ];
 
