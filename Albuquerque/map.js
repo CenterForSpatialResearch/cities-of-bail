@@ -1465,5 +1465,6 @@ document.getElementById('housing2020').addEventListener('change', checkSelection
     document.getElementById('housing2020').checked = false;
     document.getElementById('matrix2').style.display = 'none'; 
     document.getElementById('matrix3').style.display = 'none'; 
+    document.getElementById('race-select').value = 'option6';
 
 
