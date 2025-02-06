@@ -21,14 +21,14 @@ map.on('load', function () {
         'paint': {
             'fill-color': [
                 'case',
-                ['==', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'], null], 'transparent',
-                ['step', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'],
+                ['==', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: Hispanic or Latino'], null], 'transparent',
+                ['step', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: Hispanic or Latino'],
                     '#ffffff',
-                    0, '#003A04',
-                    20, '#006B1D',
-                    40, '#009D36',
-                    60, '#00CE4E',
-                    80, '#00FF67'
+                    0, '#011356',
+                    20, '#01417F',
+                    40, '#016EA8',
+                    60, '#009CD0',
+                    80, '#00CAF9'
                 ]
             ],
             'fill-opacity': 1
@@ -73,11 +73,11 @@ map.on('load', function () {
                 ['==', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'], null], 'transparent',
                 ['step', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'],
                     '#ffffff',
-                    0, '#011356',
-                    160000, '#01417F',
-                    320000, '#016EA8',
-                    480000, '#009CD0',
-                    640000, '#00CAF9'
+                    0, '#003A04',
+                    160000, '#006B1D',
+                    320000, '#009D36',
+                    480000, '#00CE4E',
+                    640000, '#00FF67'
                 ]
             ],
             'fill-opacity': 1
