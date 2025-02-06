@@ -536,6 +536,7 @@ h6{
     text-decoration: none;
     display: inline-block;
     margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 #read-more:hover {
