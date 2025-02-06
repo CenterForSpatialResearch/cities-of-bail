@@ -1062,11 +1062,11 @@ document.getElementById('race-select').addEventListener('change', function(e) {
             ['==', ['get', propertyName], null], 'transparent',
             ['step', ['get', propertyName],
                 '#ffffff',
-                0, '#003A04',
-                20, '#006B1D',
-                40, '#009D36',
-                60, '#00CE4E',
-                80, '#00FF67'
+                0, '#011356',
+                20, '#01417F',
+                40, '#016EA8',
+                60, '#009CD0',
+                80, '#00CAF9'
             ]
         ]);
     }
