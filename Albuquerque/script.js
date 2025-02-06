@@ -53,6 +53,7 @@ const stories = {
     }, 
     neighborhoods: { 
         title: "Reform", 
+        heading: "",
         description: [ 
             "On November 6, 2014, the New Mexico Supreme Court handed down a unanimous opinion in the landmark case of State v. Brown. Reviewing the historical purpose and constitutional law of bail, the Court ruled that money bail amounts should be proven by evidence to be the least restrictive means of returning defendants to court. Though dealing with only a single case, the decision implied that many bail bonds in New Mexico were unconstitutionally excessive.", 
             "Following the ruling, New Mexico did not abolish cash bail, but it significantly reformed its system. Voters approved a constitutional amendment in 2016, and in July 2017 the state supreme court issued new rules to judges. The result was that judges were given discretion to order detention outright, subject to rigorous procedural safeguards, or else to release defendants on the least restrictive conditions such as house arrest, ankle monitoring, or weekly check-ins. While money bail is still a legal condition in New Mexico, judges ordered it much more rarely after the new rules.", 
