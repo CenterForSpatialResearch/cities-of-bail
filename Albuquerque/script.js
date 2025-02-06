@@ -26,7 +26,7 @@ document.getElementById('close-btn').addEventListener('click', function() {
 const stories = { 
     intro: { 
         title: "Overview", 
-        heading: "Overview", 
+        heading: "", 
         description: "From 2000 to 2020, over 850 liens were recorded in Albuquerque, a city of around 250,000 households. Bond underwriting fell off sharply in 2015 after New Mexico enacted far-reaching bail reform.", 
         content: [ 
             "Albuquerque is the most populous city in Bernalillo County, the most populous county in New Mexico. From 2000 to 2020, the county averaged a population of 632,000, spanning 258,000 households. Population moderately increased over the period.", 
@@ -40,7 +40,7 @@ const stories = {
     }, 
     industry: { 
         title: "Market Concentration", 
-        heading: "Market Concentration", 
+        heading: "", 
         description: "Albuquerque exhibits a highly concentrated commercial bail industry, with basically two firms underwriting all high-end bail bonds.", 
         content: [ 
             "The largest recorder of bail liens is AAA Bail Bonds, located—as many bail bond shops are—one block behind the courthouses in downtown Albuquerque.", 
