@@ -23,6 +23,23 @@ body {
     margin-bottom: 2vh;
 }
 
+.popup-content_main a {
+    display: block;  /* This puts each link on its own line */
+    color: white;
+    text-decoration: none;  /* Removes underline */
+    margin-bottom: 1.5vh;  /* Adds space between entries */
+    font-size: 1.1vw;  /* Makes font size responsive */
+    padding: 0.5vh 0;  /* Adds some vertical padding to each entry */
+}
+
+.popup-content_main a:hover {
+    color: #b5b5b5;  /* Optional: changes color on hover */
+}
+
+.popup-content_main h3 {
+    margin-bottom: 2vh;  /* Adds space after the "Click to Learn More" header */
+}
+
 #container {
     position: absolute; 
     width: 100vw;
