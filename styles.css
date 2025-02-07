@@ -33,8 +33,9 @@ body {
     position: absolute;
     top: 10vh;
     left: 35vw;
-    width: 65vw; 
-    height: calc(100% - 50px); 
+    width: 65vw;
+    height: 90vh; /* Changed from calc(100% - 50px) to 90vh to match with top offset */
+    bottom: 0;
 }
 
 
