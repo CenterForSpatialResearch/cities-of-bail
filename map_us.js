@@ -6,9 +6,6 @@ console.log('Loaded map.js')
 // your mapbox token
 mapboxgl.accessToken = 'pk.eyJ1Ijoia2l0Mzc3NSIsImEiOiJjbHlsc3Z0bHowYmNmMmtvamZjeG1xYzJjIn0.6DjxqtbCSE9iiq1Xwd3YRw'
 
-document.addEventListener('DOMContentLoaded', function() {
-    mapboxgl.accessToken = 'pk.eyJ1Ijoia2l0Mzc3NSIsImEiOiJjbHlsc3Z0bHowYmNmMmtvamZjeG1xYzJjIn0.6DjxqtbCSE9iiq1Xwd3YRw';
-
     var map_landing = new mapboxgl.Map({
         container: 'map_landing',
         style: 'mapbox://styles/kit3775/clym09mui01ws01qocfwh98ms',
