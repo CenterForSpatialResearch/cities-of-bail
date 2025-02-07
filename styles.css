@@ -662,3 +662,30 @@ a:visited {
     text-decoration: none; 
 }
 
+.bail-schedule {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    color: white;
+}
+
+.bail-schedule th, 
+.bail-schedule td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+.bail-schedule th {
+    background-color: #333;
+    font-weight: bold;
+}
+
+.bail-schedule tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.bail-schedule tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
