@@ -19,6 +19,10 @@ body {
     height: 100vh;
 }
 
+.intro p {
+    margin-bottom: 2vh;
+}
+
 #container {
     position: absolute; 
     width: 100vw;
