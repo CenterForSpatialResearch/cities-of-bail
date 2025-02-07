@@ -708,6 +708,12 @@ sup {
 }
 
 sup a {
+    color: #FFF9B0;
     text-decoration: none;
     padding: 0 3px;
+}
+
+.notes li a[href^="#"],  /* Return arrows */
+sup a[href^="#"] {      /* Superscript numbers */
+    color: #FFF9B0;
 }
