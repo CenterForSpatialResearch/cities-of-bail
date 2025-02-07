@@ -689,3 +689,25 @@ a:visited {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+.notes {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #444;
+}
+
+.notes ol {
+    padding-left: 20px;
+}
+
+.notes li {
+    margin-bottom: 15px;
+}
+
+sup {
+    font-size: 0.75em;
+}
+
+sup a {
+    text-decoration: none;
+    padding: 0 3px;
+}
