@@ -717,3 +717,23 @@ sup a {
 sup a[href^="#"] {      /* Superscript numbers */
     color: #FFF9B0;
 }
+
+/* Links in main content and footnotes */
+.process_main a,
+.notes a,
+sup a {
+    color: #FFF9B0;
+    text-decoration: none;
+}
+
+.process_main a:visited,
+.notes a:visited,
+sup a:visited {
+    color: #FFF9B0;
+}
+
+.process_main a:hover,
+.notes a:hover,
+sup a:hover {
+    text-decoration: underline;
+}
