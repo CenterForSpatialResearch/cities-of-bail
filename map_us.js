@@ -4,19 +4,29 @@
 console.log('Loaded map.js')
 
 // your mapbox token
-mapboxgl.accessToken = 'pk.eyJ1Ijoia2l0Mzc3NSIsImEiOiJjbHlsc3Z0bHowYmNmMmtvamZjeG1xYzJjIn0.6DjxqtbCSE9iiq1Xwd3YRw'
+// mapboxgl.accessToken = 'pk.eyJ1Ijoia2l0Mzc3NSIsImEiOiJjbHlsc3Z0bHowYmNmMmtvamZjeG1xYzJjIn0.6DjxqtbCSE9iiq1Xwd3YRw'
+    mapboxgl.accessToken ='pk.eyJ1IjoiYWRlbGluZWNodW0iLCJhIjoiY2twdnAycmlxMHdqazJvb2kzNnVjOWNhdiJ9.N_Jv_e_GqAskFyTeLGigiQ'
 
     var map_landing = new mapboxgl.Map({
         container: 'map_landing',
         style: 'mapbox://styles/kit3775/clym09mui01ws01qocfwh98ms',
-        center: [-93.0, 35.5],
+        // style:'mapbox://styles/adelinechum/cm787x96o008701qz0h1h5mgw',
+        center: [-96.0, 36.5],
         scale: 0.0001,
-        zoom: 3.5,
+        zoom: 3.4,
         minZoom: 3.5,
-        maxZoom: 11.5,
+        maxZoom: 3.5,
         pitch: 0,
         bearing: 0
     });
+
+    // Disable panning and zooming interactions
+    map_landing.dragPan.disable();
+    map_landing.scrollZoom.disable();
+    map_landing.boxZoom.disable();
+    map_landing.doubleClickZoom.disable();
+    map_landing.touchZoomRotate.disable();
+    map_landing.keyboard.disable();
 
 // Center
 var cities = [
