@@ -905,13 +905,35 @@ function drawStackedBarChart(data, keys) {
         .attr('height', d => y(d[0]) - y(d[1]))
         .attr('width', x.bandwidth());
 
-    g.append('g').call(d3.axisLeft(y));
-    g.append('g')
-        .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("transform", "rotate(-30)");
+        const outcomeLabels = {
+          guilty_plea: "Guilty Plea",
+          jury_conviction: "Jury Conviction",
+          dismissed: "Dismissed",
+          pending: "Pending",
+          other: "Other"
+        };
+        
+        g.append('g')
+          .attr('transform', `translate(0,${height})`)
+          .call(
+            d3.axisBottom(x)
+              .tickFormat(d => outcomeLabels[d] || d)
+          )
+          .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("transform", "rotate(-30)");
+    
+        g.append('g').call(d3.axisLeft(y));
+
+        g.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -margin.left + 10)
+      .attr("x", -height / 2)
+      .attr("dy", "-1.5em")
+      .style("text-anchor", "middle")
+      .style("fill", "#fff")
+      .text("Number of Defendants");
+
 
     // Legend
     const legend = svg.append('g').attr('transform', `translate(${width - 120}, 10)`);
@@ -923,6 +945,7 @@ function drawStackedBarChart(data, keys) {
         legend.append('text')
             .attr('x', 15).attr('y', i * 20 + 9)
             .text(key.charAt(0).toUpperCase() + key.slice(1))
-            .style('font-size', '12px');
+            .style('font-size', '12px')
+            .style('fill', '#fff');
     });
 }
