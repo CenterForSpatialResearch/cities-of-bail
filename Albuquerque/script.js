@@ -925,14 +925,14 @@ function drawStackedBarChart(data, keys) {
     
         g.append('g').call(d3.axisLeft(y));
 
-        g.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", -margin.left + 10)
-      .attr("x", -height / 2)
-      .attr("dy", "-1.5em")
-      .style("text-anchor", "middle")
-      .style("fill", "#fff")
-      .text("Number of Defendants");
+        svg.append("text")
+          .attr("transform", "rotate(-90)")
+          .attr("x", -margin.top - height / 2)
+          .attr("y", 15)
+          .attr("dy", "-1em")
+          .style("text-anchor", "middle")
+          .style("fill", "#fff")
+          .text("Number of Defendants");
 
 
     // Legend
