@@ -872,14 +872,17 @@ function drawStackedBarChart(data, keys) {
     const svg = d3.select('#case-outcome-chart svg');
     svg.selectAll('*').remove();
 
-    const margin = { top: 20, right: 30, bottom: 40, left: 40 },
-        width = +svg.attr('width') - margin.left - margin.right,
-        height = +svg.attr('height') - margin.top - margin.bottom;
+    const margin = { top: 20, right: 30, bottom: 50, left: 50 },
+          width = +svg.attr('width') - margin.left - margin.right,
+          height = +svg.attr('height') - margin.top - margin.bottom;
+
+    const g = svg.append('g')
+        .attr('transform', `translate(${margin.left},${margin.top})`);
 
     const x = d3.scaleBand()
         .domain(data.map(d => d.outcome))
         .range([0, width])
-        .padding(0.2);
+        .padding(0.3);  // <— thinner bars
 
     const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => keys.reduce((sum, k) => sum + d[k], 0))])
@@ -890,7 +893,6 @@ function drawStackedBarChart(data, keys) {
         .domain(keys)
         .range(d3.schemeSet2);
 
-    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
     const stacked = d3.stack().keys(keys)(data);
 
     g.selectAll('g')
@@ -905,26 +907,38 @@ function drawStackedBarChart(data, keys) {
         .attr('height', d => y(d[0]) - y(d[1]))
         .attr('width', x.bandwidth());
 
-        const outcomeLabels = {
-          guilty_plea: "Guilty Plea",
-          jury_conviction: "Jury Conviction",
-          dismissed: "Dismissed",
-          pending: "Pending",
-          other: "Other"
-        };
-        
-        g.append('g')
-          .attr('transform', `translate(0,${height})`)
-          .call(
-            d3.axisBottom(x)
-              .tickFormat(d => outcomeLabels[d] || d)
-          )
-          .selectAll("text")
-          .style("text-anchor", "end")
-          .attr("transform", "rotate(-30)");
+    // Y Axis
+    g.append('g').call(d3.axisLeft(y).ticks(5));
+
+    // Y Axis Label
+    g.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -40)
+        .attr("x", -height / 2)
+        .attr("dy", "-1em")
+        .style("text-anchor", "middle")
+        .style("fill", "#fff")
+        .text("Number of Defendants");
+
+    // Prettify outcome labels
+    const outcomeLabels = {
+        guilty_plea: "Guilty Plea",
+        jury_conviction: "Jury Conviction",
+        dismissed: "Dismissed",
+        pending: "Pending",
+        other: "Other"
+    };
+
+    g.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x).tickFormat(d => outcomeLabels[d] || d))
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("transform", "rotate(-30)")
+        .style("fill", "#fff");
 
     // Legend
-    const legend = svg.append('g').attr('transform', `translate(${width - 120}, 10)`);
+    const legend = svg.append('g').attr('transform', `translate(${width - 80}, 10)`);
     keys.forEach((key, i) => {
         legend.append('rect')
             .attr('x', 0).attr('y', i * 20)
@@ -934,6 +948,7 @@ function drawStackedBarChart(data, keys) {
             .attr('x', 15).attr('y', i * 20 + 9)
             .text(key.charAt(0).toUpperCase() + key.slice(1))
             .style('font-size', '12px')
-            .style('fill', '#fff');
+            .style('fill', '#fff');  // fix color!
     });
 }
+
