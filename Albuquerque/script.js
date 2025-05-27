@@ -818,7 +818,7 @@ document.getElementById('bond-select').addEventListener('change', function () {
     const filters = document.getElementById('case-outcome-filters');
     const lienFilters = document.getElementById('lien-status-filters');
 
-    const otherLegends = document.querySelectorAll('.custom-legend, .company-chart, .amount-legend');
+    const otherLegends = document.querySelectorAll('.duration-legend, .company-barchart, .income-legend');
     otherLegends.forEach(el => el.remove());
     
     if (selected === 'option4') {
