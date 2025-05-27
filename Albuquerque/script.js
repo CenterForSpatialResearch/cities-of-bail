@@ -795,3 +795,128 @@ function updateYearCheckboxes(selectedYear) {
       map.setLayoutProperty('lien_overall', 'visibility', 'none');
     }
   }
+
+// Eniola --- 1. Normalize raw disposition text into known categories
+function normalizeDisposition(raw) {
+    if (!raw) return "other";
+    const text = raw.toLowerCase();
+
+    if (text.includes("jury conviction")) return "jury_conviction";
+    if (text.includes("guilty plea") || text.includes("no contest")) return "guilty_plea";
+    if (text.includes("dismiss")) return "dismissed";
+    if (text.includes("deferred") || text.includes("cond. discharge")) return "pending";
+    if (text.includes("acquitted") || text.includes("converted") || text.includes("closure") || text.includes("transferred")) return "other";
+
+    return "other";
+}
+
+// --- 2. Listen for dropdown changes
+document.getElementById('bond-select').addEventListener('change', function () {
+    const selected = this.value;
+
+    const chart = document.getElementById('case-outcome-chart');
+    const filters = document.getElementById('case-outcome-filters');
+    const lienFilters = document.getElementById('lien-status-filters');
+
+    if (selected === 'option4') {
+        chart.style.display = 'block';
+        filters.style.display = 'block';
+        lienFilters.style.display = 'none';
+        drawOutcomeChart();
+    } else {
+        chart.style.display = 'none';
+        filters.style.display = 'none';
+        lienFilters.style.display = 'block';
+    }
+});
+
+// --- 3. Draw chart based on selected filters
+function drawOutcomeChart() {
+    d3.json('data/lien_overall/lien_overall_with_disposition.geojson').then(data => {
+        const activeDispositions = Array.from(
+            document.querySelectorAll('#case-outcome-filters input[type="checkbox"]:checked')
+        ).map(cb => cb.value);
+
+        const bins = { low: [], medium: [], high: [] };
+
+        data.features.forEach(f => {
+            const amount = f.properties.Amount;
+            const dispRaw = f.properties["Disposition (from Criminal Dockets)"];
+            if (typeof amount !== 'number' || !dispRaw) return;
+
+            const disp = normalizeDisposition(dispRaw);
+            if (!activeDispositions.includes(disp)) return;
+
+            const bin = amount < 35000 ? 'low' : amount < 85000 ? 'medium' : 'high';
+            bins[bin].push(disp);
+        });
+
+        const keys = ['guilty_plea', 'jury_conviction', 'dismissed', 'pending', 'other'];
+        const chartData = ['low', 'medium', 'high'].map(bin => {
+            const counts = {};
+            keys.forEach(k => counts[k] = 0);
+            bins[bin].forEach(d => {
+                counts[d] = (counts[d] || 0) + 1;
+            });
+            return { bin, ...counts };
+        });
+
+        drawStackedBarChart(chartData, keys);
+    });
+}
+
+// --- 4. Create the actual stacked bar chart
+function drawStackedBarChart(data, keys) {
+    const svg = d3.select('#case-outcome-chart svg');
+    svg.selectAll('*').remove();
+
+    const margin = { top: 20, right: 30, bottom: 30, left: 40 },
+        width = +svg.attr('width') - margin.left - margin.right,
+        height = +svg.attr('height') - margin.top - margin.bottom;
+
+    const x = d3.scaleBand()
+        .domain(data.map(d => d.bin))
+        .range([0, width])
+        .padding(0.1);
+
+    const y = d3.scaleLinear()
+        .domain([0, d3.max(data, d => keys.reduce((sum, k) => sum + d[k], 0))])
+        .nice()
+        .range([height, 0]);
+
+    const color = d3.scaleOrdinal()
+        .domain(keys)
+        .range(d3.schemeSet2);
+
+    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
+
+    const stacked = d3.stack().keys(keys)(data);
+
+    g.selectAll('g')
+        .data(stacked)
+        .join('g')
+        .attr('fill', d => color(d.key))
+        .selectAll('rect')
+        .data(d => d)
+        .join('rect')
+        .attr('x', d => x(d.data.bin))
+        .attr('y', d => y(d[1]))
+        .attr('height', d => y(d[0]) - y(d[1]))
+        .attr('width', x.bandwidth());
+
+    g.append('g').call(d3.axisLeft(y));
+    g.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x));
+
+    // Legend
+    const legend = svg.append('g').attr('transform', `translate(${width - 100}, 10)`);
+    keys.forEach((key, i) => {
+        legend.append('rect')
+            .attr('x', 0).attr('y', i * 20)
+            .attr('width', 10).attr('height', 10)
+            .attr('fill', color(key));
+        legend.append('text')
+            .attr('x', 15).attr('y', i * 20 + 9)
+            .text(key.replace('_', ' '))
+            .style('font-size', '12px');
+    });
+}
