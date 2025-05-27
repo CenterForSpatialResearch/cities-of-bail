@@ -846,7 +846,10 @@ function drawOutcomeChart() {
         });
 
         data.features.forEach(f => {
-            const amount = f.properties.Amount;
+            const amountRaw = f.properties.Amount;
+            const amount = Number(String(amountRaw).replace(/[^0-9.-]+/g, ""));
+            if (isNaN(amount)) return;
+
             const rawDisposition = f.properties["Disposition (from Criminal Dockets)"];
             if (typeof amount !== 'number' || !rawDisposition) return;
 
