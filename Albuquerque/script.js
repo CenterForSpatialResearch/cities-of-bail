@@ -833,51 +833,50 @@ document.getElementById('bond-select').addEventListener('change', function () {
 // --- 3. Draw chart based on selected filters
 function drawOutcomeChart() {
     d3.json('data/lien_overall/lien_overall_with_disposition.geojson').then(data => {
-        const activeDispositions = Array.from(
-            document.querySelectorAll('#case-outcome-filters input[type="checkbox"]:checked')
-        ).map(cb => cb.value);
+        const bins = ['low', 'medium', 'high'];
+        const outcomes = ['guilty_plea', 'jury_conviction', 'dismissed', 'pending', 'other'];
 
-        const bins = { low: [], medium: [], high: [] };
+        // Initialize outcome group counts
+        const outcomeGroups = {};
+        outcomes.forEach(outcome => {
+            outcomeGroups[outcome] = { outcome };
+            bins.forEach(bin => {
+                outcomeGroups[outcome][bin] = 0;
+            });
+        });
 
         data.features.forEach(f => {
             const amount = f.properties.Amount;
-            const dispRaw = f.properties["Disposition (from Criminal Dockets)"];
-            if (typeof amount !== 'number' || !dispRaw) return;
+            const rawDisposition = f.properties["Disposition (from Criminal Dockets)"];
+            if (typeof amount !== 'number' || !rawDisposition) return;
 
-            const disp = normalizeDisposition(dispRaw);
-            if (!activeDispositions.includes(disp)) return;
-
+            const outcome = normalizeDisposition(rawDisposition);
             const bin = amount < 35000 ? 'low' : amount < 85000 ? 'medium' : 'high';
-            bins[bin].push(disp);
+
+            if (outcomeGroups[outcome]) {
+                outcomeGroups[outcome][bin]++;
+            }
         });
 
-        const keys = ['guilty_plea', 'jury_conviction', 'dismissed', 'pending', 'other'];
-        const chartData = ['low', 'medium', 'high'].map(bin => {
-            const counts = {};
-            keys.forEach(k => counts[k] = 0);
-            bins[bin].forEach(d => {
-                counts[d] = (counts[d] || 0) + 1;
-            });
-            return { bin, ...counts };
-        });
-
-        drawStackedBarChart(chartData, keys);
+        const chartData = Object.values(outcomeGroups);
+        drawStackedBarChart(chartData, bins);
     });
 }
+
 
 // --- 4. Create the actual stacked bar chart
 function drawStackedBarChart(data, keys) {
     const svg = d3.select('#case-outcome-chart svg');
     svg.selectAll('*').remove();
 
-    const margin = { top: 20, right: 30, bottom: 30, left: 40 },
+    const margin = { top: 20, right: 30, bottom: 40, left: 40 },
         width = +svg.attr('width') - margin.left - margin.right,
         height = +svg.attr('height') - margin.top - margin.bottom;
 
     const x = d3.scaleBand()
-        .domain(data.map(d => d.bin))
+        .domain(data.map(d => d.outcome))
         .range([0, width])
-        .padding(0.1);
+        .padding(0.2);
 
     const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => keys.reduce((sum, k) => sum + d[k], 0))])
@@ -889,7 +888,6 @@ function drawStackedBarChart(data, keys) {
         .range(d3.schemeSet2);
 
     const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
-
     const stacked = d3.stack().keys(keys)(data);
 
     g.selectAll('g')
@@ -899,16 +897,21 @@ function drawStackedBarChart(data, keys) {
         .selectAll('rect')
         .data(d => d)
         .join('rect')
-        .attr('x', d => x(d.data.bin))
+        .attr('x', d => x(d.data.outcome))
         .attr('y', d => y(d[1]))
         .attr('height', d => y(d[0]) - y(d[1]))
         .attr('width', x.bandwidth());
 
     g.append('g').call(d3.axisLeft(y));
-    g.append('g').attr('transform', `translate(0,${height})`).call(d3.axisBottom(x));
+    g.append('g')
+        .attr('transform', `translate(0,${height})`)
+        .call(d3.axisBottom(x))
+        .selectAll("text")
+        .style("text-anchor", "end")
+        .attr("transform", "rotate(-30)");
 
     // Legend
-    const legend = svg.append('g').attr('transform', `translate(${width - 100}, 10)`);
+    const legend = svg.append('g').attr('transform', `translate(${width - 120}, 10)`);
     keys.forEach((key, i) => {
         legend.append('rect')
             .attr('x', 0).attr('y', i * 20)
@@ -916,7 +919,7 @@ function drawStackedBarChart(data, keys) {
             .attr('fill', color(key));
         legend.append('text')
             .attr('x', 15).attr('y', i * 20 + 9)
-            .text(key.replace('_', ' '))
+            .text(key.charAt(0).toUpperCase() + key.slice(1))
             .style('font-size', '12px');
     });
 }
