@@ -869,15 +869,12 @@ function drawOutcomeChart() {
 
 // --- 4. Create the actual stacked bar chart
 function drawStackedBarChart(data, keys) {
-    const svg = d3.select('#outcome-svg');
-    svg.selectAll('*').remove(); // Clear previous chart
+    const svg = d3.select('#case-outcome-chart svg');
+    svg.selectAll('*').remove();
 
-    const margin = { top: 20, right: 20, bottom: 50, left: 60 },
-          width = 320 - margin.left - margin.right,
-          height = 280 - margin.top - margin.bottom;
-
-    const g = svg.append('g')
-        .attr('transform', `translate(${margin.left},${margin.top})`);
+    const margin = { top: 20, right: 30, bottom: 40, left: 40 },
+        width = +svg.attr('width') - margin.left - margin.right,
+        height = +svg.attr('height') - margin.top - margin.bottom;
 
     const x = d3.scaleBand()
         .domain(data.map(d => d.outcome))
@@ -893,6 +890,7 @@ function drawStackedBarChart(data, keys) {
         .domain(keys)
         .range(d3.schemeSet2);
 
+    const g = svg.append('g').attr('transform', `translate(${margin.left},${margin.top})`);
     const stacked = d3.stack().keys(keys)(data);
 
     g.selectAll('g')
@@ -907,53 +905,23 @@ function drawStackedBarChart(data, keys) {
         .attr('height', d => y(d[0]) - y(d[1]))
         .attr('width', x.bandwidth());
 
-    // Y Axis
-    g.append('g').call(d3.axisLeft(y).ticks(5).tickSizeOuter(0));
-
-    // Y Axis Label
-    svg.append("text")
-        .attr("transform", "rotate(-90)")
-        .attr("x", -margin.top - height / 2)
-        .attr("y", 15)
-        .attr("dy", "-1em")
-        .style("text-anchor", "middle")
-        .style("fill", "#fff")
-        .text("Number of Defendants");
-
-    // X Axis with cleaned labels
-    const outcomeLabels = {
-        guilty_plea: "Guilty Plea",
-        jury_conviction: "Jury Conviction",
-        dismissed: "Dismissed",
-        pending: "Pending",
-        other: "Other"
-    };
-
-    g.append('g')
-        .attr('transform', `translate(0,${height})`)
-        .call(d3.axisBottom(x).tickFormat(d => outcomeLabels[d] || d))
-        .selectAll("text")
-        .style("text-anchor", "end")
-        .attr("transform", "rotate(-30)")
-        .style("fill", "#fff");
-
-    // Legend
-    const legend = svg.append('g')
-        .attr('transform', `translate(${width + margin.left - 120}, ${margin.top})`);
-
-    keys.forEach((key, i) => {
-        legend.append('rect')
-            .attr('x', 0).attr('y', i * 20)
-            .attr('width', 10).attr('height', 10)
-            .attr('fill', color(key));
-
-        legend.append('text')
-            .attr('x', 15).attr('y', i * 20 + 9)
-            .text(key.charAt(0).toUpperCase() + key.slice(1))
-            .style('font-size', '12px')
-            .style('fill', '#fff');
-    });
-}
+        const outcomeLabels = {
+          guilty_plea: "Guilty Plea",
+          jury_conviction: "Jury Conviction",
+          dismissed: "Dismissed",
+          pending: "Pending",
+          other: "Other"
+        };
+        
+        g.append('g')
+          .attr('transform', `translate(0,${height})`)
+          .call(
+            d3.axisBottom(x)
+              .tickFormat(d => outcomeLabels[d] || d)
+          )
+          .selectAll("text")
+          .style("text-anchor", "end")
+          .attr("transform", "rotate(-30)");
 
     // Legend
     const legend = svg.append('g').attr('transform', `translate(${width - 120}, 10)`);
