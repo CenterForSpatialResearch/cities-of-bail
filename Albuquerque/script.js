@@ -922,18 +922,6 @@ function drawStackedBarChart(data, keys) {
           .selectAll("text")
           .style("text-anchor", "end")
           .attr("transform", "rotate(-30)");
-    
-        g.append('g').call(d3.axisLeft(y));
-
-        svg.append("text")
-          .attr("transform", "rotate(-90)")
-          .attr("x", -margin.top - height / 2)
-          .attr("y", 15)
-          .attr("dy", "-1em")
-          .style("text-anchor", "middle")
-          .style("fill", "#fff")
-          .text("Number of Defendants");
-
 
     // Legend
     const legend = svg.append('g').attr('transform', `translate(${width - 120}, 10)`);
