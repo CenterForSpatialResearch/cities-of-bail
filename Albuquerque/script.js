@@ -825,14 +825,14 @@ document.getElementById('bond-select').addEventListener('change', function () {
     chart.style.display = 'none';
     filters.style.display = 'none';
     lienFilters.style.display = 'none';
-    if (compChart) compChart.style.display = 'none';
-    if (incomeFilters) incomeFilters.style.display = 'none';
-    if (durationFilters) durationFilters.style.display = 'none';
     
     if (selected === 'option4') {
         chart.style.display = 'block';
         filters.style.display = 'block';
         lienFilters.style.display = 'none';
+        if (compChart) compChart.style.display = 'none';
+        if (incomeFilters) incomeFilters.style.display = 'none';
+        if (durationFilters) durationFilters.style.display = 'none';
         drawOutcomeChart();
     } else {
         chart.style.display = 'none';
