@@ -817,6 +817,17 @@ document.getElementById('bond-select').addEventListener('change', function () {
     const chart = document.getElementById('case-outcome-chart');
     const filters = document.getElementById('case-outcome-filters');
     const lienFilters = document.getElementById('lien-status-filters');
+    const compChart = document.getElementById('company-barchart');
+    const incomeFilters = document.getElementById('income-legend');
+    const durationFilters = document.getElementById('duration-legend');
+
+    // First, hide everything
+    chart.style.display = 'none';
+    filters.style.display = 'none';
+    lienFilters.style.display = 'none';
+    if (compChart) compChart.style.display = 'none';
+    if (incomeFilters) incomeFilters.style.display = 'none';
+    if (durationFilters) durationFilters.style.display = 'none';
     
     if (selected === 'option4') {
         chart.style.display = 'block';
