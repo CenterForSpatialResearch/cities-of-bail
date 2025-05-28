@@ -893,7 +893,7 @@ function drawStackedBarChart(data, keys) {
     const x = d3.scaleBand()
         .domain(data.map(d => d.outcome))
         .range([0, width])
-        .padding(0.3);  // <— thinner bars
+        .padding(0.4);  
 
     const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => keys.reduce((sum, k) => sum + d[k], 0))])
