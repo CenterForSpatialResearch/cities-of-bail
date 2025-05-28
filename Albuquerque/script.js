@@ -817,14 +817,17 @@ document.getElementById('bond-select').addEventListener('change', function () {
     const chart = document.getElementById('case-outcome-chart');
     const filters = document.getElementById('case-outcome-filters');
     const lienFilters = document.getElementById('lien-status-filters');
-
-    const otherLegends = document.querySelectorAll('.duration-legend, .company-barchart, .income-legend');
-    otherLegends.forEach(el => el.remove());
+    const compchart = document.getElementById('company-barchart');
+    const incomeFilters = document.getElementById('income-legend');
+    const durationFilters = document.getElementById('duration-legend');
     
     if (selected === 'option4') {
         chart.style.display = 'block';
         filters.style.display = 'block';
         lienFilters.style.display = 'none';
+        compchart.style.display = 'none;
+        incomeFilters.style.display = 'none;  
+        durationFilters.style.display = 'none;
         drawOutcomeChart();
     } else {
         chart.style.display = 'none';
