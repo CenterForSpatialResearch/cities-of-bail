@@ -883,7 +883,7 @@ function drawStackedBarChart(data, keys) {
     const svg = d3.select('#case-outcome-chart svg');
     svg.selectAll('*').remove();
 
-    const margin = { top: 20, right: 7, bottom: 50, left: 7 },
+    const margin = { top: 20, right: 7, bottom: 50, left: 15 },
           width = +svg.attr('width') - margin.left - margin.right,
           height = +svg.attr('height') - margin.top - margin.bottom;
 
