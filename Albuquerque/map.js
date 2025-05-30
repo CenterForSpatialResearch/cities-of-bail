@@ -1468,3 +1468,69 @@ document.getElementById('housing2020').addEventListener('change', checkSelection
     document.getElementById('race-select').value = 'option6';
 
 
+// --- Case Outcome Layer for Map Dots ---
+let caseOutcomeLayer;
+
+// Normalize case disposition values to consistent categories
+function normalizeDisposition(raw) {
+    if (!raw) return "other";
+    const text = raw.toLowerCase();
+    if (text.includes("jury conviction")) return "jury_conviction";
+    if (text.includes("guilty plea") || text.includes("no contest")) return "guilty_plea";
+    if (text.includes("dismiss")) return "dismissed";
+    if (text.includes("deferred") || text.includes("cond. discharge")) return "pending";
+    return "other";
+}
+
+// Color code dots by outcome
+function getOutcomeColor(disposition) {
+    const outcome = normalizeDisposition(disposition);
+    switch (outcome) {
+        case 'guilty_plea': return "#2ca02c";
+        case 'jury_conviction': return "#1f77b4";
+        case 'dismissed': return "#ff7f0e";
+        case 'pending': return "#d62728";
+        default: return "#999";
+    }
+}
+
+// Get selected checkboxes for filtering
+function getSelectedOutcomes() {
+    return Array.from(document.querySelectorAll('input[name="case-outcome-filters"]:checked'))
+        .map(cb => cb.value);
+}
+
+// Show filtered dots on the map for selected outcomes
+function showCaseOutcomeMap(data) {
+    const selectedOutcomes = getSelectedOutcomes();
+
+    if (caseOutcomeLayer) {
+        map.removeLayer(caseOutcomeLayer);
+    }
+
+    caseOutcomeLayer = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, {
+                radius: 5,
+                fillColor: getOutcomeColor(feature.properties["Disposition (from Criminal Dockets)"]),
+                color: "#000",
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.8
+            });
+        },
+        filter: function (feature) {
+            const raw = feature.properties["Disposition (from Criminal Dockets)"];
+            const normalized = normalizeDisposition(raw);
+            return selectedOutcomes.includes(normalized);
+        }
+    }).addTo(map);
+}
+
+// Called when checkboxes or dropdown change
+function updateOutcomeLayer() {
+    d3.json('data/lien_overall/lien_overall_with_disposition.geojson').then(data => {
+        showCaseOutcomeMap(data);
+    });
+}
+
