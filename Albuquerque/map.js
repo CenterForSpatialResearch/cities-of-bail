@@ -812,7 +812,7 @@ map.on('load', function () {
     // Event listener for dropdown menu changes
     document.getElementById('bond-select').addEventListener('change', function() {
         const selectedOption = this.value;
-        if (selected !== 'option4') {
+        if (selectedOption !== 'option4') {
             if (map.getLayer('caseOutcome')) {
               map.removeLayer('caseOutcome');
             }
