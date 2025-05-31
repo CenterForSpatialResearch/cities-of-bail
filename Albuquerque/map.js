@@ -812,6 +812,14 @@ map.on('load', function () {
     // Event listener for dropdown menu changes
     document.getElementById('bond-select').addEventListener('change', function() {
         const selectedOption = this.value;
+        if (selected !== 'option4') {
+            if (map.getLayer('caseOutcome')) {
+              map.removeLayer('caseOutcome');
+            }
+            if (map.getSource('caseOutcome')) {
+              map.removeSource('caseOutcome');
+            }
+        }
         updateMapLayer(selectedOption);
         document.querySelectorAll('input[name="case-outcome-checkbox"]').forEach(cb => {
         cb.addEventListener('change', updateOutcomeLayer);
