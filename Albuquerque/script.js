@@ -760,6 +760,8 @@ document.getElementById('close-btn').addEventListener('click', function() {
     popup.classList.add('hidden');  
 });
 
+document.querySelector('.year-checkbox:checked')?.value
+
 function updateYearCheckboxes(selectedYear) {
     document.querySelectorAll('.year-checkbox').forEach(checkbox => {
       checkbox.checked = false; // 先取消选择所有复选框
