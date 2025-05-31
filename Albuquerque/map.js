@@ -1590,6 +1590,13 @@ function updateOutcomeLayer() {
         dataPath = 'data/lien_byyear/lien_${selectedYear}_with_disposition.geojson';
     }
     
+    if (map.getLayer('caseOutcomeLayer')) {
+        map.removeLayer('caseOutcomeLayer');
+    }
+    if (map.getSource('caseOutcome')) {
+        map.removeSource('caseOutcome');
+    }
+
     d3.json(dataPath).then(data => {
         showCaseOutcomeMap(data);
     });
