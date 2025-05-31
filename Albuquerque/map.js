@@ -1508,31 +1508,46 @@ function showCaseOutcomeMap(data) {
     console.log("Drawing map dots");
     console.log("Number of features:", data.features?.length);
     console.log("Selected outcomes:", getSelectedOutcomes());
+
     const selectedOutcomes = getSelectedOutcomes();
 
-    if (caseOutcomeLayer) {
-        map.removeLayer(caseOutcomeLayer);
+    // Normalize and filter the data
+    const filtered = {
+        type: "FeatureCollection",
+        features: data.features.filter(f => {
+            const coords = f.geometry?.coordinates;
+            const raw = f.properties["Disposition (from Criminal Dockets)"];
+            const normalized = normalizeDisposition(raw);
+            return coords && coords.length === 2 && selectedOutcomes.includes(normalized);
+        })
+    };
+
+    // If layer already exists, update the source
+    if (map.getSource('caseOutcome')) {
+        map.getSource('caseOutcome').setData(filtered);
+        return;
     }
 
-    caseOutcomeLayer = L.geoJSON(data, {
-        pointToLayer: function (feature, latlng) {
-            return L.circleMarker(latlng, {
-                radius: 5,
-                fillColor: getOutcomeColor(feature.properties["Disposition (from Criminal Dockets)"]),
-                color: "#000",
-                weight: 1,
-                opacity: 1,
-                fillOpacity: 0.8
-            });
-        },
-        filter: function (feature) {
-            return true;
-            //const raw = feature.properties["Disposition (from Criminal Dockets)"];
-            //const normalized = normalizeDisposition(raw);
-            //return selectedOutcomes.includes(normalized);
+    // Otherwise, add the source and layer
+    map.addSource('caseOutcome', {
+        type: 'geojson',
+        data: filtered
+    });
+
+    map.addLayer({
+        id: 'caseOutcome',
+        type: 'circle',
+        source: 'caseOutcome',
+        paint: {
+            'circle-radius': 5,
+            'circle-color': '#ffaa00',
+            'circle-opacity': 0.85,
+            'circle-stroke-width': 1,
+            'circle-stroke-color': '#000000'
         }
-    }).addTo(map);
+    });
 }
+
 
 // Called when checkboxes or dropdown change
 function updateOutcomeLayer() {
