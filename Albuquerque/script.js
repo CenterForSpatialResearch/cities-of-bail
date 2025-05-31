@@ -834,6 +834,7 @@ document.getElementById('bond-select').addEventListener('change', function () {
         if (incomeFilters) incomeFilters.style.display = 'none';
         if (durationFilters) durationFilters.style.display = 'none';
         drawOutcomeChart();
+        updateOutcomeLayer();
     } else {
         chart.style.display = 'none';
         filters.style.display = 'none';
