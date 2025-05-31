@@ -1509,7 +1509,8 @@ function showCaseOutcomeMap(data) {
     console.log("Number of features:", data.features?.length);
     console.log("Selected outcomes:", getSelectedOutcomes());
 
-    const selectedOutcomes = getSelectedOutcomes();
+    //const selectedOutcomes = getSelectedOutcomes();
+    const selectedOutcomes = ['guilty_plea', 'jury_conviction', 'dismissed'];
 
     // Normalize and filter the data
     const filtered = {
