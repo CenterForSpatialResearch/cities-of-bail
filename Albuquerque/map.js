@@ -1581,7 +1581,12 @@ function showCaseOutcomeMap(data) {
 
 // Called when checkboxes or dropdown change
 function updateOutcomeLayer() {
-    d3.json('data/lien_overall/lien_overall_with_disposition.geojson').then(data => {
+    let dataPath = 'data/lien_overall/lien_overall_with_disposition.geojson';
+    if (selectedYear !== 'all') {
+        dataPath = 'data/lien_byyear/lien_${selectedYear}_with_disposition.geojson';
+    }
+    
+    d3.json(dataPath).then(data => {
         showCaseOutcomeMap(data);
     });
 }
