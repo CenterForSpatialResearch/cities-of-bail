@@ -725,7 +725,7 @@ map.on('load', function () {
     // map.setLayoutProperty('lien_2020', 'visibility', 'none');
     
     //         let hoveredFeatureId = null;
-    let selectedYear = "all";
+    var selectedYear = "all";
     // Generate a list of year strings given a start and end year
     function provideYears(startYear, endYear) {
         let yearsArray = [];
@@ -1004,7 +1004,10 @@ function updateYearCheckboxes(selectedYear) {
     } else {
         document.getElementById('year-all').checked = true; // 确保"All"始终选中
     }
-
+    const bondSelect = document.getElementById("bond-select");
+    if (bondSelect && bondSelect.value === "option4") {
+        updateOutcomeLayer(); // This will call showCaseOutcomeMap internally
+    }
     updateLayerVisibility(selectedYear);
 }
 
