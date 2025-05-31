@@ -1514,13 +1514,26 @@ function showCaseOutcomeMap(data) {
 
     // Normalize and filter the data
     const filtered = {
-        type: "FeatureCollection",
-        features: data.features.filter(f => {
+          type: "FeatureCollection",
+          features: data.features.filter(f => {
             const coords = f.geometry?.coordinates;
-            const raw = f.properties["Disposition (from Criminal Dockets)"];
-            const normalized = normalizeDisposition(raw);
-            return coords && coords.length === 2 && selectedOutcomes.includes(normalized);
-        })
+            const rawDisposition = f.properties["Disposition (from Criminal Dockets)"];
+            const normalizedDisposition = normalizeDisposition(rawDisposition);
+            const rawAmount = f.properties.Amount;
+            const amount = Number(String(rawAmount).replace(/[^0-9.-]+/g, ""));
+        
+            // Add amount bin to feature
+            let amountBin = null;
+            if (amount < 35000) amountBin = 'low';
+            else if (amount < 85000) amountBin = 'medium';
+            else amountBin = 'high';
+        
+            if (coords && coords.length === 2 && normalizedDisposition && getSelectedOutcomes().includes(normalizedDisposition)) {
+              f.properties.amountBin = amountBin;  //  add this line
+              return true;
+            }
+            return false;
+          })
     };
 
     // If layer already exists, update the source
@@ -1536,17 +1549,25 @@ function showCaseOutcomeMap(data) {
     });
 
     map.addLayer({
-        id: 'caseOutcome',
-        type: 'circle',
-        source: 'caseOutcome',
-        paint: {
-            'circle-radius': 3,
-            'circle-color': '#ffaa00',
-            'circle-opacity': 0.85,
-            'circle-stroke-width': 1,
-            'circle-stroke-color': '#000000'
-        }
-    });
+      id: 'caseOutcome',
+      type: 'circle',
+      source: 'caseOutcome',
+      paint: {
+        'circle-radius': 3,
+        'circle-color': [
+          'match',
+          ['get', 'amountBin'],
+          'low', '#66c2a5',
+          'medium', '#fc8d62',
+          'high', '#8da0cb',
+          '#cccccc' // fallback
+        ],
+        'circle-opacity': 0.85,
+        'circle-stroke-width': 1,
+        'circle-stroke-color': '#000000'
+      }
+});
+
 }
 
 
