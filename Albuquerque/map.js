@@ -725,7 +725,7 @@ map.on('load', function () {
     // map.setLayoutProperty('lien_2020', 'visibility', 'none');
     
     //         let hoveredFeatureId = null;
-
+    let selectedYear = "all";
     // Generate a list of year strings given a start and end year
     function provideYears(startYear, endYear) {
         let yearsArray = [];
