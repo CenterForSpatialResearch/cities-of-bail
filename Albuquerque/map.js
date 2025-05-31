@@ -1540,7 +1540,7 @@ function showCaseOutcomeMap(data) {
         type: 'circle',
         source: 'caseOutcome',
         paint: {
-            'circle-radius': 5,
+            'circle-radius': 3,
             'circle-color': '#ffaa00',
             'circle-opacity': 0.85,
             'circle-stroke-width': 1,
