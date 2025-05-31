@@ -1590,8 +1590,8 @@ function updateOutcomeLayer() {
         dataPath = 'data/lien_byyear/lien_${selectedYear}_with_disposition.geojson';
     }
     
-    if (map.getLayer('caseOutcomeLayer')) {
-        map.removeLayer('caseOutcomeLayer');
+    if (map.getLayer('caseOutcome')) {
+        map.removeLayer('caseOutcome');
     }
     if (map.getSource('caseOutcome')) {
         map.removeSource('caseOutcome');
