@@ -64,7 +64,8 @@ const stories = {
     } 
     // infrastructure story excluded as per the request 
 }; 
- 
+
+var selectedYear = "all"; 
 // 변수로 현재 활성화된 스토리 항목과 상세 정보를 관리합니다. 
 let activeStoryItem = null; 
 let activeStoryDetails = null; 
