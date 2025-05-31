@@ -1567,20 +1567,13 @@ function showCaseOutcomeMap(data) {
       paint: {
         'circle-radius': 3,
         'circle-color': [
-          'case',
-          ['<',
-            ['to-number', ['replace', ['replace', ['get', 'Amount'], '$', ''], ',', '']],
-            35000
-          ], '#66c2a5',  // low
-        
-          ['<',
-            ['to-number', ['replace', ['replace', ['get', 'Amount'], '$', ''], ',', '']],
-            85000
-          ], '#fc8d62',  // medium
-        
-          '#8da0cb'  // high
-        ]
-
+          'match',
+          ['get', 'amountBin'],
+          'low', '#66c2a5',
+          'medium', '#fc8d62',
+          'high', '#8da0cb',
+          '#cccccc' // fallback
+        ],
         'circle-opacity': 0.85,
         //'circle-stroke-width': 1,
         //'circle-stroke-color': '#000000'
