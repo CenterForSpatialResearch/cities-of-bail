@@ -828,7 +828,7 @@ map.on('load', function () {
         'type': 'circle',
         'source': {
             'type': 'geojson',
-            'data': 'data/lien_overall/lien_overall_with_disposition.geojson'
+            'data': 'data/lien_overall/lien_overall.geojson'
         },
         'paint': {
             'circle-color': [
