@@ -1563,8 +1563,8 @@ function showCaseOutcomeMap(data) {
           '#cccccc' // fallback
         ],
         'circle-opacity': 0.85,
-        'circle-stroke-width': 1,
-        'circle-stroke-color': '#000000'
+        //'circle-stroke-width': 1,
+        //'circle-stroke-color': '#000000'
       }
 });
 
