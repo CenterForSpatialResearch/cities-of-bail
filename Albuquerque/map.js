@@ -813,6 +813,9 @@ map.on('load', function () {
     document.getElementById('bond-select').addEventListener('change', function() {
         const selectedOption = this.value;
         updateMapLayer(selectedOption);
+        document.querySelectorAll('input[name="case-outcome-filters"]').forEach(cb => {
+        cb.addEventListener('change', updateOutcomeLayer);
+    });
     });
     
     
