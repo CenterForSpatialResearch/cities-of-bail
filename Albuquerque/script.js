@@ -771,6 +771,10 @@ function updateYearCheckboxes(selectedYear) {
     }
   
     updateLayerVisibility(selectedYear);
+    const bondSelect = document.getElementById("bond-select");
+    if (bondSelect && bondSelect.value === "option4") {
+        updateOutcomeLayer(); // This will call showCaseOutcomeMap internally
+    }
   }
   
   // 根据选中的年份设置地图图层的可见性 Set the visibility of the map layers based on the selected year
