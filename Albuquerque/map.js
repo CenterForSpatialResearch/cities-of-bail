@@ -10,6 +10,7 @@ const map = new mapboxgl.Map({
     bearing: 0 
 });
 
+var selectedYear = "all";
 map.on('load', function () {
     map.addLayer({
         'id': 'race_2020',
@@ -725,7 +726,7 @@ map.on('load', function () {
     // map.setLayoutProperty('lien_2020', 'visibility', 'none');
     
     //         let hoveredFeatureId = null;
-    var selectedYear = "all";
+    
     // Generate a list of year strings given a start and end year
     function provideYears(startYear, endYear) {
         let yearsArray = [];
