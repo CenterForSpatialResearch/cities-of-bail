@@ -1505,6 +1505,9 @@ function getSelectedOutcomes() {
 
 // Show filtered dots on the map for selected outcomes
 function showCaseOutcomeMap(data) {
+    console.log("Drawing map dots");
+    console.log("Number of features:", data.features?.length);
+    console.log("Selected outcomes:", getSelectedOutcomes());
     const selectedOutcomes = getSelectedOutcomes();
 
     if (caseOutcomeLayer) {
@@ -1523,9 +1526,10 @@ function showCaseOutcomeMap(data) {
             });
         },
         filter: function (feature) {
-            const raw = feature.properties["Disposition (from Criminal Dockets)"];
-            const normalized = normalizeDisposition(raw);
-            return selectedOutcomes.includes(normalized);
+            return true;
+            //const raw = feature.properties["Disposition (from Criminal Dockets)"];
+            //const normalized = normalizeDisposition(raw);
+            //return selectedOutcomes.includes(normalized);
         }
     }).addTo(map);
 }
