@@ -813,7 +813,7 @@ map.on('load', function () {
     document.getElementById('bond-select').addEventListener('change', function() {
         const selectedOption = this.value;
         updateMapLayer(selectedOption);
-        document.querySelectorAll('input[name="case-outcome-filters"]').forEach(cb => {
+        document.querySelectorAll('input[name="case-outcome-checkbox"]').forEach(cb => {
         cb.addEventListener('change', updateOutcomeLayer);
     });
     });
@@ -1499,7 +1499,7 @@ function getOutcomeColor(disposition) {
 
 // Get selected checkboxes for filtering
 function getSelectedOutcomes() {
-    return Array.from(document.querySelectorAll('input[name="case-outcome-filters"]:checked'))
+    return Array.from(document.querySelectorAll('input[name="case-outcome-checkbox"]:checked'))
         .map(cb => cb.value);
 }
 
@@ -1509,8 +1509,8 @@ function showCaseOutcomeMap(data) {
     console.log("Number of features:", data.features?.length);
     console.log("Selected outcomes:", getSelectedOutcomes());
 
-    //const selectedOutcomes = getSelectedOutcomes();
-    const selectedOutcomes = ['guilty_plea', 'jury_conviction', 'dismissed'];
+    const selectedOutcomes = getSelectedOutcomes();
+    //const selectedOutcomes = ['guilty_plea', 'jury_conviction', 'dismissed'];
 
     // Normalize and filter the data
     const filtered = {
