@@ -1536,7 +1536,17 @@ function showCaseOutcomeMap(data) {
             const normalizedDisposition = normalizeDisposition(rawDisposition);
             const rawAmount = f.properties.Amount;
             const amount = Number(String(rawAmount).replace(/[^0-9.-]+/g, ""));
-        
+
+            if (!coords || coords.length !== 2 || coords.includes(null)) {
+              console.warn("Skipping feature due to invalid coordinates:", coords);
+              return false;
+            }
+
+            const selectedOutcomes = getSelectedOutcomes();
+
+            if (!normalizedDisposition || !selectedOutcomes.includes(normalizedDisposition)) {
+              return false;
+            }  
             // Add amount bin to feature
             let amountBin = null;
             if (!isNaN(amount)) {
@@ -1564,10 +1574,6 @@ function showCaseOutcomeMap(data) {
             if (coords && coords.length === 2 && normalizedDisposition && getSelectedOutcomes().includes(normalizedDisposition)) {
               f.properties.amountBin = amountBin;  //  add this line
               return true;
-            }
-            if (!coords || coords.length !== 2 || coords.includes(null)) {
-              console.warn("Skipping feature due to invalid coordinates:", coords);
-              return false;
             }
           })
     };
