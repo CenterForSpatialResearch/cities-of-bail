@@ -1565,7 +1565,10 @@ function showCaseOutcomeMap(data) {
               f.properties.amountBin = amountBin;  //  add this line
               return true;
             }
-            return false;
+            if (!coords || coords.length !== 2 || coords.includes(null)) {
+              console.warn("Skipping feature due to invalid coordinates:", coords);
+              return false;
+            }
           })
     };
 
