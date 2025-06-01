@@ -820,6 +820,9 @@ map.on('load', function () {
             if (map.getSource('caseOutcome')) {
               map.removeSource('caseOutcome');
             }
+            if (map.getLayer('lien_overall')) {
+                map.setLayoutProperty('lien_overall', 'visible');
+            }
         }
         updateMapLayer(selectedOption);
         document.querySelectorAll('input[name="case-outcome-checkbox"]').forEach(cb => {
@@ -1597,7 +1600,9 @@ function updateOutcomeLayer() {
     if (map.getSource('caseOutcome')) {
         map.removeSource('caseOutcome');
     }
-
+    if (map.getLayer('lien_overall')) {
+        map.setLayoutProperty('lien_overall', 'visibility', 'none');
+    }
     d3.json(dataPath).then(data => {
         showCaseOutcomeMap(data);
     });
