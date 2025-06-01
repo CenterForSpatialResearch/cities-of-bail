@@ -1591,7 +1591,7 @@ function updateOutcomeLayer() {
     let dataPath = 'data/lien_overall/lien_overall_with_disposition.geojson';
     const selectedYear = document.querySelector('.year-checkbox:checked')?.value;
     if (selectedYear !== 'all') {
-        dataPath = 'data/lien_byyear/lien_${selectedYear}_with_disposition.geojson';
+        dataPath = `data/lien_byyear/lien_${selectedYear}_with_disposition.geojson`;
     }
     
     if (map.getLayer('caseOutcome')) {
