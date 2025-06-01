@@ -1539,10 +1539,24 @@ function showCaseOutcomeMap(data) {
         
             // Add amount bin to feature
             let amountBin = null;
-            if (amount < 35000) amountBin = 'low';
-            else if (amount < 85000) amountBin = 'medium';
-            else amountBin = 'high';
-        
+            if (!isNaN(amount)) {
+              if (amount < 35000) amountBin = 'low';
+              else if (amount < 85000) amountBin = 'medium';
+              else amountBin = 'high';
+            
+              f.properties.amountBin = amountBin;
+            }
+
+            if (!amountBin) {
+                console.warn("Fallback color for feature:", {
+                amount: rawAmount,
+                parsedAmount: amount,
+                coords,
+                rawDisposition,
+                normalizedDisposition
+              });
+            }  
+              
             if (coords && coords.length === 2 && normalizedDisposition && getSelectedOutcomes().includes(normalizedDisposition)) {
               f.properties.amountBin = amountBin;  //  add this line
               return true;
