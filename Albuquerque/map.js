@@ -1602,6 +1602,7 @@ function updateOutcomeLayer() {
     }
     if (map.getLayer('lien_overall')) {
         map.setLayoutProperty('lien_overall', 'visibility', 'none');
+        updateMapLayer();
     }
     d3.json(dataPath).then(data => {
         showCaseOutcomeMap(data);
