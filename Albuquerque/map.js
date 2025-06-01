@@ -1556,6 +1556,10 @@ function showCaseOutcomeMap(data) {
                 normalizedDisposition
               });
             }  
+
+            if (!coords || coords.length !== 2) {
+              console.warn("Invalid coords:", coords);
+            }  
               
             if (coords && coords.length === 2 && normalizedDisposition && getSelectedOutcomes().includes(normalizedDisposition)) {
               f.properties.amountBin = amountBin;  //  add this line
