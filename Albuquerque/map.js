@@ -821,7 +821,7 @@ map.on('load', function () {
               map.removeSource('caseOutcome');
             }
             if (map.getLayer('lien_overall')) {
-                map.setLayoutProperty('lien_overall', 'visible');
+                map.setLayoutProperty('lien_overall', 'visibility', 'visible');
             }
         }
         updateMapLayer(selectedOption);
