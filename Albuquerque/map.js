@@ -1017,6 +1017,7 @@ function updateYearCheckboxes(selectedYear) {
             map.setLayoutProperty(layerId, 'visibility', 'none');
         }// This will call showCaseOutcomeMap internally
     }
+    }     
     updateLayerVisibility(selectedYear);
 }
 
