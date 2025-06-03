@@ -1528,55 +1528,40 @@ function showCaseOutcomeMap(data) {
     //const selectedOutcomes = ['guilty_plea', 'jury_conviction', 'dismissed'];
 
     // Normalize and filter the data
-    const filtered = {
-          type: "FeatureCollection",
-          features: data.features.filter(f => {
-            const coords = f.geometry?.coordinates;
-            const rawDisposition = f.properties["Disposition (from Criminal Dockets)"];
-            const normalizedDisposition = normalizeDisposition(rawDisposition);
-            const rawAmount = f.properties.Amount;
-            const amount = Number(String(rawAmount).replace(/[^0-9.-]+/g, ""));
+const filtered = {
+  type: "FeatureCollection",
+  features: data.features.filter(f => {
+    const coords = f.geometry?.coordinates;
 
-            if (!coords || coords.length !== 2 || coords.includes(null)) {
-              console.warn("Skipping feature due to invalid coordinates:", coords);
-              return false;
-            }
+    // ✅ Strict coordinate validation
+    if (!Array.isArray(coords) || coords.length !== 2 || coords[0] == null || coords[1] == null || isNaN(coords[0]) || isNaN(coords[1])) {
+      console.warn("Skipping feature due to invalid coordinates:", coords);
+      return false;
+    }
 
-            const selectedOutcomes = getSelectedOutcomes();
+    const rawDisposition = f.properties["Disposition (from Criminal Dockets)"];
+    const normalizedDisposition = normalizeDisposition(rawDisposition);
+    const selectedOutcomes = getSelectedOutcomes();
 
-            if (!normalizedDisposition || !selectedOutcomes.includes(normalizedDisposition)) {
-              return false;
-            }  
-            // Add amount bin to feature
-            let amountBin = null;
-            if (!isNaN(amount)) {
-              if (amount < 35000) amountBin = 'low';
-              else if (amount < 85000) amountBin = 'medium';
-              else amountBin = 'high';
-            
-              f.properties.amountBin = amountBin;
-            }
+    if (!normalizedDisposition || !selectedOutcomes.includes(normalizedDisposition)) {
+      return false;
+    }
 
-            if (!amountBin) {
-                console.warn("Fallback color for feature:", {
-                amount: rawAmount,
-                parsedAmount: amount,
-                coords,
-                rawDisposition,
-                normalizedDisposition
-              });
-            }  
+    const rawAmount = f.properties.Amount;
+    const amount = Number(String(rawAmount).replace(/[^0-9.-]+/g, ""));
+    if (isNaN(amount)) {
+      console.warn("Skipping feature due to invalid amount:", rawAmount);
+      return false;
+    }
 
-            if (!coords || coords.length !== 2) {
-              console.warn("Invalid coords:", coords);
-            }  
-              
-            if (coords && coords.length === 2 && normalizedDisposition && getSelectedOutcomes().includes(normalizedDisposition)) {
-              f.properties.amountBin = amountBin;  //  add this line
-              return true;
-            }
-          })
-    };
+    // ✅ Assign bin safely only if amount is good
+    if (amount < 35000) f.properties.amountBin = 'low';
+    else if (amount < 85000) f.properties.amountBin = 'medium';
+    else f.properties.amountBin = 'high';
+
+    return true;
+  })
+};
 
     // If layer already exists, update the source
     if (map.getSource('caseOutcome')) {
