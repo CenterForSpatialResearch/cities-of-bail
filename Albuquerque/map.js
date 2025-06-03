@@ -1010,13 +1010,13 @@ function updateYearCheckboxes(selectedYear) {
     }
     const bondSelect = document.getElementById("bond-select");
     if (bondSelect && bondSelect.value === "option4") {
-        updateOutcomeLayer();
         for (let y = 2000; y <= 2019; y++) {
         const layerId = 'lien_' + y;
         if (map.getLayer(layerId)) {
             map.setLayoutProperty(layerId, 'visibility', 'none');
         }// This will call showCaseOutcomeMap internally
     }
+        updateOutcomeLayer();
     }     
     updateLayerVisibility(selectedYear);
 }
