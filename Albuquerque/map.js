@@ -1593,7 +1593,7 @@ const filtered = {
           'low', '#66c2a5',
           'medium', '#fc8d62',
           'high', '#8da0cb',
-          '#cccccc' // fallback
+          '#ff00ff' // fallback
         ],
         'circle-opacity': 0.85,
         //'circle-stroke-width': 1,
