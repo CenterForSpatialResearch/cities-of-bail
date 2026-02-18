@@ -255,8 +255,8 @@ input[type="checkbox"]:checked {
 .legend {
     position: relative;
     right: 10px;
-	font-size: 14px;
-	color: #ffffff;
+    font-size: 14px;
+    color: #ffffff;
 }
 
 .legend div span {
@@ -270,25 +270,20 @@ input[type="checkbox"]:checked {
 
 .legend-container {
     font-size: 14px; 
-	padding-bottom: 8px;
-	color: #ffffff;
+    padding-bottom: 8px;
+    color: #ffffff;
 }
 
 .legend-labels {
-    display: block;
-    margin-bottom: 4px;
-    width: 240px;
-}
-
-.legend-labels span {
-    display: inline-block;
-    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px; 
 }
 
 .legend-colors {
     display: flex;
     height: 16px; 
-	width: 240px;
+    width: 100%;
 }
 
 .legend-colors div {
@@ -764,3 +759,4 @@ sup a:visited {
 sup a:hover {
     text-decoration: underline;
 }
+
