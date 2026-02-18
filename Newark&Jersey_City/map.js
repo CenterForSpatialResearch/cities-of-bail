@@ -37,7 +37,7 @@ map.on('load', function () {
         source: 'county-mask',
         paint: {
             'fill-color': '#000000',
-            'fill-opacity': 0.6
+            'fill-opacity': 0.9
         }
     });
     // --- End county mask ---
