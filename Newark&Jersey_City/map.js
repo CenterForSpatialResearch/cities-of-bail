@@ -35,13 +35,13 @@ map.on('load', function () {
             'fill-color': [
                 'case',
                 ['==', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'], null], 'transparent',
+                // Inverted pastel yellow: 0–20% white (most non-white) = darkest yellow; 80–100% white = lightest
                 ['step', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'],
-                    '#ffffff',
-                    0, '#003A04',
-                    20, '#006B1D',
-                    40, '#009D36',
-                    60, '#00CE4E',
-                    80, '#00FF67'
+                    '#d4ca1a',
+                    20, '#ddd43a',
+                    40, '#e6de60',
+                    60, '#ede78a',
+                    80, '#f5f0c8'
                 ]
             ],
             'fill-opacity': 1
@@ -236,8 +236,8 @@ map.on('load', function () {
     //     'paint': {
     //         'circle-color': [
     //             'case',
-    //             ['==', ['typeof', ['get', 'Amount']], 'number'], // 检查Amount是否为数字类型
-    //             ['step', ['get', 'Amount'], // 如果是数字，根据Amount的值决定颜色 If it is a number, the color is determined based on the value of Amount
+    //             ['==', ['typeof', ['get', 'Amount']], 'number'], // Check if Amount is a number
+    //             ['step', ['get', 'Amount'], // If it is a number, determine color based on the value of Amount
     //                 '#ffffff', 0,
     //                 '#ffa463', 35350,
     //                 '#ff8363', 85000,
@@ -245,7 +245,7 @@ map.on('load', function () {
     //                 '#ff4062', 305500,
     //                 '#ff1f62'
     //             ],
-    //             '#cccccc' // 如果Amount不是数字类型（例如undefined或null），使用灰色（或您希望的任何“没有数据”的颜色）
+    //             '#cccccc' // If Amount is not a number (e.g. undefined or null), use gray as a 'no data' color
     //         ],
     //         'circle-radius': 3, 
     //     }
@@ -829,7 +829,7 @@ map.on('load', function () {
 
 
 
-    // // 确保道路和水体图层在自定义图层之上
+    // // Ensure road and water layers appear above custom layers
     //     map.moveLayer('water');
     //     map.moveLayer('road-simple');
     //     map.moveLayer('lien_overall');
@@ -863,7 +863,7 @@ map.on('load', function () {
 
     //     const style = map.getStyle();
     //     console.log(style);
-    // // 根据选项值获取对应的属性名称
+    // // Get the property name corresponding to the selected option
 
     // Generate a list of year strings given a start and end year
     function provideYears(startYear, endYear) {
@@ -877,38 +877,9 @@ map.on('load', function () {
     let yearsList = provideYears("2000", "2020"); // ("start year", "end year")
 
     // Function to update the map layer based on selected option
+    // Lien dots are now a flat dark color regardless of amount/duration selection
     function updateMapLayer(selectedOption) {
-        let colorExpression;
-
-        if (selectedOption === 'option1') {
-            colorExpression = [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                ['step', ['get', 'Amount'], 
-                    '#ffffff', 0,
-                    '#ffa463', 35350,
-                    '#ff8363', 85000,
-                    '#ff6263', 164500,
-                    '#ff4062', 305500,
-                    '#ff1f62'
-                ],
-                '#cccccc'
-            ];
-        } else if (selectedOption === 'option2') {
-            colorExpression = [
-                'case',
-                ['==', ['typeof', ['get', 'Lien Duration']], 'number'],
-                ['step', ['get', 'Lien Duration'],
-                    '#ffffff', 0,             // Division 1: 0 to 1824
-                    '#ffa463', 1825,          // Division 2: 1825 to 3649
-                    '#ff8363', 3650,          // Division 3: 3650 to 5474
-                    '#ff6263', 5475,          // Division 4: 5475 to 7299
-                    '#ff4062', 7300,           // Division 5: 7300 to 9124
-                    '#ff1f62'
-                ],
-                '#cccccc'
-            ];
-        }
+        let colorExpression = '#2b2b2b';
 
         // For each year, apply the paint property for the lien
         yearsList.forEach(function(year) {
@@ -929,19 +900,7 @@ map.on('load', function () {
                 'data': 'data/lien_byyear/' + year + '_accumulate.geojson'
             },
             'paint': {
-                'circle-color': [
-                    'case',
-                    ['==', ['typeof', ['get', 'Amount']], 'number'], 
-                    ['step', ['get', 'Amount'], 
-                        '#ffffff', 0,
-                        '#ffa463', 35350,
-                        '#ff8363', 85000,
-                        '#ff6263', 164500,
-                        '#ff4062', 305500,
-                        '#ff1f62'
-                    ],
-                    '#cccccc'
-                ],
+                'circle-color': '#2b2b2b',
                 'circle-radius': 3
             }
         });
@@ -958,7 +917,7 @@ map.on('load', function () {
     let hoveredFeatureId = null;
 
     
-    // lien_overall 레이어 추가
+    // Add lien_overall layer
     map.addLayer({
         'id': 'lien_overall',
         'type': 'circle',
@@ -967,12 +926,7 @@ map.on('load', function () {
             'data': 'data/lien_overall/lien_overall.geojson'
         },
         'paint': {
-            'circle-color': [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'],
-                ['step', ['get', 'Amount'], '#ffffff', 0, '#ffa463', 35350, '#ff8363', 85000, '#ff6263', 164500, '#ff4062', 305500, '#ff1f62'],
-                '#cccccc'
-            ],
+            'circle-color': '#2b2b2b',
             'circle-radius': [
                 'case',
                 ['boolean', ['feature-state', 'hover'], false],
@@ -984,7 +938,7 @@ map.on('load', function () {
     });
 
 
-    // 确保道路和水体图层在自定义图层之上
+    // Ensure road and water layers appear above custom layers
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
@@ -999,11 +953,11 @@ map.on('load', function () {
         map.moveLayer('road-label-simple');
 
         const style = map.getStyle();
-    // 根据选项值获取对应的属性名称
+    // Get the property name corresponding to the selected option
 
 
 
-     // 마우스 엔터 이벤트 핸들링
+     // Mouse enter event handling
      map.on('mouseenter', 'lien_overall', function (e) {
         map.getCanvas().style.cursor = 'pointer';
         if (e.features.length > 0) {
@@ -1021,7 +975,7 @@ map.on('load', function () {
         }
     });
 
-    // 마우스 리브 이벤트 핸들링
+    // Mouse leave event handling
     map.on('mouseleave', 'lien_overall', function () {
         map.getCanvas().style.cursor = '';
         if (hoveredFeatureId) {
@@ -1034,11 +988,11 @@ map.on('load', function () {
     });
 
         map.on('click', 'lien_overall', function(e) {
-            // 确保至少选中了一个feature
+            // Ensure at least one feature is selected
             if (e.features.length > 0) {
                 var feature = e.features[0];
                 
-                // 从feature中读取amount和duration属性
+                // Read amount and duration properties from the feature
                 var amount = feature.properties['Amount']|| ''; 
                 var signdate = feature.properties['Signing Date']|| ''; 
                 var releasedate = feature.properties['Date Release Signed']|| ''; 
@@ -1046,7 +1000,7 @@ map.on('load', function () {
                 var duration = feature.properties['Lien Duration']|| ''; 
                 var bondcompany = feature.properties['Bonding Company']|| ''; 
                 
-                // 创建Popup实例并设置内容
+                // Create a Popup instance and set its content
                 var popup = new mapboxgl.Popup()
                     .setLngLat(e.lngLat) 
                     .setHTML(
@@ -1105,8 +1059,8 @@ map.on('load', function () {
         
             
             
-            // 应用过滤条件到每个年份图层
-            const years = Array.from({length: 21}, (_, i) => i + 1998); // 从1998到2020年
+            // Apply filter conditions to each year layer
+            const years = Array.from({length: 21}, (_, i) => i + 1998); // Years 1998 to 2020
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {
@@ -1117,37 +1071,37 @@ map.on('load', function () {
             });
         }
         
-        // 为每个复选框添加事件监听器
+        // Add event listeners for each checkbox
         document.getElementById('liensigned').addEventListener('change', filterLayer);
         document.getElementById('lienreleased').addEventListener('change', filterLayer);
         document.getElementById('lienforeclosed').addEventListener('change', filterLayer);
         document.getElementById('lienpending').addEventListener('change', filterLayer);
         
-        // 初始时调用filterLayer函数以应用初始过滤条件
+        // Call filterLayer on initialization to apply initial filter conditions
         filterLayer();
         
 
 ////
 function updateYearCheckboxes(selectedYear) {
     document.querySelectorAll('.year-checkbox').forEach(checkbox => {
-        checkbox.checked = false; // 先取消选择所有复选框
+        checkbox.checked = false; // First deselect all checkboxes
     });
     
     if (selectedYear) {
-        document.getElementById('year-' + selectedYear).checked = true; // 选中特定年份
+        document.getElementById('year-' + selectedYear).checked = true; // Select the specific year
     } else {
-        document.getElementById('year-all').checked = true; // 确保"All"始终选中
+        document.getElementById('year-all').checked = true; // Ensure "All" is always selected
     }
 
     updateLayerVisibility(selectedYear);
 }
   
-// 根据选中的年份设置地图图层的可见性
+// Set map layer visibility based on the selected year
 function updateLayerVisibility(selectedYear) {
     const years = ["1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
     
     if (!selectedYear || selectedYear === 'all') {
-        // 如果选中了'All'，显示'lien_overall'图层，隐藏其他所有年份图层
+        // If 'All' is selected, show the 'lien_overall' layer and hide all year layers
         map.setLayoutProperty('lien_overall', 'visibility', 'visible');
         years.forEach(year => {
             if (map.getLayer('lien_' + year)) {
@@ -1155,7 +1109,7 @@ function updateLayerVisibility(selectedYear) {
             }
         });
     } else {
-        // 否则，显示选中年份的图层，隐藏'lien_overall'以及其他所有年份图层
+        // Otherwise, show the selected year's layer and hide 'lien_overall' and all other year layers
         years.forEach(year => {
             if (map.getLayer('lien_' + year)) {
                 map.setLayoutProperty('lien_' + year, 'visibility', year === selectedYear ? 'visible' : 'none');
@@ -1165,16 +1119,16 @@ function updateLayerVisibility(selectedYear) {
     }
 }
   
-// 为所有年份的checkbox添加事件监听器
+// Add event listeners for all year checkboxes
 document.querySelectorAll('.year-checkbox').forEach(checkbox => {
     checkbox.addEventListener('change', function(e) {
-        // 当选中某一年时取消'All'的选中状态，并更新图层可见性
+        // When a specific year is selected, deselect 'All' and update layer visibility
         const selectedId = e.target.id.replace('year-', '');
         updateYearCheckboxes(selectedId === 'all' ? null : selectedId);
     });
 });
 
-// 初始化为显示'All'
+// Initialize to show 'All'
 updateYearCheckboxes(null);
 
 });
@@ -1202,20 +1156,35 @@ document.getElementById('race-select').addEventListener('change', function(e) {
             break;
     }
 
-    // 更新图层的'fill-color'属性
+    // Update the layer's fill-color property
+    // For 'White alone' (option1): inverted so darkest yellow = lowest % white (most non-white areas)
+    // For all other groups: normal direction so darkest yellow = highest % of that group
     if (propertyName) {
-        map.setPaintProperty('race_2020', 'fill-color', [
-            'case',
-            ['==', ['get', propertyName], null], 'transparent',
-            ['step', ['get', propertyName],
-                '#ffffff',
-                0, '#003A04',
-                20, '#006B1D',
-                40, '#009D36',
-                60, '#00CE4E',
-                80, '#00FF67'
-            ]
-        ]);
+        if (e.target.value === 'option1') {
+            map.setPaintProperty('race_2020', 'fill-color', [
+                'case',
+                ['==', ['get', propertyName], null], 'transparent',
+                ['step', ['get', propertyName],
+                    '#d4ca1a',
+                    20, '#ddd43a',
+                    40, '#e6de60',
+                    60, '#ede78a',
+                    80, '#f5f0c8'
+                ]
+            ]);
+        } else {
+            map.setPaintProperty('race_2020', 'fill-color', [
+                'case',
+                ['==', ['get', propertyName], null], 'transparent',
+                ['step', ['get', propertyName],
+                    '#f5f0c8',
+                    20, '#ede78a',
+                    40, '#e6de60',
+                    60, '#ddd43a',
+                    80, '#d4ca1a'
+                ]
+            ]);
+        }
     }
 });
 
@@ -1245,15 +1214,15 @@ var svg = d3.select(".company-barchart").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// 设置X轴比例尺
+// Set X-axis scale
 var x = d3.scaleBand().rangeRound([0, width]).padding(0.1)
     .domain(data.map(function(d) { return d.company; }));
 
-// 设置Y轴比例尺
+// Set Y-axis scale
 var y = d3.scaleLinear().range([height, 0])
     .domain([0, d3.max(data, function(d) { return d.count; })]);
 
-// 添加X轴
+// Add X axis
 svg.append("g")
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x))
@@ -1265,7 +1234,7 @@ svg.append("g")
       .style("fill", "white") 
       .style("font-size", "12px"); 
 
-// 添加Y轴
+// Add Y axis
 svg.append("g")
     .call(d3.axisLeft(y).ticks(10))
     .selectAll("text")
@@ -1327,41 +1296,15 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
 
     } else if (e.target.value === 'option1') {
         
-        map.setPaintProperty('lien_overall', 'circle-color', [
-            'case',
-            ['==', ['typeof', ['get', 'Amount']], 'number'], // Check if the Amount field exists and is a number
-            ['step', 
-                ['get', 'Amount'],
-                '#ffffff', 0,      // first step value
-                '#ffa463', 35350,  // second step value
-                '#ff8363', 85000,
-                '#ff6263', 164500,
-                '#ff4062', 305500,
-                '#ff1f62'          // Last step value
-            ],
-            '#cccccc' // Default color, used when Amount does not exist or is not a number
-        ]);
+        map.setPaintProperty('lien_overall', 'circle-color', '#2b2b2b');
         durationLegend.style.display = 'none'; // Disable the duration legend
         d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
         incomeLegend.style.display = ''; // Enable the income legend
        
 
-    } else if (e.target.value === 'option2') { // Add a new option for Lien Duration
+    } else if (e.target.value === 'option2') { // Lien Duration option
         
-        map.setPaintProperty('lien_overall', 'circle-color', [
-            'case',
-            ['==', ['typeof', ['get', 'Lien Duration']], 'number'], // Check if the Lien Duration field exists and is a number
-            ['step', 
-                ['get', 'Lien Duration'],
-                '#ffffff', 0,        // Division 1: 0 to 1824
-                '#ffa463', 1825,     // Division 2: 1825 to 3649
-                '#ff8363', 3650,     // Division 3: 3650 to 5474
-                '#ff6263', 5475,     // Division 4: 5475 to 7299
-                '#ff4062', 7300,     // Division 5: 7300 to 9124
-                '#ff1f62'            // Default color if above 9124 or no data
-            ],
-            '#cccccc' // Default color if Lien Duration is not a number
-        ]);
+        map.setPaintProperty('lien_overall', 'circle-color', '#2b2b2b');
         d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
         incomeLegend.style.display = 'none'; // Hide the income legend
         durationLegend.style.display = ''; // Enable the duration legend
@@ -1369,7 +1312,7 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
 });
 d3.select('.company-barchart svg').remove(); // Ensure the chart is cleared initially
 
-// 假设的数据和颜色
+// Matrix color data
 const matrixData = [
     ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
     ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
@@ -1399,12 +1342,12 @@ const matrix3Data = [
 ];
 
 
-// SVG的尺寸和边距
+// SVG dimensions and margins
 const margin = { top: 20, right: 20, bottom: 30, left: 32},
         width = 262 - margin.left - margin.right,
         height = 262 - margin.top - margin.bottom;
 
-// 创建SVG元素
+// Create SVG elements
 const svg = d3.select('#matrix').append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
@@ -1424,10 +1367,10 @@ const svg3 = d3.select('#matrix3').append('svg')
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
 
-// 设置每个色块的大小
+// Set the size of each color block
 const blockSize = Math.min(width, height) / 6;
 
-// 绘制色块图
+// Draw the color block matrix
 matrixData.forEach((row, i) => {
     row.forEach((color, j) => {
     svg.append('rect')
@@ -1462,152 +1405,152 @@ matrix3Data.forEach((row, i) => {
 });
 
 
-// 创建左侧和底部的百分比标签
+// Create percentage labels on the left and bottom axes
 const yAxisValues = d3.range(60, -1, -12);
 const xAxisValues = d3.range(0, 101, 20);
 
-// 添加Y轴百分比标签
+// Add Y-axis percentage labels
 yAxisValues.forEach((value, i) => {
     svg.append('text')
-       .attr('x', margin.left-36) // 标签在左侧的位置
-       .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
-       .style('fill', 'white') // 文本颜色
+       .attr('x', margin.left-36) // Label position on the left
+       .attr('y', i * blockSize + blockSize / 2) // Y position at the center of each block
+       .style('fill', 'white') // Text color
        .style('font-size', '11px')
-       .style('alignment-baseline', 'middle') // 文本垂直居中
-       .style('text-anchor', 'end') // 文本靠右对齐
-       .text(`${value}%`); // 添加文本
+       .style('alignment-baseline', 'middle') // Vertically center the text
+       .style('text-anchor', 'end') // Right-align the text
+       .text(`${value}%`); // Add text
 });
 
-// 添加X轴百分比标签
+// Add X-axis percentage labels
 xAxisValues.forEach((value, i) => {
     svg.append('text')
-       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
-       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .attr('x', i * blockSize + blockSize / 2) // X position at the center of each block
+       .attr('y', height + margin.bottom / 2) // Label position at the bottom
        .style('fill', 'white') 
-       .style('font-size', '11px')// 文本颜色
-       .style('text-anchor', 'middle') // 文本水平居中
-       .text(`${value}%`); // 添加文本
+       .style('font-size', '11px') // Text color
+       .style('text-anchor', 'middle') // Horizontally center the text
+       .text(`${value}%`); // Add text
 });
 
 const yAxisValues2 = d3.range(60, -1, -12);
 const xAxisLabels2 = ['0', '160k', '320k', '480k', '640k', '800k'];
 
-// 添加Y轴百分比标签
+// Add Y-axis percentage labels
 yAxisValues2.forEach((value, i) => {
     svg2.append('text')
-       .attr('x', margin.left-36) // 标签在左侧的位置
-       .attr('y', i * blockSize + blockSize / 2) // 标签在每个方块中间的Y位置
-       .style('fill', 'white') // 文本颜色
+       .attr('x', margin.left-36) // Label position on the left
+       .attr('y', i * blockSize + blockSize / 2) // Y position at the center of each block
+       .style('fill', 'white') // Text color
        .style('font-size', '11px')
-       .style('alignment-baseline', 'middle') // 文本垂直居中
-       .style('text-anchor', 'end') // 文本靠右对齐
-       .text(`${value}%`); // 添加文本
+       .style('alignment-baseline', 'middle') // Vertically center the text
+       .style('text-anchor', 'end') // Right-align the text
+       .text(`${value}%`); // Add text
 });
 
-// 添加X轴百分比标签
+// Add X-axis percentage labels
 xAxisLabels2.forEach((label, i) => {
     svg2.append('text')
-       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
-       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .attr('x', i * blockSize + blockSize / 2) // X position at the center of each block
+       .attr('y', height + margin.bottom / 2) // Label position at the bottom
        .style('fill', 'white') 
-       .style('font-size', '11px')// 文本颜色
-       .style('text-anchor', 'middle') // 文本水平居中
-       .text(label); // 添加文本
+       .style('font-size', '11px') // Text color
+       .style('text-anchor', 'middle') // Horizontally center the text
+       .text(label); // Add text
 });
 
 const yAxisValues3 = d3.range(0, 101, 20);
 const xAxisValues3 = ['0', '160k', '320k', '480k', '640k', '800k'];
 
-// 添加Y轴百分比标签
+// Add Y-axis percentage labels
 yAxisValues3.forEach((value, i) => {
     svg3.append('text')
-       .attr('x', margin.left - 36) // 레이블의 X 위치
-       .attr('y', height - i * blockSize - blockSize / 2) // Y축의 레이블 위치 조정
-       .style('fill', 'white') // 텍스트 색상
-       .style('font-size', '11px') // 텍스트 크기
-       .style('alignment-baseline', 'middle') // 텍스트 수직 중앙 정렬
-       .style('text-anchor', 'end') // 텍스트 오른쪽 정렬
-       .text(value.toString() + '%'); // 텍스트 내용
+       .attr('x', margin.left - 36) // X position of the label
+       .attr('y', height - i * blockSize - blockSize / 2) // Adjust Y-axis label position
+       .style('fill', 'white') // Text color
+       .style('font-size', '11px') // Text size
+       .style('alignment-baseline', 'middle') // Vertically center the text
+       .style('text-anchor', 'end') // Right-align the text
+       .text(value.toString() + '%'); // Text content
 });
 
-// 添加X轴百分比标签
+// Add X-axis percentage labels
 xAxisValues3.forEach((label, i) => {
     svg3.append('text')
-       .attr('x', i * blockSize + blockSize / 2) // 标签在每个方块中间的X位置
-       .attr('y', height + margin.bottom / 2) // 标签在底部的位置
+       .attr('x', i * blockSize + blockSize / 2) // X position at the center of each block
+       .attr('y', height + margin.bottom / 2) // Label position at the bottom
        .style('fill', 'white') 
-       .style('font-size', '11px')// 文本颜色
-       .style('text-anchor', 'middle') // 文本水平居中
-       .text(label); // 添加文本
+       .style('font-size', '11px') // Text color
+       .style('text-anchor', 'middle') // Horizontally center the text
+       .text(label); // Add text
 });
 
 
 
 function checkSelection() {
-    // 获取每个复选框的状态
+    // Get the state of each checkbox
     const raceChecked = document.getElementById('race2020').checked;
     const povertyChecked = document.getElementById('poverty2020').checked;
     const housingChecked = document.getElementById('housing2020').checked;
   
-    // 设置地图图层可见性
+    // Set map layer visibility
     map.setLayoutProperty('race_2020', 'visibility', raceChecked ? 'visible' : 'none');
     map.setLayoutProperty('poverty_2020', 'visibility', povertyChecked ? 'visible' : 'none');
     map.setLayoutProperty('housing_2020', 'visibility', housingChecked ? 'visible' : 'none');
   
-    // 检查选中了多少个复选框
+    // Count how many checkboxes are checked
     const checkedBoxes = [raceChecked, povertyChecked, housingChecked].filter(isChecked => isChecked).length;
   
-    // 最多只能选择两个，如果超过两个，取消当前复选框的选择
+    // At most two can be selected; if more than two, deselect the current checkbox
     if (checkedBoxes > 2) {
-    this.checked = false; // 取消当前复选框的选择
+    this.checked = false; // Deselect the current checkbox
     return;
     }
 
-    // 显示或隐藏matrix元素
+    // Show or hide the matrix element
     const matrixElement = document.getElementById('matrix');
     if (raceChecked && povertyChecked) {
-      // 如果race和poverty都被选中，则显示matrix元素
+      // If both race and poverty are selected, show the matrix element
     matrixElement.style.display = 'block';
     map.setLayoutProperty('race+poverty', 'visibility', 'visible');
     } else {
-    // 否则隐藏matrix元素
+    // Otherwise hide the matrix element
     matrixElement.style.display = 'none';
     map.setLayoutProperty('race+poverty', 'visibility', 'none');
     }
 
-    // 显示或隐藏matrix元素
+    // Show or hide the matrix element
     const matrixElement2 = document.getElementById('matrix2');
     if (housingChecked && povertyChecked) {
-      // 如果race和poverty都被选中，则显示matrix元素
+      // If both race and poverty are selected, show the matrix element
     matrixElement2.style.display = 'block';
     map.setLayoutProperty('poverty+property', 'visibility', 'visible'); 
     } else {
-    // 否则隐藏matrix元素
+    // Otherwise hide the matrix element
     matrixElement2.style.display = 'none';
     map.setLayoutProperty('poverty+property', 'visibility', 'none');
     }
 
-    // 显示或隐藏matrix元素
+    // Show or hide the matrix element
     const matrixElement3 = document.getElementById('matrix3');
     if (housingChecked && raceChecked) {
-      // 如果race和poverty都被选中，则显示matrix元素
+      // If both race and poverty are selected, show the matrix element
     matrixElement3.style.display = 'block';
     map.setLayoutProperty('race+property', 'visibility', 'visible'); 
     } else {
-    // 否则隐藏matrix元素
+    // Otherwise hide the matrix element
     matrixElement3.style.display = 'none';
     map.setLayoutProperty('race+property', 'visibility', 'none');
     }
 }
 
 
-// 为复选框添加事件监听器
+// Add event listeners for the checkboxes
 document.getElementById('race2020').addEventListener('change', checkSelection);
 document.getElementById('poverty2020').addEventListener('change', checkSelection);
 document.getElementById('housing2020').addEventListener('change', checkSelection);
 
-// 初始化状态
-    document.getElementById('matrix').style.display = 'none'; // 默认隐藏matrix元素
+// Initialize state
+    document.getElementById('matrix').style.display = 'none'; // Hide matrix element by default
     document.getElementById('race2020').checked = true;  
     document.getElementById('poverty2020').checked = false;
     document.getElementById('housing2020').checked = false;
