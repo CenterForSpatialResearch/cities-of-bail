@@ -998,9 +998,9 @@ function normalizeDisposition(raw) {
 const outcomeColors = {
     guilty_plea:     '#a855f7',
     jury_conviction: '#7e22ce',
-    dismissed:       '#d4aaff',
+    dismissed:       '#2e0057',
     pending:         '#581c87',
-    other:           '#2e0057'
+    other:           '#d4aaff'
 };
 
 function buildCaseOutcomeColorExpr() {
@@ -1135,3 +1135,4 @@ function updateOutcomeLayer() {
     if (map.getSource('caseOutcome')) map.removeSource('caseOutcome');
     d3.json(dataPath).then(data => { showCaseOutcomeMap(data); });
 }
+
