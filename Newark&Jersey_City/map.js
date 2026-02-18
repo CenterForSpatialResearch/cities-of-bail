@@ -92,11 +92,11 @@ map.on('load', function () {
                 'case',
                 ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'], null], 'transparent',
                 ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'],
-                    '#fff0e8',
-                    12, '#f5c4a8',
-                    24, '#e89060',
-                    36, '#d96030',
-                    48, '#c94a1a'
+                    '#f5c4a8',
+                    12, '#e89060',
+                    24, '#d96030',
+                    36, '#c94a1a',
+                    48, '#8a2e08'
                 ]
             ],
             'fill-opacity': 1
@@ -116,11 +116,11 @@ map.on('load', function () {
                 'case',
                 ['==', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'], null], 'transparent',
                 ['step', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'],
-                    '#e8f4f4',
-                    160000, '#9dd4d4',
-                    320000, '#4eaaaa',
-                    480000, '#1a8080',
-                    640000, '#0a6b6b'
+                    '#9dd4d4',
+                    160000, '#4eaaaa',
+                    320000, '#1a8080',
+                    480000, '#0a6b6b',
+                    640000, '#054040'
                 ]
             ],
             'fill-opacity': 1
@@ -131,7 +131,7 @@ map.on('load', function () {
 
 
 
-    // Race + Poverty bivariate (rows=poverty/coral, cols=race/yellow)
+    // Race + Poverty bivariate (rows=race/yellow, cols=poverty/coral)
     map.addLayer({
         'id': 'race+poverty',
         'type': 'fill',
@@ -143,11 +143,11 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['get', 'Bi_class'],
-                'A1', '#FAF0D8', 'A2', '#F5EBC2', 'A3', '#F1E6AC', 'A4', '#EDE196', 'A5', '#E9DD81',
-                'B1', '#F3DBBE', 'B2', '#EED6A8', 'B3', '#EAD192', 'B4', '#E6CC7C', 'B5', '#E2C867',
-                'C1', '#ECC6A4', 'C2', '#E8C18E', 'C3', '#E4BD79', 'C4', '#E0B863', 'C5', '#DCB34D',
-                'D1', '#E5B18A', 'D2', '#E1AC74', 'D3', '#DDA85F', 'D4', '#D9A349', 'D5', '#D59E33',
-                'E1', '#DF9D71', 'E2', '#DA985B', 'E3', '#D69345', 'E4', '#D28E2F', 'E5', '#CE8A1A',
+                'E1', '#E4C761','E2', '#DEAD3D','E3', '#D69525','E4', '#CE8A1A','E5', '#AF7C11',
+                'D1', '#E9CC71','D2', '#E2B24D','D3', '#DB9A35','D4', '#D38F2A','D5', '#B38121',
+                'C1', '#EDD184','C2', '#E7B760','C3', '#DF9F48','C4', '#D7943D','C5', '#B88634',
+                'B1', '#F1D599','B2', '#EABB75','B3', '#E3A35D','B4', '#DB9852','B5', '#BB8A49',
+                'A1', '#F5DAB8','A2', '#EEC094','A3', '#E7A87C','A4', '#DF9D71','A5', '#BF8F68',
                 '#000000'
             ]
         }
@@ -166,11 +166,11 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['get', 'Bi2_class'],
-                'A1', '#F3F2EE', 'A2', '#D7E0DC', 'A3', '#BCCFCB', 'A4', '#A0BEBA', 'A5', '#84ADA9',
-                'B1', '#ECDDD4', 'B2', '#D0CBC2', 'B3', '#B5BAB1', 'B4', '#99A9A0', 'B5', '#7D988F',
-                'C1', '#E6C8BA', 'C2', '#CAB7A9', 'C3', '#AEA698', 'C4', '#929587', 'C5', '#778476',
-                'D1', '#DFB3A0', 'D2', '#C3A28F', 'D3', '#A7917E', 'D4', '#8B806D', 'D5', '#706F5C',
-                'E1', '#D89F87', 'E2', '#BC8D75', 'E3', '#A17C64', 'E4', '#856B53', 'E5', '#695A42',
+                'E1', '#93816E','E2', '#6C6C59','E3', '#525744','E4', '#4A4C39','E5', '#473724',
+                'D1', '#B38F77','D2', '#8B7A62','D3', '#71654D','D4', '#695A42','D5', '#67452D',
+                'C1', '#BB9A82','C2', '#93856D','C3', '#797058','C4', '#71654D','C5', '#6F5038',
+                'B1', '#C2B29A','B2', '#9B9D85','B3', '#818870','B4', '#797D65','B5', '#766850',
+                'A1', '#C9CCBE','A2', '#A1B7A9','A3', '#87A294','A4', '#7F9789','A5', '#7D8274',
                 '#000000'
             ]
         }
@@ -189,11 +189,11 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['get', 'Bi3_class'],
-                'A1', '#EEF2DE', 'A2', '#D2E0CC', 'A3', '#B7CFBB', 'A4', '#9BBEAA', 'A5', '#7FAD99',
-                'B1', '#EAEDC8', 'B2', '#CEDBB6', 'B3', '#B2CAA5', 'B4', '#96B994', 'B5', '#7BA883',
-                'C1', '#E6E8B2', 'C2', '#CAD7A1', 'C3', '#AEC690', 'C4', '#92B57F', 'C5', '#77A46E',
-                'D1', '#E2E39C', 'D2', '#C6D28B', 'D3', '#AAC17A', 'D4', '#8EB069', 'D5', '#739F58',
-                'E1', '#DEDF87', 'E2', '#C2CD75', 'E3', '#A6BC64', 'E4', '#8AAB53', 'E5', '#6F9A42',
+                'E1', '#B8CF77','E2', '#91BA62','E3', '#77A54D','E4', '#6F9A42','E5', '#6C852D',
+                'D1', '#BDD487','D2', '#95BF72','D3', '#7BAA5D','D4', '#739F52','D5', '#718A3D',
+                'C1', '#C1D99A','C2', '#9AC485','C3', '#80AF70','C4', '#78A465','C5', '#758F50',
+                'B1', '#C5DDAF','B2', '#9DC89A','B3', '#83B385','B4', '#7BA97A','B5', '#799365',
+                'A1', '#C9E2CE','A2', '#A1CDB9','A3', '#87B8A4','A4', '#7FAD99','A5', '#7D9884',
                 '#000000'
             ]
         }
@@ -869,12 +869,61 @@ map.on('load', function () {
     // Function to update the map layer based on selected option.
     // Uses icon-color since lien layers are now SDF symbol layers.
     function updateMapLayer(selectedOption) {
-        let colorExpression = '#2b2b2b';
+        let colorExpression;
 
-        // For each year, apply the icon-color paint property
+        if (selectedOption === 'option1') {
+            // Amount — step by bond amount
+            colorExpression = [
+                'case',
+                ['==', ['typeof', ['get', 'Amount']], 'number'],
+                ['step', ['get', 'Amount'],
+                    '#FF994F', 35000,
+                    '#F96F4B', 85000,
+                    '#E34344', 150000,
+                    '#DF0038', 350000,
+                    '#C4002F'
+                ],
+                '#949494'
+            ];
+        } else if (selectedOption === 'option2') {
+            // Duration — step by lien duration
+            colorExpression = [
+                'case',
+                ['==', ['typeof', ['get', 'Duration']], 'number'],
+                ['step', ['get', 'Duration'],
+                    '#FF994F', 5,
+                    '#F96F4B', 10,
+                    '#E34344', 15,
+                    '#DF0038', 20,
+                    '#C4002F'
+                ],
+                '#949494'
+            ];
+        } else if (selectedOption === 'option3') {
+            // Company — match by bonding company name
+            colorExpression = [
+                'match', ['get', 'Bonding Company'],
+                'AAA Bail Bonds', '#fcf467',
+                'Pacheco Bonding', '#ea8972',
+                'A Bail Bond Co.', '#0B8A7C',
+                'ASAP Bail Bond', '#5fcad2',
+                'Aardvark Bail Bond', '#4ca48a',
+                'Affordable Bail Bonds', '#FF7733',
+                'Martinez Bail Bonds', '#f2c947',
+                'Help Bail Bonds', '#F48A28',
+                'ABC Bail Bonds', '#80BB47',
+                'Gonzales Bail Bonds', '#FEBA2A',
+                '#949494'
+            ];
+        } else {
+            // Select... or unknown — default black
+            colorExpression = '#2b2b2b';
+        }
+
+        // Apply to lien_overall and all year layers
+        map.setPaintProperty('lien_overall', 'icon-color', colorExpression);
         yearsList.forEach(function(year) {
-            let layerName = 'lien_' + year;
-            map.setPaintProperty(layerName, 'icon-color', colorExpression);
+            map.setPaintProperty('lien_' + year, 'icon-color', colorExpression);
         });
     }
 
@@ -985,12 +1034,6 @@ map.on('load', function () {
         map.moveLayer('road-label-simple');
 
     }); // end loadPinImage
-
-    // Event listener for dropdown menu changes
-    document.getElementById('bond-select').addEventListener('change', function() {
-        const selectedOption = this.value;
-        updateMapLayer(selectedOption);
-    });
 
     let hoveredFeatureId = null;
 
@@ -1315,41 +1358,23 @@ svg.selectAll(".text")
 document.getElementById('bond-select').addEventListener('change', function(e) {
     var incomeLegend = document.getElementById('income-legend');
     var durationLegend = document.getElementById('duration-legend');
-    if (e.target.value ===  'option3') {
-        map.setPaintProperty('lien_overall', 'icon-color', [
-            'match',
-            ['get', 'Bonding Company'],
-            'AAA Bail Bonds', '#fcf467',
-            'Pacheco Bonding', '#ea8972',
-            'A Bail Bond Co.', '#0B8A7C',
-            'ASAP Bail Bond', '#5fcad2',
-            'Aardvark Bail Bond', '#4ca48a',
-            'Affordable Bail Bonds', '#FF7733',
-            'Martinez Bail Bonds', '#f2c947',
-            'Help Bail Bonds', '#F48A28',
-            'ABC Bail Bonds', '#80BB47',
-            'Gonzales Bail Bonds', '#FEBA2A',
-            '#949494' 
-        ]);
-        incomeLegend.style.display = 'none'; // Hide the income legend
-        durationLegend.style.display = 'none'; // Disable the duration legend
-        d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
-        drawBarChart(data); // Redraw the bar chart
 
-    } else if (e.target.value === 'option1') {
-        
-        map.setPaintProperty('lien_overall', 'icon-color', '#2b2b2b');
-        durationLegend.style.display = 'none'; // Hide the duration legend
-        d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
-        incomeLegend.style.display = ''; // Show the income legend
+    // Hide everything first, then show what's relevant
+    incomeLegend.style.display = 'none';
+    durationLegend.style.display = 'none';
+    d3.select('.company-barchart svg').remove();
 
-    } else if (e.target.value === 'option2') { // Lien Duration option
-        
-        map.setPaintProperty('lien_overall', 'icon-color', '#2b2b2b');
-        d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
-        incomeLegend.style.display = 'none'; // Hide the income legend
-        durationLegend.style.display = ''; // Show the duration legend
+    if (e.target.value === 'option1') {
+        incomeLegend.style.display = '';
+    } else if (e.target.value === 'option2') {
+        durationLegend.style.display = '';
+    } else if (e.target.value === 'option3') {
+        drawBarChart(data);
     }
+    // option0 (Select...) — everything stays hidden, pins stay default black
+
+    // Delegate color update to updateMapLayer
+    updateMapLayer(e.target.value);
 });
 d3.select('.company-barchart svg').remove(); // Ensure the chart is cleared initially
 
