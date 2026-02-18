@@ -30,6 +30,7 @@
         <h4>Bond information</h4>
         <div class="dropdown">
             <select id="bond-select" class="dropdown-bond">
+              <option value="option0" selected>Select...</option>
               <option value="option1">Amount</option>
               <option value="option2">Duration</option>
               <option value="option3">Company</option>
@@ -40,15 +41,15 @@
             <div style="font-style: italic;">Click to filter map</div>  
             <div><input type="checkbox" id="liensigned" checked>
                 <label for="liensigned" class="label-padding">Signed</label></div>
-            <div><input type="checkbox" id="lienreleased" checked>
+            <div><input type="checkbox" id="lienreleased">
                 <label for="lienreleased" class="label-padding">Released</label></div>
-            <div><input type="checkbox" id="lienforeclosed" checked>
+            <div><input type="checkbox" id="lienforeclosed">
                 <label for="lienforeclosed" class="label-padding">Foreclosed</label></div>
-            <div><input type="checkbox" id="lienpending" checked>
+            <div><input type="checkbox" id="lienpending">
                 <label for="lienpending" class="label-padding">Pending</label></div>
             </div>
 
-            <div id="income-legend" class="legend column-bailinfo">
+            <div id="income-legend" class="legend column-bailinfo" style="display:none">
                 <div><span style="background-color: #FF994F"></span>$0 - 35k</div>
                 <div><span style="background-color: #F96F4B"></span>$35k - 80k</div>
                 <div><span style="background-color: #E34344"></span>$80k - 150k</div>
@@ -110,11 +111,11 @@
                     <span>60%</span>
                 </div>
                 <div class="legend-colors">
-                    <div style="background-color: #fff0e8; width: 20%;"></div>
                     <div style="background-color: #f5c4a8; width: 20%;"></div>
                     <div style="background-color: #e89060; width: 20%;"></div>
                     <div style="background-color: #d96030; width: 20%;"></div>
                     <div style="background-color: #c94a1a; width: 20%;"></div>
+                    <div style="background-color: #8a2e08; width: 20%;"></div>
                 </div>
             </div>
 
@@ -131,11 +132,11 @@
                     <span>800k</span>
                 </div>
                 <div class="legend-colors">
-                    <div style="background-color: #e8f4f4; width: 20%;"></div>
                     <div style="background-color: #9dd4d4; width: 20%;"></div>
                     <div style="background-color: #4eaaaa; width: 20%;"></div>
                     <div style="background-color: #1a8080; width: 20%;"></div>
                     <div style="background-color: #0a6b6b; width: 20%;"></div>
+                    <div style="background-color: #054040; width: 20%;"></div>
                 </div>
             </div>
         </div>
