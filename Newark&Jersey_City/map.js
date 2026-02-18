@@ -23,21 +23,35 @@ map.on('load', function () {
 
 
     // --- County mask ---
-    // Derived from binarymap.geojson: all census tracts dissolved into a single
-    // unified boundary for Essex and Hudson counties. Areas outside are dimmed
-    // with a semi-transparent dark overlay, keeping the target data area clear.
+    // Two-layer approach: a dim fill over outside areas, plus a heavily blurred
+    // line along the boundary edge to create a soft vignette transition.
     map.addSource('county-mask', {
         type: 'geojson',
         data: 'data/binarymap/mask.geojson'
     });
 
+    // Outer fill: dims everything outside the target area
     map.addLayer({
         id: 'county-mask-layer',
         type: 'fill',
         source: 'county-mask',
         paint: {
-            'fill-color': '#8B008B',
-            'fill-opacity': 1.0
+            'fill-color': '#9bedff',
+            'fill-opacity': 0.7
+        }
+    });
+
+    // Blurred edge: a wide soft line traced along the mask boundary.
+    // line-blur creates a genuine feathered edge in Mapbox.
+    map.addLayer({
+        id: 'county-mask-edge-layer',
+        type: 'line',
+        source: 'county-mask',
+        paint: {
+            'line-color': '#9bedff',
+            'line-width': 60,
+            'line-blur': 40,
+            'line-opacity': 0.8
         }
     });
     // --- End county mask ---
