@@ -35,13 +35,13 @@ map.on('load', function () {
             'fill-color': [
                 'case',
                 ['==', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'], null], 'transparent',
-                // Inverted pastel yellow: 0–20% white (most non-white) = darkest yellow; 80–100% white = lightest
+                // Pastel yellow scale: 0–20% white = lightest; 80–100% white = darkest
                 ['step', ['get', 'ACSDT5Y2020.B03002-Data-Reformatted_Percentage: White alone'],
-                    '#d4ca1a',
-                    20, '#ddd43a',
+                    '#f5f0c8',
+                    20, '#ede78a',
                     40, '#e6de60',
-                    60, '#ede78a',
-                    80, '#f5f0c8'
+                    60, '#ddd43a',
+                    80, '#d4ca1a'
                 ]
             ],
             'fill-opacity': 1
@@ -1165,11 +1165,11 @@ document.getElementById('race-select').addEventListener('change', function(e) {
                 'case',
                 ['==', ['get', propertyName], null], 'transparent',
                 ['step', ['get', propertyName],
-                    '#d4ca1a',
-                    20, '#ddd43a',
+                    '#f5f0c8',
+                    20, '#ede78a',
                     40, '#e6de60',
-                    60, '#ede78a',
-                    80, '#f5f0c8'
+                    60, '#ddd43a',
+                    80, '#d4ca1a'
                 ]
             ]);
         } else {
