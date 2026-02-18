@@ -30,12 +30,14 @@
 
 function loadPinImage(map, callback) {
     const pinPath = getRelativePinPath();
+    console.log('[shared.js] Loading pin from:', pinPath);
 
     map.loadImage(pinPath, function(error, image) {
         if (error) {
-            console.error('Failed to load pin image:', error);
+            console.error('[shared.js] Failed to load pin image:', error);
             return;
         }
+        console.log('[shared.js] Pin image loaded successfully');
         // Add the image as an SDF so icon-color can be set dynamically
         if (!map.hasImage('bail-pin')) {
             map.addImage('bail-pin', image, { sdf: true });
