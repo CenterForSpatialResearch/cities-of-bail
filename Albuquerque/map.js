@@ -19,16 +19,16 @@ function updateMapLayer(selectedOption) {
     let colorExpression;
 
     if (selectedOption === 'option1') {
-        // Amount — purple scale, $250k increments
+        // Amount — purple scale, Albuquerque ranges
         colorExpression = [
             'case',
             ['==', ['typeof', ['get', 'Amount']], 'number'],
             ['step', ['get', 'Amount'],
-                '#d4aaff',        // $0 - $250k
-                250001, '#a855f7', // $250k - $500k
-                500001, '#7e22ce', // $500k - $750k
-                750001, '#581c87', // $750k - $1m
-                1000001, '#2e0057' // $1m+
+                '#d4aaff',         // $0 - $35k
+                35001, '#a855f7',  // $35k - $80k
+                80001, '#7e22ce',  // $80k - $150k
+                150001, '#581c87', // $150k - $350k
+                350001, '#2e0057'  // $350k+
             ],
             '#949494'
         ];
@@ -78,6 +78,129 @@ function updateMapLayer(selectedOption) {
 }
 
 var selectedYear = "all";
+
+// --- Legend filter state ---
+// Tracks which legend buckets are active. null = no filter active (all shown).
+const legendFilterState = {
+    active: false,
+    type: null,       // 'amount' | 'duration' | 'company'
+    activeKeys: new Set()
+};
+
+// Called whenever a legend item is clicked or legend mode changes
+function applyLegendFilter() {
+    if (legendFilterState.type === 'outcome') {
+        // Outcome filtering is handled by applyCaseOutcomeFilter directly
+        applyCaseOutcomeFilter();
+        return;
+    }
+
+    if (!legendFilterState.active || legendFilterState.activeKeys.size === 0) {
+        if (map.getLayer('lien_overall')) map.setFilter('lien_overall', null);
+        yearsList.forEach(y => {
+            if (map.getLayer('lien_' + y)) map.setFilter('lien_' + y, null);
+        });
+        return;
+    }
+
+    let filterExpr;
+    const keys = Array.from(legendFilterState.activeKeys);
+
+    if (legendFilterState.type === 'amount') {
+        const orClauses = keys.map(k => {
+            const [mn, mx] = k.split(':').map(Number);
+            return ['all', ['>=', ['get', 'Amount'], mn], ['<=', ['get', 'Amount'], mx]];
+        });
+        filterExpr = orClauses.length === 1 ? orClauses[0] : ['any', ...orClauses];
+    } else if (legendFilterState.type === 'duration') {
+        const orClauses = keys.map(k => {
+            const [mn, mx] = k.split(':').map(Number);
+            return ['all', ['>=', ['get', 'Lien Duration'], mn], ['<=', ['get', 'Lien Duration'], mx]];
+        });
+        filterExpr = orClauses.length === 1 ? orClauses[0] : ['any', ...orClauses];
+    } else if (legendFilterState.type === 'company') {
+        filterExpr = ['in', ['get', 'Bonding Company'], ['literal', keys]];
+    }
+
+    if (map.getLayer('lien_overall')) map.setFilter('lien_overall', filterExpr);
+    yearsList.forEach(y => {
+        if (map.getLayer('lien_' + y)) map.setFilter('lien_' + y, filterExpr);
+    });
+}
+
+// Clear legend filter state and visual highlights
+function clearLegendFilter() {
+    legendFilterState.active = false;
+    legendFilterState.type = null;
+    legendFilterState.activeKeys.clear();
+    document.querySelectorAll('.legend-filter-item').forEach(el => {
+        el.classList.remove('lf-active', 'lf-inactive');
+    });
+    applyLegendFilter();
+    // Also clear any outcome filter
+    if (map.getLayer('caseOutcome')) map.setFilter('caseOutcome', null);
+    if (map.getLayer('caseOutcome_overlay')) map.setFilter('caseOutcome_overlay', null);
+}
+
+// Wire up clicks on static legend items (amount/duration/outcome)
+document.addEventListener('click', function(e) {
+    const item = e.target.closest('.legend-filter-item');
+    if (!item) return;
+
+    const filterType = item.dataset.filter;
+    let itemKey;
+    if (filterType === 'amount' || filterType === 'duration') {
+        itemKey = item.dataset.min + ':' + item.dataset.max;
+    } else if (filterType === 'company') {
+        itemKey = item.dataset.company;
+    } else if (filterType === 'outcome') {
+        itemKey = item.dataset.outcome;
+    }
+
+    // If switching to a different legend type, reset first
+    if (legendFilterState.type && legendFilterState.type !== filterType) {
+        legendFilterState.activeKeys.clear();
+    }
+
+    legendFilterState.active = true;
+    legendFilterState.type = filterType;
+
+    if (legendFilterState.activeKeys.has(itemKey)) {
+        legendFilterState.activeKeys.delete(itemKey);
+        if (legendFilterState.activeKeys.size === 0) {
+            legendFilterState.active = false;
+        }
+    } else {
+        legendFilterState.activeKeys.add(itemKey);
+    }
+
+    // Update visual state on all items of this filter type
+    const allItems = document.querySelectorAll(`.legend-filter-item[data-filter="${filterType}"]`);
+    if (!legendFilterState.active) {
+        allItems.forEach(el => el.classList.remove('lf-active', 'lf-inactive'));
+    } else {
+        allItems.forEach(el => {
+            let key;
+            if (filterType === 'amount' || filterType === 'duration') {
+                key = el.dataset.min + ':' + el.dataset.max;
+            } else if (filterType === 'company') {
+                key = el.dataset.company;
+            } else if (filterType === 'outcome') {
+                key = el.dataset.outcome;
+            }
+            if (legendFilterState.activeKeys.has(key)) {
+                el.classList.add('lf-active');
+                el.classList.remove('lf-inactive');
+            } else {
+                el.classList.add('lf-inactive');
+                el.classList.remove('lf-active');
+            }
+        });
+    }
+
+    applyLegendFilter();
+});
+
 map.on('load', function () {
 
     // Update water layer appearance
@@ -567,6 +690,9 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
     var caseOutcomeChart = document.getElementById('case-outcome-chart');
     var caseOutcomeFilters = document.getElementById('case-outcome-filters');
 
+    // Clear any active legend filter when switching modes
+    clearLegendFilter();
+
     // Reset all legend/chart visibility
     incomeLegend.style.display = 'none';
     durationLegend.style.display = 'none';
@@ -595,9 +721,6 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
             }
         });
         updateOutcomeLayer();
-        document.querySelectorAll('input[name="case-outcome-checkbox"]').forEach(cb => {
-            cb.addEventListener('change', updateOutcomeLayer);
-        });
         return; // skip updateMapLayer for case outcome
     }
     // option0 (Select...) — stays black, everything hidden
@@ -647,14 +770,42 @@ function drawBarChart(data) {
         .domain(data.map(function(d) { return d.company; }))
         .range(['#fcf467','#d8c4fb','#ea8972','#5fcad2','#4ca48a','#FF7733','#f2c947','#F48A28','#80BB47','#FEBA2A','#949494']);
 
+    function updateBarOpacity() {
+        svg.selectAll(".bar").style("opacity", function(d) {
+            if (!legendFilterState.active || legendFilterState.type !== 'company') return 1;
+            return legendFilterState.activeKeys.has(d.company) ? 1 : 0.25;
+        });
+    }
+
     svg.selectAll(".bar")
         .data(data)
         .enter().append("rect")
+        .attr("class", "bar")
         .style("fill", function(d) { return colorScale(d.company); })
+        .style("cursor", "pointer")
         .attr("x", function(d) { return x(d.company); })
         .attr("width", x.bandwidth())
         .attr("y", function(d) { return y(d.count); })
-        .attr("height", function(d) { return height - y(d.count); });
+        .attr("height", function(d) { return height - y(d.count); })
+        .on("click", function(event, d) {
+            const company = d.company;
+            if (legendFilterState.type && legendFilterState.type !== 'company') {
+                legendFilterState.activeKeys.clear();
+            }
+            legendFilterState.active = true;
+            legendFilterState.type = 'company';
+
+            if (legendFilterState.activeKeys.has(company)) {
+                legendFilterState.activeKeys.delete(company);
+                if (legendFilterState.activeKeys.size === 0) {
+                    legendFilterState.active = false;
+                }
+            } else {
+                legendFilterState.activeKeys.add(company);
+            }
+            updateBarOpacity();
+            applyLegendFilter();
+        });
 
     svg.selectAll(".text")
         .data(data)
@@ -846,62 +997,132 @@ function normalizeDisposition(raw) {
     return "other";
 }
 
-function getSelectedOutcomes() {
-    return Array.from(document.querySelectorAll('input[name="case-outcome-checkbox"]:checked'))
-        .map(cb => cb.value);
+// Purple palette per outcome category — matches legend swatches in HTML
+const outcomeColors = {
+    guilty_plea:     '#a855f7',
+    jury_conviction: '#7e22ce',
+    dismissed:       '#d4aaff',
+    pending:         '#581c87',
+    other:           '#2e0057'
+};
+
+function buildCaseOutcomeColorExpr() {
+    return [
+        'match', ['get', 'outcome'],
+        'guilty_plea',     outcomeColors.guilty_plea,
+        'jury_conviction', outcomeColors.jury_conviction,
+        'dismissed',       outcomeColors.dismissed,
+        'pending',         outcomeColors.pending,
+        outcomeColors.other // fallback = other
+    ];
 }
 
-function showCaseOutcomeMap(data) {
-    const selectedOutcomes = getSelectedOutcomes();
-    const filtered = {
+function showCaseOutcomeMap(geojson) {
+    // Normalize disposition into a clean 'outcome' property, drop bad coords
+    const processed = {
         type: "FeatureCollection",
-        features: data.features.filter(f => {
+        features: geojson.features.filter(f => {
             const coords = f.geometry?.coordinates;
-            if (!Array.isArray(coords) || coords.length !== 2 || coords[0] == null || coords[1] == null || isNaN(coords[0]) || isNaN(coords[1])) return false;
-            const rawDisposition = f.properties["Disposition (from Criminal Dockets)"];
-            const normalizedDisposition = normalizeDisposition(rawDisposition);
-            if (!normalizedDisposition || !getSelectedOutcomes().includes(normalizedDisposition)) return false;
-            const rawAmount = f.properties.Amount;
-            const amount = Number(String(rawAmount).replace(/[^0-9.-]+/g, ""));
-            if (isNaN(amount)) return false;
-            if (amount < 35000) f.properties.amountBin = 'low';
-            else if (amount < 85000) f.properties.amountBin = 'medium';
-            else f.properties.amountBin = 'high';
+            if (!Array.isArray(coords) || coords.length !== 2 ||
+                coords[0] == null || coords[1] == null ||
+                isNaN(coords[0]) || isNaN(coords[1])) return false;
+            const raw = f.properties["Disposition (from Criminal Dockets)"];
+            f.properties.outcome = normalizeDisposition(raw);
             return true;
         })
     };
 
     if (map.getSource('caseOutcome')) {
-        map.getSource('caseOutcome').setData(filtered);
-        return;
+        map.getSource('caseOutcome').setData(processed);
+    } else {
+        map.addSource('caseOutcome', { type: 'geojson', data: processed });
+
+        // SDF pin base layer — colored by outcome
+        map.addLayer({
+            id: 'caseOutcome',
+            type: 'symbol',
+            source: 'caseOutcome',
+            layout: {
+                'icon-image': 'bail-pin',
+                'icon-size': 0.35,
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true
+            },
+            paint: {
+                'icon-color': buildCaseOutcomeColorExpr(),
+                'icon-opacity': 0.9
+            }
+        });
+
+        // White overlay
+        map.addLayer({
+            id: 'caseOutcome_overlay',
+            type: 'symbol',
+            source: 'caseOutcome',
+            layout: {
+                'icon-image': 'bail-pin-overlay',
+                'icon-size': 0.35,
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true
+            },
+            paint: { 'icon-opacity': 0.9 }
+        });
+
+        // Popup on click
+        map.on('click', 'caseOutcome', function(e) {
+            if (e.features.length > 0) {
+                var f = e.features[0];
+                var amount = f.properties['Amount'] || '';
+                var bondcompany = f.properties['Bonding Company'] || '';
+                var duration = f.properties['Lien Duration'] || '';
+                var outcome = f.properties['outcome'] || '';
+                var amountFormatted = amount !== '' ? '$' + Number(amount).toLocaleString('en-US') : '';
+                var durationFormatted = duration !== '' ? duration + ' days' : '';
+                var outcomeLabel = {
+                    guilty_plea: 'Guilty Plea', jury_conviction: 'Jury Conviction',
+                    dismissed: 'Dismissed', pending: 'Pending', other: 'Other'
+                }[outcome] || outcome;
+                new mapboxgl.Popup({ anchor: 'bottom-left' })
+                    .setLngLat(e.lngLat)
+                    .setHTML(
+                        '<p><b>Amount</b>: ' + amountFormatted + '</p>' +
+                        '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
+                        '<p><b>Duration</b>: ' + durationFormatted + '</p>' +
+                        '<p><b>Outcome</b>: ' + outcomeLabel + '</p>')
+                    .addTo(map);
+            }
+        });
     }
 
-    map.addSource('caseOutcome', { type: 'geojson', data: filtered });
-    map.addLayer({
-        id: 'caseOutcome',
-        type: 'circle',
-        source: 'caseOutcome',
-        paint: {
-            'circle-radius': 3,
-            'circle-color': [
-                'match', ['get', 'amountBin'],
-                'low', '#66c2a5',
-                'medium', '#fc8d62',
-                'high', '#8da0cb',
-                '#ff00ff'
-            ],
-            'circle-opacity': 0.85,
-        }
-    });
+    // Apply any active outcome legend filter
+    applyCaseOutcomeFilter();
+}
+
+// Filter caseOutcome layer by selected outcome categories
+function applyCaseOutcomeFilter() {
+    if (!map.getLayer('caseOutcome')) return;
+    if (!legendFilterState.active || legendFilterState.type !== 'outcome' || legendFilterState.activeKeys.size === 0) {
+        map.setFilter('caseOutcome', null);
+        if (map.getLayer('caseOutcome_overlay')) map.setFilter('caseOutcome_overlay', null);
+        return;
+    }
+    const keys = Array.from(legendFilterState.activeKeys);
+    const filterExpr = ['in', ['get', 'outcome'], ['literal', keys]];
+    map.setFilter('caseOutcome', filterExpr);
+    if (map.getLayer('caseOutcome_overlay')) map.setFilter('caseOutcome_overlay', filterExpr);
 }
 
 function updateOutcomeLayer() {
     let dataPath = 'data/lien_overall/lien_overall_with_disposition.geojson';
-    const selectedYear = document.querySelector('.year-checkbox:checked')?.value;
+    const checked = document.querySelector('.year-checkbox:checked');
+    const selectedYear = checked ? checked.value : 'all';
     if (selectedYear !== 'all') {
         dataPath = `data/lien_byyear/lien_${selectedYear}_with_disposition.geojson`;
     }
     if (map.getLayer('caseOutcome')) map.removeLayer('caseOutcome');
+    if (map.getLayer('caseOutcome_overlay')) map.removeLayer('caseOutcome_overlay');
     if (map.getSource('caseOutcome')) map.removeSource('caseOutcome');
     d3.json(dataPath).then(data => { showCaseOutcomeMap(data); });
 }
