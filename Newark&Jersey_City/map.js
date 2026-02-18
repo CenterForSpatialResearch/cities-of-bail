@@ -43,10 +43,7 @@ map.on('load', function () {
             'fill-opacity': 0.55  // adjust 0–1 to taste; 0.55 gives a strong but not total fade
         }
     });
-
-    // Position mask: above the Mapbox base map roads/labels,
-    // but below all our custom data layers
-    map.moveLayer('county-mask-layer', 'race_2020');
+    // Mask is added first so it sits naturally below all custom data layers
     // --- End county mask ---
 
     map.addLayer({
