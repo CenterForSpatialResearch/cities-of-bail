@@ -24,11 +24,11 @@ function updateMapLayer(selectedOption) {
             'case',
             ['==', ['typeof', ['get', 'Amount']], 'number'],
             ['step', ['get', 'Amount'],
-                '#d4aaff',   // $0 - 35k
-                35000,  '#a855f7',   // $35k - 80k
-                85000,  '#7e22ce',   // $80k - 150k
-                150000, '#581c87',   // $150k - 350k
-                350000, '#2e0057'    // $350k+
+                '#d4aaff',    // $0 - $250k
+                250001, '#a855f7',   // $250k - $500k
+                500001, '#7e22ce',   // $500k - $750k
+                750001, '#581c87',   // $750k - $1m
+                1000001, '#2e0057'   // $1m+
             ],
             '#949494'
         ];
@@ -1082,24 +1082,24 @@ map.on('load', function () {
             if (e.features.length > 0) {
                 var feature = e.features[0];
                 
-                // Read amount and duration properties from the feature
-                var amount = feature.properties['Amount']|| ''; 
-                var signdate = feature.properties['Signing Date']|| ''; 
-                var releasedate = feature.properties['Date Release Signed']|| ''; 
-                var foreclosedate = feature.properties['Foreclosure Date']|| ''; 
-                var duration = feature.properties['Lien Duration']|| ''; 
-                var bondcompany = feature.properties['Bonding Company']|| ''; 
-                
-                // Create a Popup instance and set its content
-                var popup = new mapboxgl.Popup()
+                var amount = feature.properties['Amount'] || '';
+                var bondcompany = feature.properties['Bonding Company'] || '';
+                var duration = feature.properties['Lien Duration'] || '';
+
+                // Format amount as $2,000,000
+                var amountFormatted = amount !== ''
+                    ? '$' + Number(amount).toLocaleString('en-US')
+                    : '';
+
+                // Format duration as "956 days"
+                var durationFormatted = duration !== '' ? duration + ' days' : '';
+
+                var popup = new mapboxgl.Popup({ anchor: 'bottom-left' })
                     .setLngLat(e.lngLat) 
                     .setHTML(
-                                '<p><b>Amount($)</b>: ' + amount + '</p>' +
-                                '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
-                                '<p><b>Sign date</b>: ' + signdate + '</p>' +
-                                '<p><b>Release date</b>: ' + releasedate + '</p>' +
-                                '<p><b>Foreclose date</b>: ' + foreclosedate + '</p>' +
-                                '<p><b>Duration(year)</b>: ' + duration + '</p>') 
+                        '<p><b>Amount</b>: ' + amountFormatted + '</p>' +
+                        '<p><b>Bond company</b>: ' + bondcompany + '</p>' +
+                        '<p><b>Duration</b>: ' + durationFormatted + '</p>')
                     .addTo(map); 
             }
         });
