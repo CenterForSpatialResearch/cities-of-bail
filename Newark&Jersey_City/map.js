@@ -36,7 +36,7 @@ map.on('load', function () {
         type: 'fill',
         source: 'county-mask',
         paint: {
-            'fill-color': '#020202',
+            'fill-color': '#8B008B',
             'fill-opacity': 1.0
         }
     });
