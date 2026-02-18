@@ -275,9 +275,14 @@ input[type="checkbox"]:checked {
 }
 
 .legend-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 4px; 
+    display: block;
+    margin-bottom: 4px;
+    width: 240px;
+}
+
+.legend-labels span {
+    display: inline-block;
+    width: 20%;
 }
 
 .legend-colors {
