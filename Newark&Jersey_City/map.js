@@ -36,7 +36,7 @@ map.on('load', function () {
         type: 'fill',
         source: 'county-mask',
         paint: {
-            'fill-color': '#9bedff',
+            'fill-color': '#cdd6da',
             'fill-opacity': 0.7
         }
     });
@@ -48,9 +48,9 @@ map.on('load', function () {
         type: 'line',
         source: 'county-mask',
         paint: {
-            'line-color': '#9bedff',
-            'line-width': 60,
-            'line-blur': 40,
+            'line-color': '#cdd6da',
+            'line-width': 900,
+            'line-blur': 400,
             'line-opacity': 0.8
         }
     });
