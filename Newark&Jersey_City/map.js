@@ -10,6 +10,74 @@ const map = new mapboxgl.Map({
     bearing: 0 
 });
 
+const yearsList = ["2000","2001","2002","2003","2004","2005","2006","2007",
+                   "2008","2009","2010","2011","2012","2013","2014","2015","2016","2017",
+                   "2018","2019","2020"];
+
+// Top-level so it's accessible by both map.on('load') and bond-select handler
+function updateMapLayer(selectedOption) {
+    let colorExpression;
+
+    if (selectedOption === 'option1') {
+        // Amount — purple scale, light to dark
+        colorExpression = [
+            'case',
+            ['==', ['typeof', ['get', 'Amount']], 'number'],
+            ['step', ['get', 'Amount'],
+                '#d4aaff',   // $0 - 35k
+                35000,  '#a855f7',   // $35k - 80k
+                85000,  '#7e22ce',   // $80k - 150k
+                150000, '#581c87',   // $150k - 350k
+                350000, '#2e0057'    // $350k+
+            ],
+            '#949494'
+        ];
+    } else if (selectedOption === 'option2') {
+        // Duration — step by lien duration (years)
+        colorExpression = [
+            'case',
+            ['==', ['typeof', ['get', 'Duration']], 'number'],
+            ['step', ['get', 'Duration'],
+                '#d4aaff',
+                5,  '#a855f7',
+                10, '#7e22ce',
+                15, '#581c87',
+                20, '#2e0057'
+            ],
+            '#949494'
+        ];
+    } else if (selectedOption === 'option3') {
+        // Company — match by bonding company name
+        colorExpression = [
+            'match', ['get', 'Bonding Company'],
+            'AAA Bail Bonds',       '#fcf467',
+            'Pacheco Bonding',      '#ea8972',
+            'A Bail Bond Co.',      '#0B8A7C',
+            'ASAP Bail Bond',       '#5fcad2',
+            'Aardvark Bail Bond',   '#4ca48a',
+            'Affordable Bail Bonds','#FF7733',
+            'Martinez Bail Bonds',  '#f2c947',
+            'Help Bail Bonds',      '#F48A28',
+            'ABC Bail Bonds',       '#80BB47',
+            'Gonzales Bail Bonds',  '#FEBA2A',
+            '#949494'
+        ];
+    } else {
+        // Select... — default black
+        colorExpression = '#2b2b2b';
+    }
+
+    // Apply to lien_overall and all year layers
+    if (map.getLayer('lien_overall')) {
+        map.setPaintProperty('lien_overall', 'icon-color', colorExpression);
+    }
+    yearsList.forEach(function(year) {
+        if (map.getLayer('lien_' + year)) {
+            map.setPaintProperty('lien_' + year, 'icon-color', colorExpression);
+        }
+    });
+}
+
 map.on('load', function () {
 
     // Update water layer appearance
@@ -866,66 +934,6 @@ map.on('load', function () {
     
     let yearsList = provideYears("2000", "2020"); // ("start year", "end year")
 
-    // Function to update the map layer based on selected option.
-    // Uses icon-color since lien layers are now SDF symbol layers.
-    function updateMapLayer(selectedOption) {
-        let colorExpression;
-
-        if (selectedOption === 'option1') {
-            // Amount — step by bond amount
-            colorExpression = [
-                'case',
-                ['==', ['typeof', ['get', 'Amount']], 'number'],
-                ['step', ['get', 'Amount'],
-                    '#FF994F', 35000,
-                    '#F96F4B', 85000,
-                    '#E34344', 150000,
-                    '#DF0038', 350000,
-                    '#C4002F'
-                ],
-                '#949494'
-            ];
-        } else if (selectedOption === 'option2') {
-            // Duration — step by lien duration
-            colorExpression = [
-                'case',
-                ['==', ['typeof', ['get', 'Duration']], 'number'],
-                ['step', ['get', 'Duration'],
-                    '#FF994F', 5,
-                    '#F96F4B', 10,
-                    '#E34344', 15,
-                    '#DF0038', 20,
-                    '#C4002F'
-                ],
-                '#949494'
-            ];
-        } else if (selectedOption === 'option3') {
-            // Company — match by bonding company name
-            colorExpression = [
-                'match', ['get', 'Bonding Company'],
-                'AAA Bail Bonds', '#fcf467',
-                'Pacheco Bonding', '#ea8972',
-                'A Bail Bond Co.', '#0B8A7C',
-                'ASAP Bail Bond', '#5fcad2',
-                'Aardvark Bail Bond', '#4ca48a',
-                'Affordable Bail Bonds', '#FF7733',
-                'Martinez Bail Bonds', '#f2c947',
-                'Help Bail Bonds', '#F48A28',
-                'ABC Bail Bonds', '#80BB47',
-                'Gonzales Bail Bonds', '#FEBA2A',
-                '#949494'
-            ];
-        } else {
-            // Select... or unknown — default black
-            colorExpression = '#2b2b2b';
-        }
-
-        // Apply to lien_overall and all year layers
-        map.setPaintProperty('lien_overall', 'icon-color', colorExpression);
-        yearsList.forEach(function(year) {
-            map.setPaintProperty('lien_' + year, 'icon-color', colorExpression);
-        });
-    }
 
     // Load the SDF pin image, then add all lien layers as symbol layers
     loadPinImage(map, function() {
