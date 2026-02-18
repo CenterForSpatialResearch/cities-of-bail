@@ -9,6 +9,12 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <link rel="stylesheet" href="../styles.css">
+    <style>
+        .legend-filter-item { cursor: pointer; transition: opacity 0.15s; }
+        .legend-filter-item:hover { opacity: 0.8; }
+        .legend-filter-item.lf-active { opacity: 1; }
+        .legend-filter-item.lf-inactive { opacity: 0.3; }
+    </style>
 </head>
 
 <body>
@@ -76,16 +82,11 @@
         </div>
 
         <div id="case-outcome-filters" class="label column-bailinfo" style="display: none;">
-          <div><input type="checkbox" name="case-outcome-checkbox" value="guilty_plea" checked>
-               <label class="label-padding">Guilty Plea</label></div>
-          <div><input type="checkbox" name="case-outcome-checkbox" value="jury_conviction" checked>
-               <label class="label-padding">Jury Conviction</label></div>
-          <div><input type="checkbox" name="case-outcome-checkbox" value="dismissed" checked>
-               <label class="label-padding">Dismissed</label></div>
-          <div><input type="checkbox" name="case-outcome-checkbox" value="pending" checked>
-               <label class="label-padding">Pending</label></div>
-          <div><input type="checkbox" name="case-outcome-checkbox" value="other" checked>
-               <label class="label-padding">Other</label></div>
+          <div class="legend-filter-item" data-filter="outcome" data-outcome="guilty_plea"><span style="background-color: #a855f7; display:inline-block; width:14px; height:14px; margin-right:4px; vertical-align:middle;"></span>Guilty Plea</div>
+          <div class="legend-filter-item" data-filter="outcome" data-outcome="jury_conviction"><span style="background-color: #7e22ce; display:inline-block; width:14px; height:14px; margin-right:4px; vertical-align:middle;"></span>Jury Conviction</div>
+          <div class="legend-filter-item" data-filter="outcome" data-outcome="dismissed"><span style="background-color: #d4aaff; display:inline-block; width:14px; height:14px; margin-right:4px; vertical-align:middle;"></span>Dismissed</div>
+          <div class="legend-filter-item" data-filter="outcome" data-outcome="pending"><span style="background-color: #581c87; display:inline-block; width:14px; height:14px; margin-right:4px; vertical-align:middle;"></span>Pending</div>
+          <div class="legend-filter-item" data-filter="outcome" data-outcome="other"><span style="background-color: #2e0057; display:inline-block; width:14px; height:14px; margin-right:4px; vertical-align:middle;"></span>Other</div>
         </div>
 
 
@@ -103,20 +104,20 @@
             </div>
 
             <div id="income-legend" class="legend column-bailinfo" style="display:none">
-                <div><span style="background-color: #d4aaff"></span>$0 - 250k</div>
-                <div><span style="background-color: #a855f7"></span>$250k - 500k</div>
-                <div><span style="background-color: #7e22ce"></span>$500k - 750k</div>
-                <div><span style="background-color: #581c87"></span>$750k - 1m</div>
-                <div><span style="background-color: #2e0057"></span>$1m+</div>
+                <div class="legend-filter-item" data-filter="amount" data-min="0" data-max="35000"><span style="background-color: #d4aaff"></span>$0 - 35k</div>
+                <div class="legend-filter-item" data-filter="amount" data-min="35001" data-max="80000"><span style="background-color: #a855f7"></span>$35k - 80k</div>
+                <div class="legend-filter-item" data-filter="amount" data-min="80001" data-max="150000"><span style="background-color: #7e22ce"></span>$80k - 150k</div>
+                <div class="legend-filter-item" data-filter="amount" data-min="150001" data-max="350000"><span style="background-color: #581c87"></span>$150k - 350k</div>
+                <div class="legend-filter-item" data-filter="amount" data-min="350001" data-max="999999999"><span style="background-color: #2e0057"></span>$350k+</div>
             </div>
             
             <!-- when page first load, this legend is not showing, by default, by setting the display to none-->
             <div id="duration-legend" class="legend column-bailinfo" style="display:none">
-                <div><span style="background-color: #d4aaff"></span>0 - 5 years</div>
-                <div><span style="background-color: #a855f7"></span>5 - 10 years</div>
-                <div><span style="background-color: #7e22ce"></span>10 - 15 years</div>
-                <div><span style="background-color: #581c87"></span>15 - 20 years</div>
-                <div><span style="background-color: #2e0057"></span>20 - 25 years</div>
+                <div class="legend-filter-item" data-filter="duration" data-min="0" data-max="1824"><span style="background-color: #d4aaff"></span>0 - 5 years</div>
+                <div class="legend-filter-item" data-filter="duration" data-min="1825" data-max="3649"><span style="background-color: #a855f7"></span>5 - 10 years</div>
+                <div class="legend-filter-item" data-filter="duration" data-min="3650" data-max="5474"><span style="background-color: #7e22ce"></span>10 - 15 years</div>
+                <div class="legend-filter-item" data-filter="duration" data-min="5475" data-max="7299"><span style="background-color: #581c87"></span>15 - 20 years</div>
+                <div class="legend-filter-item" data-filter="duration" data-min="7300" data-max="999999999"><span style="background-color: #2e0057"></span>20+ years</div>
             </div>
         </div>
         <div class="company-barchart"></div>
