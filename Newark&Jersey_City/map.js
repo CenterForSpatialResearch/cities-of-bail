@@ -37,7 +37,7 @@ map.on('load', function () {
         source: 'county-mask',
         paint: {
             'fill-color': '#000000',
-            'fill-opacity': 0.55  // adjust 0–1 to taste; 0.55 gives a strong but not total fade
+            'fill-opacity': 0.95  // adjust 0–1 to taste; 0.55 gives a strong but not total fade
         }
     });
     // Mask is added first so it sits naturally below all custom data layers
