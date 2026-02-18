@@ -49,8 +49,8 @@ map.on('load', function () {
         source: 'county-mask',
         paint: {
             'line-color': '#cdd6da',
-            'line-width': 600,
-            'line-blur': 100,
+            'line-width': 400,
+            'line-blur': 40,
             'line-opacity': 0.6
         }
     });
@@ -945,6 +945,23 @@ map.on('load', function () {
                     'icon-opacity': 0.9
                 }
             });
+
+            // Static white overlay: outline ring + solid inner circle
+            map.addLayer({
+                'id': lienYear + '_overlay',
+                'type': 'symbol',
+                'source': lienYear,
+                'layout': {
+                    'icon-image': 'bail-pin-overlay',
+                    'icon-size': 0.35,
+                    'icon-anchor': 'bottom',
+                    'icon-allow-overlap': true,
+                    'icon-ignore-placement': true
+                },
+                'paint': {
+                    'icon-opacity': 0.9
+                }
+            });
         });
 
         // Add the lien_overall layer
@@ -964,12 +981,33 @@ map.on('load', function () {
             },
             'paint': {
                 'icon-color': '#2b2b2b',
-                // feature-state IS supported in paint properties, so hover opacity works here
                 'icon-opacity': [
                     'case',
                     ['boolean', ['feature-state', 'hover'], false],
-                    1.0, // Full opacity on hover
-                    0.9  // Default opacity
+                    1.0,
+                    0.9
+                ]
+            }
+        });
+
+        // Static white overlay for lien_overall
+        map.addLayer({
+            'id': 'lien_overall_overlay',
+            'type': 'symbol',
+            'source': 'lien_overall',
+            'layout': {
+                'icon-image': 'bail-pin-overlay',
+                'icon-size': 0.35,
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true
+            },
+            'paint': {
+                'icon-opacity': [
+                    'case',
+                    ['boolean', ['feature-state', 'hover'], false],
+                    1.0,
+                    0.9
                 ]
             }
         });
@@ -978,8 +1016,10 @@ map.on('load', function () {
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
+        map.moveLayer('lien_overall_overlay');
         yearsList.forEach(function(year) {
             map.moveLayer('lien_' + year);
+            map.moveLayer('lien_' + year + '_overlay');
         });
         map.moveLayer('poi-label');
         map.moveLayer('waterway-label');
@@ -1088,8 +1128,9 @@ map.on('load', function () {
 
     
         
-            // Apply filtering conditions to the lien_overall layer; return overallfilters if at least one checkbox is checked
+            // Apply filtering conditions to the lien_overall layer and its overlay
             map.setFilter('lien_overall', overallFilters.length > 0 ? overallFilters : null);
+            map.setFilter('lien_overall_overlay', overallFilters.length > 0 ? overallFilters : null);
         
             // Filtering conditions for each year layer
             const yearsFilters = ['any'];
@@ -1098,14 +1139,13 @@ map.on('load', function () {
             if (foreclosed) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Foreclosed That Year']);
             if (pending) yearsFilters.push(['==', ['get', 'Status Per Year'], 'Pending']);
         
-            
-            
-            // Apply filter conditions to each year layer
+            // Apply filter conditions to each year layer and its overlay
             const years = Array.from({length: 21}, (_, i) => i + 1998); // Years 1998 to 2020
             years.forEach(year => {
                 const layerId = `lien_${year}`;
                 try {
                     map.setFilter(layerId, yearsFilters.length > 0 ? yearsFilters : null);
+                    map.setFilter(layerId + '_overlay', yearsFilters.length > 0 ? yearsFilters : null);
                 } catch (error) {
                     console.error(`Error applying filter to layer ${layerId}:`, error);
                 }
@@ -1142,21 +1182,24 @@ function updateLayerVisibility(selectedYear) {
     const years = ["1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020"];
     
     if (!selectedYear || selectedYear === 'all') {
-        // If 'All' is selected, show the 'lien_overall' layer and hide all year layers
         map.setLayoutProperty('lien_overall', 'visibility', 'visible');
+        map.setLayoutProperty('lien_overall_overlay', 'visibility', 'visible');
         years.forEach(year => {
             if (map.getLayer('lien_' + year)) {
                 map.setLayoutProperty('lien_' + year, 'visibility', 'none');
+                map.setLayoutProperty('lien_' + year + '_overlay', 'visibility', 'none');
             }
         });
     } else {
-        // Otherwise, show the selected year's layer and hide 'lien_overall' and all other year layers
         years.forEach(year => {
             if (map.getLayer('lien_' + year)) {
-                map.setLayoutProperty('lien_' + year, 'visibility', year === selectedYear ? 'visible' : 'none');
+                const vis = year === selectedYear ? 'visible' : 'none';
+                map.setLayoutProperty('lien_' + year, 'visibility', vis);
+                map.setLayoutProperty('lien_' + year + '_overlay', 'visibility', vis);
             }
         });
         map.setLayoutProperty('lien_overall', 'visibility', 'none');
+        map.setLayoutProperty('lien_overall_overlay', 'visibility', 'none');
     }
 }
   
