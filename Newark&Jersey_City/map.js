@@ -92,12 +92,11 @@ map.on('load', function () {
                 'case',
                 ['==', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'], null], 'transparent',
                 ['step', ['get', 'ACSST5Y2020.S1701-Data-Reformatted_Percent below poverty level!!Estimate!!Population for whom poverty status is determined'],
-                    '#ffffff',
-                    0, '#2E0047',
-                    12, '#610075',
-                    24, '#9300A3',
-                    36, '#C500D1',
-                    48, '#F800FF'
+                    '#fff0e8',
+                    12, '#f5c4a8',
+                    24, '#e89060',
+                    36, '#d96030',
+                    48, '#c94a1a'
                 ]
             ],
             'fill-opacity': 1
@@ -117,12 +116,11 @@ map.on('load', function () {
                 'case',
                 ['==', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'], null], 'transparent',
                 ['step', ['get', 'ACSDT5Y2020.B25077-Data_Estimate!!Median value (dollars)'],
-                    '#ffffff',
-                    0, '#011356',
-                    160000, '#01417F',
-                    320000, '#016EA8',
-                    480000, '#009CD0',
-                    640000, '#00CAF9'
+                    '#e8f4f4',
+                    160000, '#9dd4d4',
+                    320000, '#4eaaaa',
+                    480000, '#1a8080',
+                    640000, '#0a6b6b'
                 ]
             ],
             'fill-opacity': 1
@@ -132,6 +130,8 @@ map.on('load', function () {
 
 
 
+
+    // Race + Poverty bivariate (rows=poverty/coral, cols=race/yellow)
     map.addLayer({
         'id': 'race+poverty',
         'type': 'fill',
@@ -143,106 +143,64 @@ map.on('load', function () {
             'fill-color': [
                 'match',
                 ['get', 'Bi_class'],
-                'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
-                'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
-                'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
-                'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
-                'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
-                '#000000' 
-                ]
-            }
-        });
-        map.setLayoutProperty('race+poverty', 'visibility', 'none');
+                'A1', '#FAF0D8', 'A2', '#F5EBC2', 'A3', '#F1E6AC', 'A4', '#EDE196', 'A5', '#E9DD81',
+                'B1', '#F3DBBE', 'B2', '#EED6A8', 'B3', '#EAD192', 'B4', '#E6CC7C', 'B5', '#E2C867',
+                'C1', '#ECC6A4', 'C2', '#E8C18E', 'C3', '#E4BD79', 'C4', '#E0B863', 'C5', '#DCB34D',
+                'D1', '#E5B18A', 'D2', '#E1AC74', 'D3', '#DDA85F', 'D4', '#D9A349', 'D5', '#D59E33',
+                'E1', '#DF9D71', 'E2', '#DA985B', 'E3', '#D69345', 'E4', '#D28E2F', 'E5', '#CE8A1A',
+                '#000000'
+            ]
+        }
+    });
+    map.setLayoutProperty('race+poverty', 'visibility', 'none');
 
-        map.addLayer({
-            'id': 'poverty+property',
-            'type': 'fill',
-            'source': {
-                'type': 'geojson',
-                'data': 'data/binarymap/binarymap_Poverty_Property.geojson'
-            },
-            'paint': {
-                'fill-color': [
-                    'match',
-                    ['get', 'Bi2_class'],
-                    'E1', '#BC6CAC','E2', '#C684B9','E3', '#D19EC8','E4', '#DCB9D8','E5', '#EAD6E9',
-                    'D1', '#A56EAF','D2', '#AE85BC','D3', '#B79DCA','D4', '#C1B7DA','D5', '#CDD2EA',
-                    'C1', '#8F62A7','C2', '#9585BE','C3', '#9C9CCD','C4', '#A5B5DC','C5', '#AFCEEC',
-                    'B1', '#724B99','B2', '#7877B4','B3', '#809BCF','B4', '#86B2DF','B5', '#8ECAEE',
-                    'A1', '#463778','A2', '#5160A1','A3', '#588AC2','A4', '#63AFE1','A5', '#68C6F0',
-                    '#000000' 
-                    ]
-                }
-            });
-            map.setLayoutProperty('poverty+property', 'visibility', 'none');    
-    
-        map.addLayer({
-            'id': 'race+property',
-            'type': 'fill',
-            'source': {
-                'type': 'geojson',
-                'data': 'data/binarymap/binarymap_Race_Property.geojson'
-            },
-            'paint': {
-                'fill-color': [
-                    'match',
-                    ['get', 'Bi3_class'],
-                    'E1', '#88C768','E2', '#9ED084','E3', '#B4D99E','E4', '#CAE4BA','E5', '#E0EFD7',
-                    'D1', '#69C071','D2', '#81C88C','D3', '#98D1A5','D4', '#AEDBC0','D5', '#C4E6DC',
-                    'C1', '#41AF73','C2', '#60C092','C3', '#7AC9AB','C4', '#91D2C6','C5', '#A7DCE2',
-                    'B1', '#008E6F','B2', '#35A995','B3', '#55C2B1','B4', '#70CACC','B5', '#88D4E7',
-                    'A1', '#105A5E','A2', '#007E8F','A3', '#26A3B4','A4', '#46C3D1','A5', '#63CCEC',
-                    '#000000' 
-                    ]
-                }
-            });
-            map.setLayoutProperty('race+property', 'visibility', 'none');    
+    // Poverty + Property bivariate (rows=poverty/coral, cols=property/teal)
+    map.addLayer({
+        'id': 'poverty+property',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/binarymap/binarymap_Poverty_Property.geojson'
+        },
+        'paint': {
+            'fill-color': [
+                'match',
+                ['get', 'Bi2_class'],
+                'A1', '#F3F2EE', 'A2', '#D7E0DC', 'A3', '#BCCFCB', 'A4', '#A0BEBA', 'A5', '#84ADA9',
+                'B1', '#ECDDD4', 'B2', '#D0CBC2', 'B3', '#B5BAB1', 'B4', '#99A9A0', 'B5', '#7D988F',
+                'C1', '#E6C8BA', 'C2', '#CAB7A9', 'C3', '#AEA698', 'C4', '#929587', 'C5', '#778476',
+                'D1', '#DFB3A0', 'D2', '#C3A28F', 'D3', '#A7917E', 'D4', '#8B806D', 'D5', '#706F5C',
+                'E1', '#D89F87', 'E2', '#BC8D75', 'E3', '#A17C64', 'E4', '#856B53', 'E5', '#695A42',
+                '#000000'
+            ]
+        }
+    });
+    map.setLayoutProperty('poverty+property', 'visibility', 'none');
 
-                
-            map.addLayer({
-                'id': 'poverty+property',
-                'type': 'fill',
-                'source': {
-                    'type': 'geojson',
-                    'data': 'data/binarymap/binarymap_Poverty_Property.geojson'
-                },
-                'paint': {
-                    'fill-color': [
-                        'match',
-                        ['get', 'Bi2_class'],
-                        'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
-                        'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
-                        'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
-                        'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
-                        'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
-                        '#000000' 
-                        ]
-                    }
-                });
-                map.setLayoutProperty('poverty+property', 'visibility', 'none');    
-            
-                map.addLayer({
-                    'id': 'race+property',
-                    'type': 'fill',
-                    'source': {
-                        'type': 'geojson',
-                        'data': 'data/binarymap/binarymap_Race_Property.geojson'
-                    },
-                    'paint': {
-                        'fill-color': [
-                            'match',
-                            ['get', 'Bi3_class'],
-                            'E1', '#F52AFF','E2', '#F254FF','E3', '#F07EFF','E4', '#EDA8FF','E5', '#EAD2FF',
-                            'D1', '#C42DCD','D2', '#C259D2','D3', '#C084D7','D4', '#BEB0DC','D5', '#BBDBE1',
-                            'C1', '#93309B','C2', '#915DA5','C3', '#908AAF','C4', '#8EB7B8','C5', '#8CE4C2',
-                            'B1', '#623468','B2', '#616277','B3', '#609186','B4', '#5FBF95','B5', '#5EEDA4',
-                            'A1', '#313736','A2', '#30664A','A3', '#30975E','A4', '#2FC671','A5', '#2FF685',
-                            '#000000' 
-                            ]
-                        }
-                    });
-                    map.setLayoutProperty('race+property', 'visibility', 'none');    
-            
+    // Race + Property bivariate (rows=race/yellow, cols=property/teal)
+    map.addLayer({
+        'id': 'race+property',
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': 'data/binarymap/binarymap_Race_Property.geojson'
+        },
+        'paint': {
+            'fill-color': [
+                'match',
+                ['get', 'Bi3_class'],
+                'A1', '#EEF2DE', 'A2', '#D2E0CC', 'A3', '#B7CFBB', 'A4', '#9BBEAA', 'A5', '#7FAD99',
+                'B1', '#EAEDC8', 'B2', '#CEDBB6', 'B3', '#B2CAA5', 'B4', '#96B994', 'B5', '#7BA883',
+                'C1', '#E6E8B2', 'C2', '#CAD7A1', 'C3', '#AEC690', 'C4', '#92B57F', 'C5', '#77A46E',
+                'D1', '#E2E39C', 'D2', '#C6D28B', 'D3', '#AAC17A', 'D4', '#8EB069', 'D5', '#739F58',
+                'E1', '#DEDF87', 'E2', '#C2CD75', 'E3', '#A6BC64', 'E4', '#8AAB53', 'E5', '#6F9A42',
+                '#000000'
+            ]
+        }
+    });
+    map.setLayoutProperty('race+property', 'visibility', 'none');
+
+
 
     map.addLayer({
         'id': 'race_2020_stroke',
@@ -1397,31 +1355,31 @@ d3.select('.company-barchart svg').remove(); // Ensure the chart is cleared init
 
 // Matrix color data
 const matrixData = [
-    ["#F800FF", "#F52AFF", "#F254FF", "#F07EFF", "#EDA8FF", "#EAD2FF"],
-    ["#C500D1", "#C42DCD", "#C259D2", "#C084D7", "#BEB0DC", "#BBDBE1"],
-    ["#9300A3", "#93309B", "#915DA5", "#908AAF", "#8EB7B8", "#8CE4C2"],
-    ["#610075", "#623468", "#616277", "#609186", "#5FBF95", "#5EEDA4"],
-    ["#2E0047", "#313736", "#30664A", "#30975E", "#2FC671", "#2FF685"],
-    ["#000000", "#003A04", "#006B1D", "#009D36", "#00CE4E", "#00FF67"],
+    ["#000000", "#fff0e8", "#f5c4a8", "#e89060", "#d96030", "#c94a1a"],
+    ["#d4ca1a", "#E9DD81", "#E2C867", "#DCB34D", "#D59E33", "#CE8A1A"],
+    ["#ddd43a", "#E2E39C", "#E6CC7C", "#DDA85F", "#D9A349", "#D59E33"],
+    ["#e6de60", "#ECC6A4", "#E8C18E", "#E4BD79", "#E0B863", "#DCB34D"],
+    ["#ede78a", "#F3DBBE", "#EED6A8", "#EAD192", "#E6CC7C", "#E2C867"],
+    ["#f5f0c8", "#FAF0D8", "#F5EBC2", "#F1E6AC", "#EDE196", "#E9DD81"],
 ];
 
 const matrix2Data = [
-    ["#F800FF", "#BC6CAC", "#C684B9", "#D19EC8", "#DCB9D8", "#EAD6E9"],
-    ["#C500D1", "#A56EAF", "#AE85BC", "#B79DCA", "#C1B7DA", "#CDD2EA"],
-    ["#9300A3", "#8F62A7", "#9585BE", "#9C9CCD", "#A5B5DC", "#AFCEEC"],
-    ["#610075", "#724B99", "#7877B4", "#809BCF", "#86B2DF", "#8ECAEE"],
-    ["#2E0047", "#463778", "#5160A1", "#588AC2", "#63AFE1", "#68C6F0"],
-    ["#000000", "#1C1E52", "#1C437E", "#006FA9", "#009CD1", "#28C4F3"],
+    ["#000000", "#e8f4f4", "#9dd4d4", "#4eaaaa", "#1a8080", "#0a6b6b"],
+    ["#c94a1a", "#D89F87", "#BC8D75", "#A17C64", "#856B53", "#695A42"],
+    ["#d96030", "#DFB3A0", "#C3A28F", "#A7917E", "#8B806D", "#706F5C"],
+    ["#e89060", "#E6C8BA", "#CAB7A9", "#AEA698", "#929587", "#778476"],
+    ["#f5c4a8", "#ECDDD4", "#D0CBC2", "#B5BAB1", "#99A9A0", "#7D988F"],
+    ["#fff0e8", "#F3F2EE", "#D7E0DC", "#BCCFCB", "#A0BEBA", "#84ADA9"],
 ];
 
 
 const matrix3Data = [
-    ["#71BF4E", "#88C768", "#9ED084", "#B4D99E", "#CAE4BA", "#E0EFD7"],
-    ["#49B74D", "#69C071", "#81C88C", "#98D1A5", "#AEDBC0", "#C4E6DC"],
-    ["#079D49", "#41AF73", "#60C092", "#7AC9AB", "#91D2C6", "#A7DCE2"],
-    ["#0B6B37", "#008E6F", "#35A995", "#55C2B1", "#70CACC", "#88D4E7"],
-    ["#193A1B", "#105A5E", "#007E8F", "#26A3B4", "#46C3D1", "#63CCEC"],
-    ["#000000", "#1C1E52", "#1C437E", "#006FA9", "#009CD1", "#28C4F3"],
+    ["#000000", "#e8f4f4", "#9dd4d4", "#4eaaaa", "#1a8080", "#0a6b6b"],
+    ["#d4ca1a", "#DEDF87", "#C2CD75", "#A6BC64", "#8AAB53", "#6F9A42"],
+    ["#ddd43a", "#E2E39C", "#C6D28B", "#AAC17A", "#8EB069", "#739F58"],
+    ["#e6de60", "#E6E8B2", "#CAD7A1", "#AEC690", "#92B57F", "#77A46E"],
+    ["#ede78a", "#EAEDC8", "#CEDBB6", "#B2CAA5", "#96B994", "#7BA883"],
+    ["#f5f0c8", "#EEF2DE", "#D2E0CC", "#B7CFBB", "#9BBEAA", "#7FAD99"],
 ];
 
 
