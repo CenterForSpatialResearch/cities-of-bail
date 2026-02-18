@@ -876,84 +876,92 @@ map.on('load', function () {
     
     let yearsList = provideYears("2000", "2020"); // ("start year", "end year")
 
-    // Function to update the map layer based on selected option
-    // Lien dots are now a flat dark color regardless of amount/duration selection
+    // Function to update the map layer based on selected option.
+    // Uses icon-color since lien layers are now SDF symbol layers.
     function updateMapLayer(selectedOption) {
         let colorExpression = '#2b2b2b';
 
-        // For each year, apply the paint property for the lien
+        // For each year, apply the icon-color paint property
         yearsList.forEach(function(year) {
             let layerName = 'lien_' + year;
-            map.setPaintProperty(layerName, 'circle-color', colorExpression);
+            map.setPaintProperty(layerName, 'icon-color', colorExpression);
         });
     }
 
-    // For each year, apply the paint property for the lien
-    yearsList.forEach(function(year) {
-        let lienYear = 'lien_' + year;
-        // Initial map layer setup
+    // Load the SDF pin image, then add all lien layers as symbol layers
+    loadPinImage(map, function() {
+
+        // Add a symbol layer for each year
+        yearsList.forEach(function(year) {
+            let lienYear = 'lien_' + year;
+            map.addLayer({
+                'id': lienYear,
+                'type': 'symbol',
+                'source': {
+                    'type': 'geojson',
+                    'data': 'data/lien_byyear/' + year + '_accumulate.geojson'
+                },
+                'layout': {
+                    'icon-image': 'bail-pin',
+                    'icon-size': 0.35,
+                    'icon-anchor': 'bottom',
+                    'icon-allow-overlap': true,
+                    'icon-ignore-placement': true
+                },
+                'paint': {
+                    'icon-color': '#2b2b2b',
+                    'icon-opacity': 0.9
+                }
+            });
+        });
+
+        // Add the lien_overall layer
         map.addLayer({
-            'id': lienYear,
-            'type': 'circle',
+            'id': 'lien_overall',
+            'type': 'symbol',
             'source': {
                 'type': 'geojson',
-                'data': 'data/lien_byyear/' + year + '_accumulate.geojson'
+                'data': 'data/lien_overall/lien_overall.geojson'
+            },
+            'layout': {
+                'icon-image': 'bail-pin',
+                'icon-size': [
+                    'case',
+                    ['boolean', ['feature-state', 'hover'], false],
+                    0.55, // Larger on hover
+                    0.35  // Default size
+                ],
+                'icon-anchor': 'bottom',
+                'icon-allow-overlap': true,
+                'icon-ignore-placement': true
             },
             'paint': {
-                'circle-color': '#2b2b2b',
-                'circle-radius': 3
+                'icon-color': '#2b2b2b',
+                'icon-opacity': 0.9
             }
         });
 
-    });
-    
-    // Event listener for dropdown menu changes
-    document.getElementById('bond-select').addEventListener('change', function() {
-        const selectedOption = this.value;
-        updateMapLayer(selectedOption);
-    });
-    
-    
-    let hoveredFeatureId = null;
-
-    
-    // Add lien_overall layer
-    map.addLayer({
-        'id': 'lien_overall',
-        'type': 'circle',
-        'source': {
-            'type': 'geojson',
-            'data': 'data/lien_overall/lien_overall.geojson'
-        },
-        'paint': {
-            'circle-color': '#2b2b2b',
-            'circle-radius': [
-                'case',
-                ['boolean', ['feature-state', 'hover'], false],
-                10.5, // Hover radius
-                3 // Default radius
-            ],
-            'circle-opacity': 0.8
-        }
-    });
-
-
-    // Ensure road and water layers appear above custom layers
+        // Ensure road and water layers appear above custom layers
         map.moveLayer('water');
         map.moveLayer('road-simple');
         map.moveLayer('lien_overall');
-        // For each year in the list, move the year lien layer
         yearsList.forEach(function(year) {
-            let layerName = 'lien_' + year;
-            map.moveLayer(layerName);
+            map.moveLayer('lien_' + year);
         });
         map.moveLayer('poi-label');
         map.moveLayer('waterway-label');
         map.moveLayer('airport-label');
         map.moveLayer('road-label-simple');
 
-        const style = map.getStyle();
-    // Get the property name corresponding to the selected option
+    }); // end loadPinImage
+
+    // Event listener for dropdown menu changes
+    document.getElementById('bond-select').addEventListener('change', function() {
+        const selectedOption = this.value;
+        updateMapLayer(selectedOption);
+    });
+
+    let hoveredFeatureId = null;
 
 
 
@@ -1274,7 +1282,7 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
     var incomeLegend = document.getElementById('income-legend');
     var durationLegend = document.getElementById('duration-legend');
     if (e.target.value ===  'option3') {
-        map.setPaintProperty('lien_overall', 'circle-color', [
+        map.setPaintProperty('lien_overall', 'icon-color', [
             'match',
             ['get', 'Bonding Company'],
             'AAA Bail Bonds', '#fcf467',
@@ -1296,18 +1304,17 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
 
     } else if (e.target.value === 'option1') {
         
-        map.setPaintProperty('lien_overall', 'circle-color', '#2b2b2b');
-        durationLegend.style.display = 'none'; // Disable the duration legend
+        map.setPaintProperty('lien_overall', 'icon-color', '#2b2b2b');
+        durationLegend.style.display = 'none'; // Hide the duration legend
         d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
-        incomeLegend.style.display = ''; // Enable the income legend
-       
+        incomeLegend.style.display = ''; // Show the income legend
 
     } else if (e.target.value === 'option2') { // Lien Duration option
         
-        map.setPaintProperty('lien_overall', 'circle-color', '#2b2b2b');
+        map.setPaintProperty('lien_overall', 'icon-color', '#2b2b2b');
         d3.select('.company-barchart svg').remove(); // Remove any existing bar chart
         incomeLegend.style.display = 'none'; // Hide the income legend
-        durationLegend.style.display = ''; // Enable the duration legend
+        durationLegend.style.display = ''; // Show the duration legend
     }
 });
 d3.select('.company-barchart svg').remove(); // Ensure the chart is cleared initially
