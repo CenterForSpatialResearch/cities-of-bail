@@ -29,7 +29,8 @@
 //   }
 
 function loadPinImage(map, callback) {
-    const pinPath = getRelativePinPath();
+    const pinPath = getRelativePinPath('pin.png');
+    const overlayPath = getRelativePinPath('pin_overlay.png');
     console.log('[shared.js] Loading pin from:', pinPath);
 
     map.loadImage(pinPath, function(error, image) {
@@ -38,18 +39,28 @@ function loadPinImage(map, callback) {
             return;
         }
         console.log('[shared.js] Pin image loaded successfully');
-        // Add the image as an SDF so icon-color can be set dynamically
         if (!map.hasImage('bail-pin')) {
             map.addImage('bail-pin', image, { sdf: true });
         }
-        if (callback) callback();
+
+        // Load the static white overlay (not SDF — always white)
+        map.loadImage(overlayPath, function(error2, overlayImage) {
+            if (error2) {
+                console.error('[shared.js] Failed to load pin overlay image:', error2);
+                return;
+            }
+            if (!map.hasImage('bail-pin-overlay')) {
+                map.addImage('bail-pin-overlay', overlayImage, { sdf: false });
+            }
+            if (callback) callback();
+        });
     });
 }
 
 // Determines the correct relative path to the pin image based on the current page's location.
 // City pages are one level deep (e.g. Newark&Jersey_City/), so they need '../images/pin.png'.
 // Root-level pages use 'images/pin.png'.
-function getRelativePinPath() {
+function getRelativePinPath(filename) {
     const depth = window.location.pathname.split('/').filter(Boolean).length;
-    return depth >= 2 ? '../images/pin.png' : 'images/pin.png';
+    return (depth >= 2 ? '../images/' : 'images/') + filename;
 }
