@@ -925,19 +925,20 @@ map.on('load', function () {
             },
             'layout': {
                 'icon-image': 'bail-pin',
-                'icon-size': [
-                    'case',
-                    ['boolean', ['feature-state', 'hover'], false],
-                    0.55, // Larger on hover
-                    0.35  // Default size
-                ],
+                'icon-size': 0.35,
                 'icon-anchor': 'bottom',
                 'icon-allow-overlap': true,
                 'icon-ignore-placement': true
             },
             'paint': {
                 'icon-color': '#2b2b2b',
-                'icon-opacity': 0.9
+                // feature-state IS supported in paint properties, so hover opacity works here
+                'icon-opacity': [
+                    'case',
+                    ['boolean', ['feature-state', 'hover'], false],
+                    1.0, // Full opacity on hover
+                    0.9  // Default opacity
+                ]
             }
         });
 
