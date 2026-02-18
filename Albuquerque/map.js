@@ -687,7 +687,6 @@ var data = [
 document.getElementById('bond-select').addEventListener('change', function(e) {
     var incomeLegend = document.getElementById('income-legend');
     var durationLegend = document.getElementById('duration-legend');
-    var caseOutcomeChart = document.getElementById('case-outcome-chart');
     var caseOutcomeFilters = document.getElementById('case-outcome-filters');
 
     // Clear any active legend filter when switching modes
@@ -696,7 +695,6 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
     // Reset all legend/chart visibility
     incomeLegend.style.display = 'none';
     durationLegend.style.display = 'none';
-    caseOutcomeChart.style.display = 'none';
     caseOutcomeFilters.style.display = 'none';
     d3.select('.company-barchart svg').remove();
 
@@ -708,7 +706,6 @@ document.getElementById('bond-select').addEventListener('change', function(e) {
         drawBarChart(data);
     } else if (e.target.value === 'option4') {
         // Case Outcome — handled by its own layer, hide standard pins
-        caseOutcomeChart.style.display = 'block';
         caseOutcomeFilters.style.display = 'block';
         if (map.getLayer('lien_overall')) {
             map.setLayoutProperty('lien_overall', 'visibility', 'none');
@@ -1018,7 +1015,7 @@ function buildCaseOutcomeColorExpr() {
 }
 
 function showCaseOutcomeMap(geojson) {
-    // Normalize disposition into a clean 'outcome' property, drop bad coords
+    // Normalize disposition — only keep features that have valid coords AND a known disposition
     const processed = {
         type: "FeatureCollection",
         features: geojson.features.filter(f => {
@@ -1027,7 +1024,14 @@ function showCaseOutcomeMap(geojson) {
                 coords[0] == null || coords[1] == null ||
                 isNaN(coords[0]) || isNaN(coords[1])) return false;
             const raw = f.properties["Disposition (from Criminal Dockets)"];
-            f.properties.outcome = normalizeDisposition(raw);
+            const outcome = normalizeDisposition(raw);
+            // Exclude records with no disposition data
+            if (!raw || outcome === 'other') {
+                // Keep 'other' only if disposition field is present but unrecognized
+                // Drop completely if field is absent/empty
+                if (!raw || raw.trim() === '') return false;
+            }
+            f.properties.outcome = outcome;
             return true;
         })
     };
@@ -1070,20 +1074,26 @@ function showCaseOutcomeMap(geojson) {
             paint: { 'icon-opacity': 0.9 }
         });
 
-        // Popup on click
+        // Popup — try multiple possible property key variants for robustness
         map.on('click', 'caseOutcome', function(e) {
             if (e.features.length > 0) {
                 var f = e.features[0];
-                var amount = f.properties['Amount'] || '';
-                var bondcompany = f.properties['Bonding Company'] || '';
-                var duration = f.properties['Lien Duration'] || '';
-                var outcome = f.properties['outcome'] || '';
-                var amountFormatted = amount !== '' ? '$' + Number(amount).toLocaleString('en-US') : '';
+                var p = f.properties;
+                // Amount: try both possible key formats
+                var amount = p['Amount'] || p['amount'] || '';
+                // Company: try both possible key formats
+                var bondcompany = p['Bonding Company'] || p['bonding_company'] || p['BondCompany'] || '';
+                // Duration: try both possible key formats
+                var duration = p['Lien Duration'] || p['lien_duration'] || p['Duration'] || '';
+                var outcome = p['outcome'] || '';
+
+                var amountFormatted = amount !== '' ? '$' + Number(String(amount).replace(/[^0-9.]/g,'')).toLocaleString('en-US') : '';
                 var durationFormatted = duration !== '' ? duration + ' days' : '';
                 var outcomeLabel = {
                     guilty_plea: 'Guilty Plea', jury_conviction: 'Jury Conviction',
                     dismissed: 'Dismissed', pending: 'Pending', other: 'Other'
                 }[outcome] || outcome;
+
                 new mapboxgl.Popup({ anchor: 'bottom-left' })
                     .setLngLat(e.lngLat)
                     .setHTML(
@@ -1096,7 +1106,6 @@ function showCaseOutcomeMap(geojson) {
         });
     }
 
-    // Apply any active outcome legend filter
     applyCaseOutcomeFilter();
 }
 
