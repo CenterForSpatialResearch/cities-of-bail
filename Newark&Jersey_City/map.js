@@ -10,20 +10,17 @@ const map = new mapboxgl.Map({
     bearing: 0 
 });
 
-map.on('load', function() {
-    // Find the water layer and update its paint properties
-    const waterLayer = map.getStyle().layers.find(layer => layer.id === 'water');
+map.on('load', function () {
 
+    // Update water layer appearance
+    const waterLayer = map.getStyle().layers.find(layer => layer.id === 'water');
     if (waterLayer) {
-        // Update paint properties for the water layer
-        map.setPaintProperty('water', 'fill-color', '#9e9e9e'); // Change to desired color (e.g., bright blue)
-        map.setPaintProperty('water', 'fill-opacity', 1.0); // Optional: Adjust opacity
+        map.setPaintProperty('water', 'fill-color', '#9e9e9e');
+        map.setPaintProperty('water', 'fill-opacity', 1.0);
     } else {
         console.error('Water layer not found');
     }
-});
 
-map.on('load', function () {
 
     // --- County mask ---
     // Derived from binarymap.geojson: all census tracts dissolved into a single
