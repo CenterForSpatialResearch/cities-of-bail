@@ -210,6 +210,33 @@ map.on('load', function () {
         map.setPaintProperty('water', 'fill-opacity', 1.0);
     }
 
+    // --- City mask ---
+map.addSource('city-mask', {
+    type: 'geojson',
+    data: 'data/albuquerque_mask.geojson'
+});
+map.addLayer({
+    id: 'city-mask-layer',
+    type: 'fill',
+    source: 'city-mask',
+    paint: {
+            'fill-color': '#cdd6da',
+            'fill-opacity': 0.5
+    }
+});
+map.addLayer({
+    id: 'city-mask-edge-layer',
+    type: 'line',
+    source: 'city-mask',
+    paint: {
+            'line-color': '#cdd6da',
+            'line-width': 400,
+            'line-blur': 40,
+            'line-opacity': 0.6
+    }
+});
+// --- End city mask ---
+    
     // --- Race layer (default: Hispanic or Latino) ---
     map.addLayer({
         'id': 'race_2020',
@@ -1135,4 +1162,5 @@ function updateOutcomeLayer() {
     if (map.getSource('caseOutcome')) map.removeSource('caseOutcome');
     d3.json(dataPath).then(data => { showCaseOutcomeMap(data); });
 }
+
 
