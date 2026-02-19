@@ -210,8 +210,38 @@ map.on('load', function () {
         map.setPaintProperty('water', 'fill-opacity', 1.0);
     }
 
+    // --- City mask ---
+    // Two-layer approach: a dim fill over outside areas, plus a heavily blurred
+    // line along the boundary edge to create a soft vignette transition.
+    map.addSource('city-mask', {
+        type: 'geojson',
+        data: 'data/albuquerque_mask.geojson'
+    });
+    // Outer fill: dims everything outside the target area
+    map.addLayer({
+        id: 'city-mask-layer',
+        type: 'fill',
+        source: 'city-mask',
+        paint: {
+            'fill-color': '#cdd6da',
+            'fill-opacity': 0.5
+        }
+    });
+    // Blurred edge: a wide soft line traced along the mask boundary.
+    // line-blur creates a genuine feathered edge in Mapbox.
+    map.addLayer({
+        id: 'city-mask-edge-layer',
+        type: 'line',
+        source: 'city-mask',
+        paint: {
+            'line-color': '#cdd6da',
+            'line-width': 400,
+            'line-blur': 40,
+            'line-opacity': 0.6
+        }
+    });
+    // --- End city mask ---
 
-    
     // --- Race layer (default: Hispanic or Latino) ---
     map.addLayer({
         'id': 'race_2020',
@@ -380,35 +410,6 @@ map.on('load', function () {
     }
     let innerYearsList = provideYears("2000", "2020");
 
-    // --- City mask ---
-    // World polygon with urban Albuquerque cut out as a hole.
-    // Fill dims everything outside; blurred line creates a soft vignette edge.
-    map.addSource('city-mask', {
-        type: 'geojson',
-        data: 'data/albuquerque_mask.geojson'
-    });
-    map.addLayer({
-        id: 'city-mask-layer',
-        type: 'fill',
-        source: 'city-mask',
-        paint: {
-            'fill-color': '#cdd6da',
-            'fill-opacity': 0.5
-        }
-    });
-    map.addLayer({
-        id: 'city-mask-edge-layer',
-        type: 'line',
-        source: 'city-mask',
-        paint: {
-            'line-color': '#cdd6da',
-            'line-width': 400,
-            'line-blur': 40,
-            'line-opacity': 0.6
-        }
-    });
-    // --- End city mask ---
-
     // --- Load SDF pin images, then add all lien layers as symbol layers ---
     loadPinImage(map, function() {
 
@@ -500,8 +501,7 @@ map.on('load', function () {
             }
         });
 
-        // Layer ordering — mask stays at bottom where it was added.
-        // Only water, roads, pins, and labels need to float to the top.
+        // Ensure road, water, pins and labels appear above demographic and mask layers
         map.moveLayer('water');
         map.moveLayer('road-simple');
         // Then pins above everything
