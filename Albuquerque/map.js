@@ -210,32 +210,7 @@ map.on('load', function () {
         map.setPaintProperty('water', 'fill-opacity', 1.0);
     }
 
-    // --- City mask ---
-map.addSource('city-mask', {
-    type: 'geojson',
-    data: 'data/albuquerque_mask.geojson'
-});
-map.addLayer({
-    id: 'city-mask-layer',
-    type: 'fill',
-    source: 'city-mask',
-    paint: {
-            'fill-color': '#cdd6da',
-            'fill-opacity': 0.5
-    }
-});
-map.addLayer({
-    id: 'city-mask-edge-layer',
-    type: 'line',
-    source: 'city-mask',
-    paint: {
-            'line-color': '#cdd6da',
-            'line-width': 400,
-            'line-blur': 40,
-            'line-opacity': 0.6
-    }
-});
-// --- End city mask ---
+
     
     // --- Race layer (default: Hispanic or Latino) ---
     map.addLayer({
@@ -405,6 +380,35 @@ map.addLayer({
     }
     let innerYearsList = provideYears("2000", "2020");
 
+    // --- City mask ---
+    // World polygon with urban Albuquerque cut out as a hole.
+    // Fill dims everything outside; blurred line creates a soft vignette edge.
+    map.addSource('city-mask', {
+        type: 'geojson',
+        data: 'data/albuquerque_mask.geojson'
+    });
+    map.addLayer({
+        id: 'city-mask-layer',
+        type: 'fill',
+        source: 'city-mask',
+        paint: {
+            'fill-color': '#cdd6da',
+            'fill-opacity': 0.5
+        }
+    });
+    map.addLayer({
+        id: 'city-mask-edge-layer',
+        type: 'line',
+        source: 'city-mask',
+        paint: {
+            'line-color': '#cdd6da',
+            'line-width': 400,
+            'line-blur': 40,
+            'line-opacity': 0.6
+        }
+    });
+    // --- End city mask ---
+
     // --- Load SDF pin images, then add all lien layers as symbol layers ---
     loadPinImage(map, function() {
 
@@ -497,8 +501,13 @@ map.addLayer({
         });
 
         // Layer ordering
+        // First, move mask layers above demographics
+        map.moveLayer('city-mask-layer');
+        map.moveLayer('city-mask-edge-layer');
+        // Then roads and water above mask
         map.moveLayer('water');
         map.moveLayer('road-simple');
+        // Then pins above everything
         map.moveLayer('lien_overall');
         map.moveLayer('lien_overall_overlay');
         innerYearsList.forEach(function(year) {
