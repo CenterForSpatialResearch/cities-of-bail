@@ -215,7 +215,7 @@ map.on('load', function () {
     // line along the boundary edge to create a soft vignette transition.
     map.addSource('city-mask', {
         type: 'geojson',
-        data: 'data/albuquerque_mask.geojson'
+        data: 'data/binarymap/albuquerque_mask.geojson'
     });
     // Outer fill: dims everything outside the target area
     map.addLayer({
@@ -1168,5 +1168,6 @@ function updateOutcomeLayer() {
     if (map.getSource('caseOutcome')) map.removeSource('caseOutcome');
     d3.json(dataPath).then(data => { showCaseOutcomeMap(data); });
 }
+
 
 
