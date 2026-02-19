@@ -208,6 +208,8 @@ map.on('load', function () {
     if (waterLayer) {
         map.setPaintProperty('water', 'fill-color', '#9e9e9e');
         map.setPaintProperty('water', 'fill-opacity', 1.0);
+    } else {
+        console.error('Water layer not found');
     }
 
     // --- City mask ---
@@ -1168,5 +1170,6 @@ function updateOutcomeLayer() {
     if (map.getSource('caseOutcome')) map.removeSource('caseOutcome');
     d3.json(dataPath).then(data => { showCaseOutcomeMap(data); });
 }
+
 
 
