@@ -235,7 +235,7 @@ map.on('load', function () {
         source: 'city-mask',
         paint: {
             'line-color': '#cdd6da',
-            'line-width': 400,
+            'line-width': 600,
             'line-blur': 40,
             'line-opacity': 0.6
         }
@@ -1168,6 +1168,7 @@ function updateOutcomeLayer() {
     if (map.getSource('caseOutcome')) map.removeSource('caseOutcome');
     d3.json(dataPath).then(data => { showCaseOutcomeMap(data); });
 }
+
 
 
 
